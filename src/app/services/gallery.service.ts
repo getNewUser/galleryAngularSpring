@@ -1,4 +1,4 @@
-import { IPhoto } from './../models/photo.model';
+import { IPhoto } from 'src/app/models/photo.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -33,8 +33,9 @@ export class GalleryService {
     )
   }
 
-  deleteImage(imageId: number){
-    this.http.delete<void>('http://localhost:8080/images/delete/' + imageId);
+  deleteImage(imageId: number): Observable<IPhoto>{
+    console.log('http://localhost:8080/images/delete/' + imageId);
+    return this.http.delete<IPhoto>('http://localhost:8080/images/delete/' + imageId);
   }
 
   // uploadImage(file: FormData, image: IPhoto): Observable<IPhoto>{

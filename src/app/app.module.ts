@@ -1,3 +1,4 @@
+import { PhotoComponent } from './components/photo/photo.component';
 
 
 import { HttpClient } from '@angular/common/http';
@@ -8,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './views/gallery/gallery.component';
-import { PhotoComponent } from './photo/photo.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PhotodialogComponent } from './components/photodialog/photodialog.component';
@@ -23,6 +24,8 @@ import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input'
+
 
 
 
@@ -49,7 +52,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatChipsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [GalleryService],
   bootstrap: [AppComponent],

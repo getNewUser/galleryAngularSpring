@@ -1,39 +1,54 @@
-
 <section>
+<mat-card>
+  
+<div class="container">
+    <img class="center" src="{{shownPicture}}"/>
+  </div>
+</mat-card>
 
-    <mat-card>
+  <mat-card>
 
-      
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-          <input name="name" ngModel  #first="ngModel" placeholder="name: ">
-          <input name="description" #description="ngModel" ngModel placeholder="description: ">
-      
-          <br><br><br>
-      
-          <mat-form-field>
-              <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple>
-                  <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)"> {{tag.name}} </mat-option>
-                </mat-select>
-          </mat-form-field>
 
-          <mat-form-field>
-              <mat-select name="categories" ngModel #category="ngModel" placeholder="Categories" multiple>
-                <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">{{category.name}} </mat-option>
-              </mat-select>
-            </mat-form-field>
-            
-            <input (change)="picked($event)" type="file">      
-      
-      
-          <button >Submit</button>
-        </form>
-     
-        <!-- <p>First name value: {{ first.value }}</p>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <label>
+      <mat-form-field>
+        <input matInput name="Photo name" ngModel #first="ngModel" placeholder="name: " required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="description" #description="ngModel" ngModel placeholder="description: " required>
+      </mat-form-field>
+    </label>
+
+
+
+
+      <br><br><br>
+
+      <mat-form-field>
+        <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple req>
+          <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)"> {{tag.name}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select name="categories" ngModel #category="ngModel" placeholder="Categories" multiple>
+          <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">
+            {{category.name}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input (change)="picked($event)" type="file">
+
+
+      <button>Submit</button>
+    </form>
+
+    <!-- <p>First name value: {{ first.value }}</p>
         <p>Description value: {{ description.value }}</p>
           <p>First name valid: {{ first.valid }}</p>
           <p>Form value: {{ f.value | json}}</p>
           <p>Form valid: {{ f.valid }}</p>
        -->
-      </mat-card>
-      
+  </mat-card>
+
 </section>

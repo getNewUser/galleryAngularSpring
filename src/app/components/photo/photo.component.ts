@@ -1,8 +1,8 @@
+import { GalleryService } from './../../services/gallery.service';
+import { PhotodialogComponent } from './../photodialog/photodialog.component';
+import { IPhoto } from 'src/app/models/photo.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { IPhoto } from '../models/photo.model';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { PhotodialogComponent } from '../components/photodialog/photodialog.component';
-import { GalleryService } from '../services/gallery.service';
 
 
 @Component({

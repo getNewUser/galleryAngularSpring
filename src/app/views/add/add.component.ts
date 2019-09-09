@@ -4,8 +4,8 @@ import { IPhoto } from "src/app/models/photo.model";
 import { ITag } from "src/app/models/ITag.model";
 import { ICategory } from "src/app/models/ICategory.model";
 import { NgForm } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -22,6 +22,7 @@ export class AddComponent implements OnInit {
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
   fullPicture: string;
+  shownPicture: string = "../../../assets/noimage2.png";
 
   SERVER_URL = "http://localhost:8080/images";
   uploadForm: FormGroup;  
@@ -61,6 +62,7 @@ export class AddComponent implements OnInit {
   handleReaderLoaded(e){
     let reader = e.target;
     let base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+    this.shownPicture = 'data:image/jpg;base64,' + base64result;
     this.fullPicture = base64result;
   }
 

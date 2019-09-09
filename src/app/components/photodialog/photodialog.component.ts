@@ -25,7 +25,10 @@ export class PhotodialogComponent {
     }
 
     deleteImage(){
-      this.gallery.deleteImage(this.data.id);
+      this.gallery.deleteImage(this.data.id)
+      .subscribe(data => {
+        console.log("deleted boys");
+      })
     }
 
 
