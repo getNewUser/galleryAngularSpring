@@ -1,0 +1,107 @@
+.photo-container {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+
+    img { 
+        width: 300px;
+        display: inline-block;
+        margin-top: 14%;
+    }
+
+    .overlay {
+        height: 300px;
+        width: 300px;
+        position: absolute;
+        // display: none;
+        display: none; 
+        top: 0;
+        left: 0;
+
+        animation: moveUp linear .5s;
+    }
+
+}
+
+.photo-container:hover {
+
+    .overlay {
+        background-color: aqua;
+         display: block;
+         opacity: 0.2;
+    }
+}
+
+@keyframes moveUp{
+    0% {
+        top: 300px;
+        opacity: 0;
+    }
+    50% {
+        top: 150px;
+        opacity: 0.1;
+    }
+    100% {
+        top: 0;
+        opacity: .5;
+    }
+}
+
+
+
+// .overlay{
+//      opacity: 0;
+// }
+// .wrapper:hover img{
+//     opacity: .3;
+// }
+
+// .wrapper:hover .overlay {
+//     opacity: 1;
+// }
+
+// .bigimg .shrinkbutton {
+//     position: absolute;
+// }
+
+// .bigimg {
+//      z-index: 1000;
+//      position: absolute;
+// }
+
+
+
+
+// img {
+//     z-index: 1;
+//     display: inline-block;
+//     height: auto;
+//     // position: absolute;
+// }
+
+// button {
+//     position: absolute;
+//     z-index: 5;
+// }
+
+// .overlay {
+//     width: 100%;
+//     opacity: 0;
+// }
+
+// // .image1:hover {
+// //     opacity: 0.1;
+// // }
+
+// .overlay:hover{
+//     opacity: 1;
+// }
+
+// .centered{
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+// }

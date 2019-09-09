@@ -1,0 +1,69 @@
+<section>
+    <mat-card>
+        <mat-chip color="accent" selected fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end" fxLayoutAlign.xs="space-around stretch" class="sorting-container">Search</mat-chip>
+
+        <mat-form-field>
+            <mat-select placeholder="Categories" multiple>
+              <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">{{category.name}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field fxFlex="25" fxFlex.xs="100">
+              <mat-label>Sort by Tags</mat-label>
+              <mat-select placeholder="Tags" multiple> <!-- why "multiple" makes everything selected-->
+                  <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+
+          <label fxFlex="40" fxFlex.xs="100" class="pure-material-textfield-outlined relative">
+              <input [(ngModel)]="searchString" (ngModelChange)="initSearch($event)" class="input-padding" placeholder="Search..">
+              <!-- <span class="sufix"><mat-icon>search</mat-icon></span> -->
+          </label>
+    </mat-card>
+    
+    <a href="/add">Add Photo</a>
+
+
+
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="gallery-container">
+          <div class="res-count-container">Showing {{photos.length | itemCount}}</div>
+          <div class="heading-chip"><p>Gallery</p></div>
+          <ng-container *ngIf="isLoaded">
+              <div fxFlex="30" fxFlex.lg="20" fxFlex.sm="45" fxFlex.xs="100" class="photo-container" *ngFor="let item of photos">
+                  <app-photo [photo]="item"></app-photo>
+              </div>
+          </ng-container>          
+        </div>
+      </mat-card>
+
+    <!-- <mat-card>
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="gallery-container">
+        <div class="res-count-container">Showing {{photos.length | itemCount}}</div>
+        <ng-container *ngIf="isLoaded">
+          <div fxFlex="30" fxFlex.lg="20" fxFlex.sm="45" fxFlex.sm="100" class="photo-container" *ngFor="let item of photos">
+              <app-photo [photo]="item"></app-photo>
+        </ng-container>
+        
+      </div>
+    </mat-card> -->
+
+      
+    
+    <!-- <mat-card>
+        <h1>{{photos.length | itemCount}}</h1>
+        <mat-chip color="accent" selected>Images</mat-chip>
+        <mat-spinner *ngIf="sisLoaded"></mat-spinner>
+        <div class="row">
+          <div class="col-sm " *ngFor="let item of photos">
+            <app-photo [photo]="item"></app-photo>
+          </div>
+        </div>
+    </mat-card> -->
+      
+
+
+
+</section>
