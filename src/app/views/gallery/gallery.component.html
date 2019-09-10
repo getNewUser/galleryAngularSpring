@@ -1,7 +1,7 @@
 <section>
 
-  <mat-card>
-    <!-- <mat-chip color="accent" selected fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end" fxLayoutAlign.xs="space-around stretch" class="sorting-container">Search</mat-chip> -->
+  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutAlign.xs="space-around stretch">
+    <!-- <mat-chip color="accent" class="sorting-container">Search</mat-chip> -->
 
         <mat-form-field fxFlex="30">
             <mat-select placeholder="Categories" multiple>
@@ -32,7 +32,7 @@
    
   </mat-card>
 
-  <a href="/add">Add Photo</a>
+  <a routerLink="/add">Add Photo</a>
 
 
 
@@ -40,7 +40,7 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="gallery-container">
       <div class="res-count-container">Showing {{photos.length | itemCount}}</div>
       <div class="heading-chip">
-        <p>Gallery</p>
+        <p class="test">Gallery</p>
       </div>
       <ng-container *ngIf="isLoaded">
         <div fxFlex="30" fxFlex.lg="20" fxFlex.sm="45" fxFlex.xs="100" class="photo-container"

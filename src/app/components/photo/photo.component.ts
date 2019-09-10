@@ -6,9 +6,9 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
 
 @Component({
-  selector: "app-photo",
-  templateUrl: "./photo.component.html",
-  styleUrls: ["./photo.component.scss"]
+  selector: 'app-photo',
+  templateUrl: './photo.component.html',
+  styleUrls: ['./photo.component.scss']
 })
 export class PhotoComponent implements OnInit {
   @Input() photo: IPhoto;

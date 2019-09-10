@@ -2,9 +2,7 @@ import { IPhoto } from 'src/app/models/photo.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ITag } from '../models/ITag.model';
-import { ICategory } from '../models/ICategory.model';
-import { IFullPicture } from '../models/IFullPicture.model';
+import { ITag, IFullPicture, ICategory } from '../models';
 import { NgForm } from '@angular/forms';
 
 @Injectable({
@@ -25,10 +23,10 @@ export class GalleryService {
     this.http.put('http://localhost:8080/images/update', image)
     .subscribe(
       data => {
-        console.log("PUT Request was successful: " + data);
+        console.log('PUT Request was successful: ' + data);
       },
       error => {
-        console.log("error bois: ", error);
+        console.log('error bois: ', error);
       }
     )
   }
@@ -75,11 +73,12 @@ export class GalleryService {
 
   search(categories: number[], tags: number[], search: string): Observable<IPhoto[]> {
     let query = 'http://localhost:8080/images/search?categories='
+  
     for(let string of categories){
       query = query + string + ',';
     }
 
-    query = query + "&tags=";
+    query = query + '&tags=';
 
     for(let string of tags){
       query = query + string + ',';
@@ -87,7 +86,7 @@ export class GalleryService {
 
     
     query = query.substring(0, query.length-1);
-    query = query + "&search=" + search;
+    query = query + '&search=' + search;
 
     
     console.log(query);

@@ -42,7 +42,7 @@ export class UpdateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = parseInt(this.route.snapshot.paramMap.get("id"));
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.loadPhoto(this.id);
     this.loadCategories();
     this.loadTags();

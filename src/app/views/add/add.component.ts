@@ -1,19 +1,20 @@
-import { GalleryService } from "./../../services/gallery.service";
-import { Component, OnInit } from "@angular/core";
-import { IPhoto } from "src/app/models/photo.model";
-import { ITag } from "src/app/models/ITag.model";
-import { ICategory } from "src/app/models/ICategory.model";
-import { NgForm } from "@angular/forms";
+import { GalleryService } from './../../services/gallery.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IPhoto } from 'src/app/models/photo.model';
+import { ITag } from 'src/app/models/ITag.model';
+import { ICategory } from 'src/app/models/ICategory.model';
+import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: "app-add",
-  templateUrl: "./add.component.html",
-  styleUrls: ["./add.component.scss"]
+  selector: 'app-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, OnDestroy {
   id: number;
   photo: IPhoto;
   photoTemplate: IPhoto;
@@ -22,9 +23,9 @@ export class AddComponent implements OnInit {
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
   fullPicture: string;
-  shownPicture: string = "../../../assets/noimage2.png";
+  shownPicture: string = '../../../assets/noimage2.png';
 
-  SERVER_URL = "http://localhost:8080/images";
+  SERVER_URL = 'http://localhost:8080/images';
   uploadForm: FormGroup;  
 
   constructor(private gallery: GalleryService, private formBuilder: FormBuilder, private httpClient: HttpClient) {}
@@ -85,7 +86,7 @@ export class AddComponent implements OnInit {
 
 
 
-  filterTags(tag: number) {
+  filterTags(tag: number): void {
     if (this.selectedTags.includes(tag)) {
       for (let i = 0; i < this.selectedTags.length; i++) {
         if (this.selectedTags[i] === tag) {
@@ -94,7 +95,6 @@ export class AddComponent implements OnInit {
         }
       }
     }
-
     this.selectedTags.push(tag);
   }
 
@@ -106,19 +106,23 @@ export class AddComponent implements OnInit {
         }
       }
     }
-
     this.selectedCategories.push(category);
   }
 
-  loadTags(): void {
-    this.gallery.getTags().subscribe(data => {
+  loadTags(): Subscription {
+    return this.gallery.getTags().subscribe(data => {
       this.tags = data;
     });
   }
 
-  loadCategories(): void {
-    this.gallery.getCategories().subscribe(data => {
+  loadCategories(): Subscription {
+    return this.gallery.getCategories().subscribe(data => {
       this.categories = data;
     });
+  }
+
+  ngOnDestroy() {
+    this.loadCategories().unsubscribe();
+    this.loadTags().unsubscribe();
   }
 }
