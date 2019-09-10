@@ -1,17 +1,17 @@
-import { FilterCategoriesService } from "./../../services/filterTagsCategories.service";
-import { GalleryService } from "./../../services/gallery.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FilterCategoriesService } from './../../services/filterTagsCategories.service';
+import { GalleryService } from './../../services/gallery.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { HttpClient } from "@angular/common/http";
-import { Subscription } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
 
 @Component({
-  selector: "app-add",
-  templateUrl: "./add.component.html",
-  styleUrls: ["./add.component.scss"]
+  selector: 'app-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit, OnDestroy {
   id: number;
@@ -22,9 +22,9 @@ export class AddComponent implements OnInit, OnDestroy {
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
   fullPicture: string;
-  shownPicture: string = "../../../assets/noimage2.png";
+  shownPicture: string = '../../../assets/noimage2.png';
 
-  SERVER_URL = "http://localhost:8080/images";
+  SERVER_URL = 'http://localhost:8080/images';
   uploadForm: FormGroup;
 
   constructor(
@@ -38,7 +38,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.loadCategories();
     this.loadTags();
     this.uploadForm = this.formBuilder.group({
-      file: [""]
+      file: ['']
     });
   }
 
@@ -55,7 +55,7 @@ export class AddComponent implements OnInit, OnDestroy {
     var pattern = /image-*/;
     var reader = new FileReader();
     if (!file.type.match(pattern)) {
-      alert("invalid format");
+      alert('invalid format');
       return;
     }
     reader.onloadend = this.handleReaderLoaded.bind(this);
@@ -64,8 +64,8 @@ export class AddComponent implements OnInit, OnDestroy {
 
   handleReaderLoaded(e): void {
     let reader = e.target;
-    let base64result = reader.result.substr(reader.result.indexOf(",") + 1);
-    this.shownPicture = "data:image/jpg;base64," + base64result;
+    let base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+    this.shownPicture = 'data:image/jpg;base64,' + base64result;
     this.fullPicture = base64result;
   }
 
@@ -74,7 +74,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.photo.thumbnail = this.fullPicture;
     console.log(this.photo.name);
     this.httpClient
-      .post<any>("http://localhost:8080/images", this.photo)
+      .post<any>('http://localhost:8080/images', this.photo)
       .subscribe(res => console.log(res), err => console.log());
   }
 
@@ -83,7 +83,7 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 
   private filterCategories(category: number): void {
-   this.filter.filter(category, this.selectedCategories);
+    this.filter.filter(category, this.selectedCategories);
   }
 
   private loadTags(): Subscription {
@@ -103,5 +103,3 @@ export class AddComponent implements OnInit, OnDestroy {
     this.loadTags().unsubscribe();
   }
 }
-
-

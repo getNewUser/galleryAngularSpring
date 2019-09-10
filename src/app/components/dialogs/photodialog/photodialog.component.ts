@@ -10,36 +10,31 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./photodialog.component.scss']
 })
 export class PhotodialogComponent {
-
   fullPhoto: IFullPicture;
 
   @Output() submitClicked = new EventEmitter<any>();
 
-
   constructor(
     public dialogRef: MatDialogRef<PhotodialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IPhoto,
-    private gallery: GalleryService) {
-      this.getFullPicture(data.id);
-    }
+    private gallery: GalleryService
+  ) {
+    this.getFullPicture(data.id);
+  }
 
-    deleteImage() : Subscription{
-      return this.gallery.deleteImage(this.data.id)
-      .subscribe(data => {
-        console.log(data);
-      })
-    }
+  deleteImage(): Subscription {
+    return this.gallery.deleteImage(this.data.id).subscribe(data => {
+      console.log(data);
+    });
+  }
 
+  private getFullPicture(imageId: number): Subscription {
+    return this.gallery.getFullPhoto(imageId).subscribe(data => {
+      this.fullPhoto = data;
+    });
+  }
 
-  
-    private getFullPicture(imageId: number): Subscription{
-      return this.gallery.getFullPhoto(imageId)
-      .subscribe(data => {
-         this.fullPhoto = data;
-      });
-    }
-
-  close(){
+  close() {
     this.dialogRef.close();
   }
 }

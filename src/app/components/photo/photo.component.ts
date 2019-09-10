@@ -4,7 +4,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { PhotodialogComponent } from '../dialogs/photodialog/photodialog.component';
 
-
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
@@ -13,18 +12,14 @@ import { PhotodialogComponent } from '../dialogs/photodialog/photodialog.compone
 export class PhotoComponent implements OnInit {
   @Input() photo: IPhoto;
 
-
   openDialog() {
-
     const dialogConfig = new MatDialogConfig();
-
 
     this.dialog.open(PhotodialogComponent, {
       width: '500px',
       disableClose: true,
       autoFocus: true,
-      data:  this.photo
-      
+      data: this.photo
     });
   }
 
