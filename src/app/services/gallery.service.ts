@@ -1,9 +1,8 @@
 import { IPhoto } from 'src/app/models/photo.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient,  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ITag, IFullPicture, ICategory } from '../models';
-import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +35,6 @@ export class GalleryService {
     return this.http.delete<IPhoto>('http://localhost:8080/images/delete/' + imageId);
   }
 
-  // uploadImage(file: FormData, image: IPhoto): Observable<IPhoto>{
-    
-  //   return this.http.post('http://localhost:8080/images',file, image).subscribe(res => console.log('File Uploaded ...'));
-  // }
-
   getPhoto(index: number): Observable<IPhoto>{
     return this.http.get<IPhoto>('http://localhost:8080/images/' + index);
   }
@@ -67,8 +61,6 @@ export class GalleryService {
   }
 
 
-
-  // http://localhost:8080/images/search?categories=1,2,3&tags=1,2,3&search=jav
 
 
   search(categories: number[], tags: number[], search: string): Observable<IPhoto[]> {

@@ -1,7 +1,6 @@
+import { FilterCategoriesService } from './services/filterTagsCategories.service';
+import { PhotodialogComponent } from './components/dialogs/photodialog/photodialog.component';
 import { PhotoComponent } from './components/photo/photo.component';
-
-
-import { HttpClient } from '@angular/common/http';
 import { GalleryService } from './services/gallery.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -12,7 +11,6 @@ import { GalleryComponent } from './views/gallery/gallery.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PhotodialogComponent } from './components/photodialog/photodialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -59,7 +57,8 @@ import { MatButtonModule,
     ReactiveFormsModule,
     MatInputModule
   ],
-  providers: [GalleryService],
+  providers: [GalleryService,
+              FilterCategoriesService],
   bootstrap: [AppComponent],
   entryComponents: [PhotodialogComponent]
 })

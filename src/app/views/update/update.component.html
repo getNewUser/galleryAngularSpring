@@ -1,9 +1,9 @@
 <section>
-  <img src="data:image/jpg;base64,{{photo.thumbnail}}" alt="main" />
+  <img src="data:image/jpg;base64,{{photo?.thumbnail}}" alt="main" />
   <mat-card>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <input name="name" ngModel #first="ngModel" placeholder="name: {{photo.name}}">
-      <input name="description" #description="ngModel" ngModel placeholder="description: {{photo.description}}">
+      <input name="name" ngModel #first="ngModel" placeholder="name: {{photo?.name}}">
+      <input name="description" #description="ngModel" ngModel placeholder="description: {{photo?.description}}">
       <br><br><br>
       <mat-form-field>
         <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple>
@@ -12,7 +12,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select name="categories" ngModel #category="ngModel" placeholder="Categories" multiple>
-          <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)"> {{category.name}} </mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)"> {{category.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <button>Submit</button>

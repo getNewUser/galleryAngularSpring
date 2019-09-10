@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICategory } from 'src/app/models/ICategory.model';
 import { NgForm } from '@angular/forms';
-import { CodeNode } from 'source-list-map';
+import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 
 @Component({
   selector: 'app-update',
@@ -23,7 +23,9 @@ export class UpdateComponent implements OnInit {
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
 
-  constructor(private route: ActivatedRoute, private gallery: GalleryService) { }
+  constructor(private route: ActivatedRoute,
+              private gallery: GalleryService,
+              private filter: FilterCategoriesService) { }
 
   onSubmit(f: NgForm) {
     if(f.valid === true){
@@ -55,31 +57,13 @@ export class UpdateComponent implements OnInit {
 
 
   
-  filterTags(tag: number){
-    if(this.selectedTags.includes(tag)){
-      for(let i = 0; i < this.selectedTags.length; i++){
-        if(this.selectedTags[i] === tag){
-          this.selectedTags.splice(i,1);
-          return;
-        }
-      }
-    }
-
-    
-    this.selectedTags.push(tag);
-  }
   
-  filterCategories(category: number){
-    if(this.selectedCategories.includes(category)){
-      for(let i = 0; i < this.selectedCategories.length; i++){
-        if(this.selectedCategories[i] === category){
-          this.selectedCategories.splice(i,1);
-        }
-      }
-    }
+  filterTags(tag: number): void{
+    this.filter.filter(tag, this.selectedTags);
+  }
 
-    
-    this.selectedCategories.push(category);
+  filterCategory(category: number){
+    this.filter.filter(category, this.selectedCategories);
   }
 
   loadPhoto(imageId: number){

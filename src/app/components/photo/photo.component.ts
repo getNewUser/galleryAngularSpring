@@ -1,8 +1,8 @@
 import { GalleryService } from './../../services/gallery.service';
-import { PhotodialogComponent } from './../photodialog/photodialog.component';
 import { IPhoto } from 'src/app/models/photo.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { PhotodialogComponent } from '../dialogs/photodialog/photodialog.component';
 
 
 @Component({
@@ -15,10 +15,6 @@ export class PhotoComponent implements OnInit {
 
 
   openDialog() {
-    // this.gallery.getFullPhoto(this.photo.id)
-    //   .then(data => {
-    //    this.fullphoto = data.picture;
-    //   });
 
     const dialogConfig = new MatDialogConfig();
 

@@ -1,9 +1,8 @@
-import { Component, Output, Inject,EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IPhoto } from 'src/app/models/photo.model';
+import { Component, Output, Inject, EventEmitter } from '@angular/core';
+import { IFullPicture, IPhoto } from 'src/app/models';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { IFullPicture } from 'src/app/models/IFullPicture.model';
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-photodialog',
@@ -24,17 +23,17 @@ export class PhotodialogComponent {
       this.getFullPicture(data.id);
     }
 
-    deleteImage(){
-      this.gallery.deleteImage(this.data.id)
+    deleteImage() : Subscription{
+      return this.gallery.deleteImage(this.data.id)
       .subscribe(data => {
-        console.log('deleted boys');
+        console.log(data);
       })
     }
 
 
   
-    getFullPicture(imageId: number){
-      this.gallery.getFullPhoto(imageId)
+    private getFullPicture(imageId: number): Subscription{
+      return this.gallery.getFullPhoto(imageId)
       .subscribe(data => {
          this.fullPhoto = data;
       });

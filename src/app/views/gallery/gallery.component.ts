@@ -3,7 +3,7 @@ import { GalleryService } from './../../services/gallery.service';
 import { IPhoto } from './../../models/photo.model';
 import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/models/ICategory.model';
-import { IFullPicture } from 'src/app/models/IFullPicture.model';
+import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 
 @Component({
   selector: 'app-gallery',
@@ -26,7 +26,8 @@ export class GalleryComponent implements OnInit {
   isLoaded = false;
 
 
-  constructor(private gallery: GalleryService) { }
+  constructor(private gallery: GalleryService,
+              private filter: FilterCategoriesService) { }
 
   ngOnInit() {
     this.loadPhotos();
@@ -34,34 +35,14 @@ export class GalleryComponent implements OnInit {
     this.loadTags();
   }
 
-  filterTags(tag: number){
-    if(this.selectedTags.includes(tag)){
-      for(let i = 0; i < this.selectedTags.length; i++){
-        if(this.selectedTags[i] === tag){
-          this.selectedTags.splice(i,1);
-          this.search(this.selectedCategories, this.selectedTags, this.searchString);
-          return;
-        }
-      }
-    }
-    this.selectedTags.push(tag);
+  filterTags(tag: number): void{
+    this.filter.filter(tag, this.selectedTags);
     this.search(this.selectedCategories, this.selectedTags, this.searchString);
   }
 
   filterCategory(category: number){
-    if(this.selectedCategories.includes(category)){
-      for(let i = 0; i < this.selectedCategories.length; i++){
-        if(this.selectedCategories[i] === category){
-          this.selectedCategories.splice(i,1);
-          this.search(this.selectedCategories, this.selectedTags, this.searchString);
-          return;
-        }
-      }
-    }
-    
-    this.selectedCategories.push(category);
+    this.filter.filter(category, this.selectedCategories);
     this.search(this.selectedCategories, this.selectedTags, this.searchString);
-    console.log(this.searchString);
   }
 
   search(categories: number[], tags: number[], search: string){
@@ -71,7 +52,11 @@ export class GalleryComponent implements OnInit {
     })
   }
 
-  initSearch(e: string){
+  initSearch(e: string): void{
+    if(e.length < 3){
+      this.photos = this.allPhotos;
+      return;
+    }
     this.searchString = e;
     console.log(this.searchString);
     console.log('initSearch: ' + this.searchString);
