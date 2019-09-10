@@ -80,21 +80,21 @@ export class AddComponent implements OnInit, OnDestroy {
       .subscribe(res => console.log(res), err => console.log());
   }
 
-  filterTags(tag: number): void {
+  private filterTags(tag: number): void {
     this.filter.filter(tag, this.selectedTags);
   }
 
-  filterCategories(category: number): void {
+  private filterCategories(category: number): void {
    this.filter.filter(category, this.selectedCategories);
   }
 
-  loadTags(): Subscription {
+  private loadTags(): Subscription {
     return this.gallery.getTags().subscribe(data => {
       this.tags = data;
     });
   }
 
-  loadCategories(): Subscription {
+  private loadCategories(): Subscription {
     return this.gallery.getCategories().subscribe(data => {
       this.categories = data;
     });

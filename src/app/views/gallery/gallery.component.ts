@@ -35,24 +35,24 @@ export class GalleryComponent implements OnInit {
     this.loadTags();
   }
 
-  filterTags(tag: number): void{
+  private filterTags(tag: number): void{
     this.filter.filter(tag, this.selectedTags);
     this.search(this.selectedCategories, this.selectedTags, this.searchString);
   }
 
-  filterCategory(category: number){
+  private filterCategory(category: number){
     this.filter.filter(category, this.selectedCategories);
     this.search(this.selectedCategories, this.selectedTags, this.searchString);
   }
 
-  search(categories: number[], tags: number[], search: string){
+  private search(categories: number[], tags: number[], search: string){
     this.gallery.search(categories,tags,search)
     .subscribe(data => {
       this.photos = data;
     })
   }
 
-  initSearch(e: string): void{
+  private initSearch(e: string): void{
     if(e.length < 3){
       this.photos = this.allPhotos;
       return;
@@ -67,7 +67,7 @@ export class GalleryComponent implements OnInit {
 
 
 
-  loadTags(): void {
+  private loadTags(): void {
     this.gallery.getTags()
     .subscribe(data => {
       this.tags = data;
@@ -76,7 +76,7 @@ export class GalleryComponent implements OnInit {
 
 
 
-  loadPhotos(): void {
+  private loadPhotos(): void {
     this.gallery.getThumbnails()
       .subscribe(data => {
         this.photos = data;
@@ -86,7 +86,7 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-  loadCategories(): void{
+  private loadCategories(): void{
     this.gallery.getCategories()
     .subscribe(data =>{
       this.categories = data;
@@ -96,7 +96,7 @@ export class GalleryComponent implements OnInit {
 
   
 
-  getCategoriesIds(): number[] {
+  private getCategoriesIds(): number[] {
     let numbers = [];
     for(let number of this.categories){
       numbers.push(number.id);
