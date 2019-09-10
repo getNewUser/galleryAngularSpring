@@ -1,14 +1,10 @@
 <section>
   <mat-card>
-
     <div class="container">
       <img class="center" src="{{shownPicture}}" />
     </div>
   </mat-card>
-
   <mat-card>
-
-
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
       <label>
         <mat-form-field>
@@ -18,33 +14,21 @@
           <input matInput name="description" #description="ngModel" ngModel placeholder="description: " required>
         </mat-form-field>
       </label>
-
-
-
-
-      <br><br><br>
-
       <mat-form-field>
         <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple req>
           <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)"> {{tag.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-
       <mat-form-field>
         <mat-select name="categories" ngModel #category="ngModel" placeholder="Categories" multiple>
           <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">
             {{category.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-
       <input (change)="picked($event)" type="file">
-
-
       <button>Submit</button>
     </form>
-
   </mat-card>
-
 </section>
 
 

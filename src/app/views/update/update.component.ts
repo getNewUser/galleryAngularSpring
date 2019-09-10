@@ -1,11 +1,10 @@
-import { ITag } from './../../models/ITag.model';
+import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { IPhoto } from './../../models/photo.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ICategory } from 'src/app/models/ICategory.model';
 import { NgForm } from '@angular/forms';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
+import { IPhoto, ITag, ICategory } from 'src/app/models';
 
 @Component({
   selector: 'app-update',
@@ -56,37 +55,40 @@ export class UpdateComponent implements OnInit {
 
 
 
-  
-  
-  filterTags(tag: number): void{
+  private filterTags(tag: number): void{
     this.filter.filter(tag, this.selectedTags);
   }
 
-  filterCategory(category: number){
+  private filterCategory(category: number){
     this.filter.filter(category, this.selectedCategories);
   }
 
-  loadPhoto(imageId: number){
-    this.gallery.getPhoto(imageId)
+  private loadPhoto(imageId: number): Subscription{
+   return this.gallery.getPhoto(imageId)
     .subscribe(data => {
       this.photo = data;
       this.photoTemplate = data;
     })
   }
 
-  loadTags(): void{
-    this.gallery.getTags()
+  private  loadTags(): Subscription{
+    return this.gallery.getTags()
     .subscribe(data => {
       this.tags = data;
     })
   }
 
-  loadCategories(): void{
-    this.gallery.getCategories()
+  private  loadCategories(): Subscription{
+    return this.gallery.getCategories()
     .subscribe(data =>{
       this.categories = data;
     });
      
+  }
+
+  ngOnDestroy() {
+    this.loadCategories().unsubscribe();
+    this.loadTags().unsubscribe();
   }
 
 }

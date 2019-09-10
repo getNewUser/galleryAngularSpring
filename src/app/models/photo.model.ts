@@ -1,6 +1,4 @@
-import { ICategory } from './ICategory.model';
-import { ITag } from './ITag.model';
-import { IFullPicture } from './IFullPicture.model';
+import { ITag, ICategory, IFullPicture } from '.';
 
 export interface IPhoto {
     id: number;

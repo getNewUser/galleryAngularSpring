@@ -1,9 +1,10 @@
-import { ITag } from 'src/app/models/ITag.model';
-import { GalleryService } from './../../services/gallery.service';
-import { IPhoto } from './../../models/photo.model';
+import { Subscription } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
-import { ICategory } from 'src/app/models/ICategory.model';
+import { ICategory } from 'src/app/models/category.model';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
+import { IPhoto, ITag } from 'src/app/models';
+import { GalleryService } from 'src/app/services/gallery.service';
 
 @Component({
   selector: 'app-gallery',
@@ -67,8 +68,8 @@ export class GalleryComponent implements OnInit {
 
 
 
-  private loadTags(): void {
-    this.gallery.getTags()
+  private loadTags(): Subscription {
+    return this.gallery.getTags()
     .subscribe(data => {
       this.tags = data;
     })
@@ -76,8 +77,8 @@ export class GalleryComponent implements OnInit {
 
 
 
-  private loadPhotos(): void {
-    this.gallery.getThumbnails()
+  private loadPhotos(): Subscription {
+   return this.gallery.getThumbnails()
       .subscribe(data => {
         this.photos = data;
         this.allPhotos = data;
@@ -86,8 +87,8 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-  private loadCategories(): void{
-    this.gallery.getCategories()
+  private loadCategories(): Subscription{
+    return this.gallery.getCategories()
     .subscribe(data =>{
       this.categories = data;
     });
@@ -105,5 +106,9 @@ export class GalleryComponent implements OnInit {
     return numbers;
   }
 
- 
+  ngOnDestroy() {
+    this.loadCategories().unsubscribe();
+    this.loadTags().unsubscribe();
+    this.loadPhotos().unsubscribe();
+  }
 }

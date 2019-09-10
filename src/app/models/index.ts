@@ -1,8 +1,7 @@
-import { IPhoto } from 'src/app/models/photo.model';
-import { ITag } from 'src/app/models/ITag.model';
-import { IFullPicture } from 'src/app/models/IFullPicture.model';
-import { ICategory } from './ICategory.model';
-
+import { IPhoto } from './photo.model';
+import { ITag } from './tag.model';
+import { IFullPicture } from './fullpicture.model';
+import { ICategory } from './category.model';
 
 export {
     IPhoto,

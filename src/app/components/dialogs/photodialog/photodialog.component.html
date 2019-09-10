@@ -1,4 +1,4 @@
-<button mat-flat-button color="primary"(click)="close()">close</button>
+<button mat-flat-button color="primary" (click)="close()">close</button>
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
@@ -7,7 +7,7 @@
     <!-- <mat-card-subtitle>{{data.description}}</mat-card-subtitle> -->
   </mat-card-header>
   <img mat-card-image src="data:image/jpg;base64,{{fullPhoto?.picture}}" alt="Photo">
-  <a href="/update/{{fullPhoto?.id}}" >heyo</a>
+  <a href="/update/{{fullPhoto?.id}}">heyo</a>
   <button (click)="deleteImage()">Delete</button>
   <mat-card-content>
     <p>

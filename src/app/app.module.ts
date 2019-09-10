@@ -11,16 +11,16 @@ import { GalleryComponent } from './views/gallery/gallery.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatChipsModule} from '@angular/material/chips';
+import { MatCardModule,
+         MatProgressSpinnerModule,
+         MatChipsModule,
+         MatDialogModule,} from '@angular/material/';
 import { ItemCountPipe } from './pipes/item-count.pipe';
 import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
 
 
 

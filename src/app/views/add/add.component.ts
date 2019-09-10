@@ -1,14 +1,12 @@
 import { FilterCategoriesService } from "./../../services/filterTagsCategories.service";
 import { GalleryService } from "./../../services/gallery.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { IPhoto } from "src/app/models/photo.model";
-import { ITag } from "src/app/models/ITag.model";
-import { ICategory } from "src/app/models/ICategory.model";
 import { NgForm } from "@angular/forms";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { HttpClient } from "@angular/common/http";
 import { Subscription } from "rxjs";
+import { IPhoto, ITag, ICategory } from 'src/app/models';
 
 @Component({
   selector: "app-add",
@@ -106,25 +104,4 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 }
 
-// filterTags(tag: number): void {
-//   if (this.selectedTags.includes(tag)) {
-//     for (let i = 0; i < this.selectedTags.length; i++) {
-//       if (this.selectedTags[i] === tag) {
-//         this.selectedTags.splice(i, 1);
-//         return;
-//       }
-//     }
-//   }
-//   this.selectedTags.push(tag);
-// }
 
-// filterCategories(category: number): void {
-//   if (this.selectedCategories.includes(category)) {
-//     for (let i = 0; i < this.selectedCategories.length; i++) {
-//       if (this.selectedCategories[i] === category) {
-//         this.selectedCategories.splice(i, 1);
-//       }
-//     }
-//   }
-//   this.selectedCategories.push(category);
-// }
