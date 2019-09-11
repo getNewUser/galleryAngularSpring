@@ -1,48 +1,34 @@
+<mat-toolbar>
+  <span>My Application</span>
+</mat-toolbar>
 <section>
-
-  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutAlign.xs="space-around stretch">
-    <!-- <mat-chip color="accent" class="sorting-container">Search</mat-chip> -->
-
-        <mat-form-field fxFlex="30">
-            <mat-select placeholder="Categories" multiple>
-              <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
-                {{category.name}} </mat-option>
-            </mat-select>
-          </mat-form-field>
-      
-      
-          <mat-form-field fxFlex="30" fxFlex.xs="100">
-            <mat-label>Sort by Tags</mat-label>
-            <mat-select placeholder="Tags" multiple>
-              <!-- why "multiple" makes everything selected-->
-              <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      
-      
-          <label fxFlex="40" fxFlex.xs="100" class="pure-material-textfield-outlined relative">
-            <!-- <form> -->
-              <mat-form-field>
-                <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)" class="input-padding">
-              </mat-form-field>
-            <!-- </form> -->
-            <!-- <input [(ngModel)]="searchString" (ngModelChange)="initSearch($event)" class="input-padding" placeholder="Search.."> -->
-            <!-- <span class="sufix"><mat-icon>search</mat-icon></span> -->
-          </label>
-   
+  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end"
+    fxLayoutAlign.xs="space-around stretch" class="sorting-container">
+    <div class="heading-chip"><p>Filter</p></div>
+    <mat-form-field fxFlex="30" > 
+      <mat-select placeholder="Categories" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
+          {{category.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="30" fxFlex.xs="100">
+      <mat-label>Sort by Tags</mat-label>
+      <mat-select placeholder="Tags" multiple>
+        <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <label fxFlex="40" fxFlex.xs="100" class="pure-material-textfield-outlined relative">
+      <mat-form-field>
+        <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
+          class="input-padding">
+      </mat-form-field>
+    </label>
   </mat-card>
-
   <a routerLink="/add">Add Photo</a>
-
-
-
   <mat-card>
-    <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="gallery-container">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="gallery-container">
       <div class="res-count-container">Showing {{photos?.length | itemCount}}</div>
-      <div class="heading-chip">
-        <p class="test">Gallery</p>
-      </div>
-      <ng-container *ngIf="isLoaded">
+      <ng-container *ngIf="isLoaded else loading">
         <div fxFlex="30" fxFlex.lg="20" fxFlex.sm="45" fxFlex.xs="100" class="photo-container"
           *ngFor="let item of photos">
           <app-photo [photo]="item"></app-photo>
@@ -50,6 +36,7 @@
       </ng-container>
     </div>
   </mat-card>
-
-
 </section>
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

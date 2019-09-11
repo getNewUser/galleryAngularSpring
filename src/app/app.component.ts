@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'gallery';
 
   constructor(private elementRef: ElementRef) {}
+  
   ngAfterViewInit() {
-    // this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#3f51b5';
   }
 }

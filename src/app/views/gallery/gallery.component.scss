@@ -17,11 +17,14 @@ section {
     max-width: 870px;
 }
 
-// .sorting-container {
-//     margin-bottom: 30px;
-//     padding: 30px;
-//     width: 100%;
-// }
+mat-form-field {
+    margin-right: 40px;
+}
+
+.sorting-container {
+    margin-bottom: 5px;
+}
+
 
 mat-card {
     width: calc(100% - 32px);
@@ -33,20 +36,11 @@ mat-card:not(.sorting-container) {
     position: relative;
 }
 
+mat-spinner {
+    margin: 30px auto;
+}
 
-// .heading-chip {
-//     position: absolute;
-//     top: -14px;
-//     left: 30px;
-//     background-color: #ff4081;
-//     padding: 0 10px;
-//     border-radius: 14px;
-//     p {
-//         color: white;
-//         line-height: 0px;
-//         font-size: 14px;
-//     }
-// }
+
 
 .res-count-container {
     position: absolute;

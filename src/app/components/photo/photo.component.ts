@@ -12,6 +12,7 @@ import { PhotodialogComponent } from '../dialogs/photodialog/photodialog.compone
 export class PhotoComponent implements OnInit {
   @Input() photo: IPhoto;
 
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
 

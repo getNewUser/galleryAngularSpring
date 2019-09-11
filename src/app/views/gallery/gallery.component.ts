@@ -57,8 +57,6 @@ export class GalleryComponent implements OnInit {
       return;
     }
     this.searchString = e;
-    console.log(this.searchString);
-    console.log('initSearch: ' + this.searchString);
     if (
       e.length > 2 ||
       this.selectedTags.length > 0 ||

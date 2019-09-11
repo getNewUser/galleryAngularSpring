@@ -1,3 +1,30 @@
 ::ng-deep .mat-dialog-container {
     padding: 0;
 }
+
+mat-card {
+    position: relative;
+}
+
+.main-image {
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.close-button {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+}
+
+.edit-button {
+    position: absolute;
+    top: 17px;
+    right: 65px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 17px;
+    right: 113px;
+}

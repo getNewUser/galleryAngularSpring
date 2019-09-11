@@ -1,8 +1,13 @@
-<section (click)="openDialog()">
-  <div class="photo-container">
-    <img src="data:image/jpg;base64,{{photo.thumbnail}}" alt="main" />
-    <div class="overlay">
-      <i class="material-icons md-100">search</i>
-    </div>
+<section class="container" (click)="openDialog()">
+  <!-- <div class="photo-container"> -->
+  <img class="image" src="data:image/jpg;base64,{{photo.thumbnail}}" alt="main" />
+  <mat-icon>
+      <p>search</p>
+    </mat-icon>
+  <div class="overlay">
+    <mat-icon>
+      <p>search</p>
+    </mat-icon>
+    <!-- </div> -->
   </div>
 </section>

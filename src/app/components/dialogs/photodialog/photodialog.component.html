@@ -1,17 +1,21 @@
-<button mat-flat-button color="primary" (click)="close()">close</button>
 <mat-card>
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{data.name}}</mat-card-title>
-    <!-- <button mat-flat-button color="primary">Close</button> -->
-    <!-- <mat-card-subtitle>{{data.description}}</mat-card-subtitle> -->
+    <mat-card-subtitle>Photo Viewer</mat-card-subtitle>
+    <button class="close-button" (click)="close()" mat-icon-button
+    matTooltip="Exit" matTooltipPosition="above"><mat-icon>close</mat-icon></button>
+    
   </mat-card-header>
-  <img mat-card-image src="data:image/jpg;base64,{{fullPhoto?.picture}}" alt="Photo">
-  <a href="/update/{{fullPhoto?.id}}">heyo</a>
-  <button (click)="deleteImage()">Delete</button>
+  <div mat-card-image class="main-image">
+      <img mat-card-image [src]="imgurl" alt="Photo"/>
+  </div>
+  <button class="edit-button" routerLink="/update/{{fullPhoto?.id}}" (click)="close()"
+  mat-icon-button matTooltip="Edit" matTooltipPosition="above"><mat-icon>edit</mat-icon></button>
+  
   <mat-card-content>
     <p>
       {{data.description}}
-    </p>
+    </p><button class="delete-button" (click)="deleteImage()" mat-icon-button
+    matTooltip="Delete" matTooltipPosition="above"><mat-icon>delete</mat-icon></button>
   </mat-card-content>
 </mat-card>

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class PhotodialogComponent {
   fullPhoto: IFullPicture;
+  imgurl: string ='';
 
   @Output() submitClicked = new EventEmitter<any>();
 
@@ -31,6 +32,7 @@ export class PhotodialogComponent {
   private getFullPicture(imageId: number): Subscription {
     return this.gallery.getFullPhoto(imageId).subscribe(data => {
       this.fullPhoto = data;
+      this.imgurl = 'data:image/jpg;base64,' + this.fullPhoto.picture;
     });
   }
 

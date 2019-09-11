@@ -14,7 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule,
          MatProgressSpinnerModule,
          MatChipsModule,
-         MatDialogModule,} from '@angular/material/';
+         MatDialogModule,
+         MatToolbarModule,
+         MatIconModule,
+         MatTooltipModule} from '@angular/material/';
 import { ItemCountPipe } from './pipes/item-count.pipe';
 import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
@@ -40,7 +43,7 @@ import { MatButtonModule,
     PhotodialogComponent,
     ItemCountPipe,
     AddComponent,
-    UpdateComponent
+    UpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,10 @@ import { MatButtonModule,
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [GalleryService,
               FilterCategoriesService],

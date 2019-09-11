@@ -1,57 +1,60 @@
-.photo-container {
-    height: 300px;
-    width: 300px;
-    position: relative;
-    overflow: hidden;
-    background-color: transparent;
+@import '../../../assets/styles/consts.scss';
 
-    img { 
-        display: inline-block;
-        margin-top: 14%;
-    }
+.container {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 
-    .overlay {
-        height: 258px;
-        width: inherit;
-        position: absolute;
-        // display: none;
-        display: none; 
-        bottom: 0;
-        left: 0;
+  // .image,
+  .overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
 
-        animation: moveUp linear .5s;
-    }
+  .overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: $secondary;
+    opacity: 0.5;
+    display: none;
 
+    animation: moveUp linear 0.5s;
+  }
 }
 
-.photo-container:hover {
-
-    .overlay {
-        // height: 100px;
-        background-color: #e91e63;
-         display: block;
-         opacity: 0.2;
+.container:hover {
+  .overlay {
+    display: block;
+    mat-icon p {
+      margin-left: 55px;
+      margin-top: 75px;
+      font-size: 150px;
+      visibility: visible;
     }
+  }
 }
 
-::ng-deep .mat-card{
-    width: 50%;
-    position: relative;
-    margin: 0 auto;
-}
+// ::ng-deep .mat-card {
+//   width: 50%;
+//   position: relative;
+//   margin: 0 auto;
+// }
 
-@keyframes moveUp{
-    0% {
-        top: 250px;
-        opacity: 0;
-    }
-    50% {
-        top: 150px;
-        opacity: 0.1;
-    }
-    100% {
-        top: 0;
-        opacity: .5;
-    }
+@keyframes moveUp {
+  0% {
+    top: 250px;
+    opacity: 0;
+  }
+  50% {
+    top: 150px;
+    opacity: 0.1;
+  }
+  100% {
+    top: 0;
+    opacity: 0.5;
+  }
 }
-
