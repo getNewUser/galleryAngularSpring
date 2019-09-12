@@ -1,10 +1,10 @@
+import { AuthService } from './services/auth.service';
 import { FilterCategoriesService } from './services/filterTagsCategories.service';
 import { PhotodialogComponent } from './components/dialogs/photodialog/photodialog.component';
 import { PhotoComponent } from './components/photo/photo.component';
-import { GalleryService } from './services/gallery.service';
+import { GalleryService, } from './services/gallery.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './views/gallery/gallery.component';
@@ -17,19 +17,17 @@ import { MatCardModule,
          MatDialogModule,
          MatToolbarModule,
          MatIconModule,
-         MatTooltipModule} from '@angular/material/';
+         MatTooltipModule,
+         MatButtonModule,
+         MatSelectModule,} from '@angular/material/';
 import { ItemCountPipe } from './pipes/item-count.pipe';
 import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-
-
-
-import { MatButtonModule,
-         MatSelectModule,
-          } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -44,6 +42,7 @@ import { MatButtonModule,
     ItemCountPipe,
     AddComponent,
     UpdateComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,10 +60,14 @@ import { MatButtonModule,
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [GalleryService,
-              FilterCategoriesService],
+              FilterCategoriesService,
+              AuthService,
+              CookieService],
   bootstrap: [AppComponent],
   entryComponents: [PhotodialogComponent]
 })

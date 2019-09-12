@@ -5,13 +5,13 @@
     </div>
   </mat-card>
   <mat-card>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate class="selections">
       <label>
         <mat-form-field>
-          <input matInput name="name" ngModel #first="ngModel" placeholder="name: " required>
+          <input matInput name="name" ngModel #first="ngModel" placeholder="Name: " required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="description" #description="ngModel" ngModel placeholder="description: " required>
+          <input matInput name="description" #description="ngModel" ngModel placeholder="Description: " required>
         </mat-form-field>
       </label>
       <mat-form-field>
@@ -25,8 +25,8 @@
             {{category.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <input (change)="picked($event)" type="file">
-      <button>Submit</button>
+      <input (change)="picked($event)" type="file" mat-flat-button color="primary">
+      <button mat-flat-button color="primary" class="submit-button">Submit</button>
     </form>
   </mat-card>
 </section>

@@ -1,5 +1,8 @@
 <mat-toolbar>
   <span>My Application</span>
+  <button mat-flat-button color="primary" class="toolbar-login-button">Login</button>
+  <button mat-flat-button color="primary" class="toolbar-signup-button">Sign up</button>
+  <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo</button>
 </mat-toolbar>
 <section>
   <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end"
@@ -24,7 +27,7 @@
       </mat-form-field>
     </label>
   </mat-card>
-  <a routerLink="/add">Add Photo</a>
+  
   <mat-card>
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="gallery-container">
       <div class="res-count-container">Showing {{photos?.length | itemCount}}</div>
@@ -36,6 +39,9 @@
       </ng-container>
     </div>
   </mat-card>
+
+ 
+
 </section>
 <ng-template #loading>
   <mat-spinner></mat-spinner>
