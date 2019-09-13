@@ -27,7 +27,12 @@ export class GalleryComponent implements OnInit {
   constructor(
     private gallery: GalleryService,
     private filter: FilterCategoriesService
-  ) {}
+  ) {
+    
+    console.log(localStorage.getItem('access_token') + ' token');
+    // console.log(ilocalStorage.getItem('access_token'));
+    
+  }
 
   ngOnInit() {
     this.loadPhotos();

@@ -10,10 +10,11 @@ import { Router, Route } from '@angular/router';
 export class AuthGuard {
 
   constructor(private auth: AuthService,
-    private router: Router) {}
+    private router: Router) {
+    }
 
     canActive(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(this.auth.loggedIn){
+      if(this.auth.loggedIn) {
         return true;
       }else {
         this.router.navigate(['/login']);

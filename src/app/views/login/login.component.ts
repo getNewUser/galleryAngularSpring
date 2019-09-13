@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { IUser } from 'src/app/models/user.model';
 
 
 @Component({
@@ -15,7 +16,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(f){
-    console.log(f.value);
+    let user: IUser = f.value;
+    console.log(user);
+    this.auth.login(user.username, user.password);
   }
  
 
