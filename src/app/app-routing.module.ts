@@ -3,13 +3,16 @@ import { GalleryComponent } from './views/gallery/gallery.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UpdateComponent } from './views/update/update.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './views/login/login.component';
+import { SignupComponent } from './views/signup/signup.component';
 
 const routes: Routes = [
-  { path: '', component: GalleryComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home', component: GalleryComponent, pathMatch: 'full' },
   { path: 'update/:id', component: UpdateComponent },
   { path: 'add', component: AddComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent }
   
 ];
 

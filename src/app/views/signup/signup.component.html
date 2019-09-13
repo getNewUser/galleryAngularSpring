@@ -1,0 +1,102 @@
+<app-header></app-header>
+
+<mat-card>
+  <form #f="ngForm" [matchValue]="['password', 'confirmPassword']">
+      <mat-form-field class="form-group">
+          <input matInput type="text" name="name" placeholder="Enter your name" class="form-control"
+            [(ngModel)]="model.name" #name="ngModel" required>
+          <div class="invalid-feedback">Please fill out this field</div>
+        </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput type="text" name="username" placeholder="Enter your username" class="form-control"
+        [(ngModel)]="model.username" #username="ngModel" [class.is-invalid]="f.submitted && username.invalid"
+        [class.is-valid]="username.valid" required>
+      <div class="invalid-feedback">Please fill out this field</div>
+      <div class="valid-feedback">Username is available</div>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput type="email" name="email" ngModel email="true" placeholder="Enter your email">
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput type="password" class="form-control" [(ngModel)]="model.password" #password="ngModel"
+        name="password" placeholder="Enter your password" [class.is-invalid]="f.submitted && password.invalid" required
+        minlength="6">
+      <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+        <div *ngIf="password?.errors.required">Password is required</div>
+        <div *ngIf="password?.errors.minlength">Password must be at least 6 characters</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput type="password" class="form-control" [(ngModel)]="model.confirmPassword"
+        #confirmPassword="ngModel" name="confirmPassword" placeholder="Confirm password"
+        [class.is-invalid]="f.submitted && confirmPassword.invalid" required>
+      <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
+        <div *ngIf="confirmPassword?.errors.required">Confirm Password is required</div>
+        <div *ngIf="confirmPassword?.errors.matchValueError">Passwords do not match.</div>
+      </div>
+    </mat-form-field>
+    <div>&nbsp;</div>
+    <div>
+      <mat-checkbox required  class="form-group" name="policy" >I agree with privacy policy</mat-checkbox>
+    </div>
+    <div>&nbsp;</div>
+    <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit(f)">Submit</button>
+  </form>
+  <div>
+  </div>
+
+</mat-card>
+
+<!-- <div>
+    <mat-form-field>
+      <input required matInput maxlength="30" formControlName="email" name="email" placeholder="Email">
+      <span matPrefix><i class="material-icons">mail_outline</i></span>
+      <mat-error *ngIf="credentials.controls['email'].hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="credentials.controls['email'].hasError('email')">Email is invalid</mat-error>
+    </mat-form-field>
+  </!--> -->
+
+
+
+
+
+
+<!-- <mat-card>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" [formGroup]="credentials" validate>
+          <div class="row">
+            <mat-form-field>
+              <input matInput
+              required
+              maxlength="30"
+              name="name"
+              ngModel #first="ngModel"
+              placeholder="Name">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <input required
+              matInput
+              maxlength="30"
+              formControlName="email"
+              name="email"
+              placeholder="Email"> <span matPrefix><i class="material-icons">mail_outline</i></span>
+              <mat-error *ngIf="credentials.controls['email'].hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="credentials.controls['email'].hasError('email')">Email is invalid</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <input matInput name="password" type="password" ngModel #first="ngModel" placeholder="Password">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <input matInput name="repeatpassword" type="password" ngModel #first="ngModel" placeholder="Repeat password">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <button mat-flat-button color="primary" class="submit-button">Submit</button>
+          </div>
+          </form>
+      </mat-card> -->

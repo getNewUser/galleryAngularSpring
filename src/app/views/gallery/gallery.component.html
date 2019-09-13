@@ -1,14 +1,17 @@
-<mat-toolbar>
+<!-- <mat-toolbar>
   <span>My Application</span>
   <button mat-flat-button color="primary" class="toolbar-login-button">Login</button>
   <button mat-flat-button color="primary" class="toolbar-signup-button">Sign up</button>
   <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo</button>
-</mat-toolbar>
+</mat-toolbar> -->
+<app-header></app-header>
 <section>
-  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end"
-    fxLayoutAlign.xs="space-around stretch" class="sorting-container">
-    <div class="heading-chip"><p>Filter</p></div>
-    <mat-form-field fxFlex="30" > 
+  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end" fxLayoutAlign.xs="space-around stretch"
+    class="sorting-container">
+    <div class="heading-chip">
+      <p>Filter</p>
+    </div>
+    <mat-form-field fxFlex="30">
       <mat-select placeholder="Categories" multiple>
         <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
           {{category.name}} </mat-option>
@@ -27,8 +30,10 @@
       </mat-form-field>
     </label>
   </mat-card>
-  
-  <mat-card>
+
+
+
+  <!-- <mat-card>
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="gallery-container">
       <div class="res-count-container">Showing {{photos?.length | itemCount}}</div>
       <ng-container *ngIf="isLoaded else loading">
@@ -38,9 +43,23 @@
         </div>
       </ng-container>
     </div>
-  </mat-card>
+  </mat-card> -->
+
+
+  <mat-card>
+      <div class="gallery-container">
+        <div class="res-count-container">Showing {{photos?.length | itemCount}}</div>
+        <ng-container *ngIf="isLoaded else loading">
+          <div class="photo-container" *ngFor="let item of photos">
+            <app-photo [photo]="item"></app-photo>
+          </div>
+        </ng-container>
+      </div>
+    </mat-card>
 
  
+
+
 
 </section>
 <ng-template #loading>

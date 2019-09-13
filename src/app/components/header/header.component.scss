@@ -1,0 +1,21 @@
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+
+    .toolbar-login-button {
+        position: absolute;
+        right: 25px;
+      }
+      
+      .toolbar-signup-button {
+        position: absolute;
+        right: 100px;
+      }
+      
+      .toolbar-addphoto-button {
+        position: absolute;
+        right: 200px;
+      }
+  }

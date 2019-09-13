@@ -72,7 +72,6 @@ export class AddComponent implements OnInit, OnDestroy {
   onSubmit(f: NgForm): void {
     this.photo = f.value;
     this.photo.thumbnail = this.fullPicture;
-    console.log(this.photo.name);
     this.httpClient
       .post<any>('http://localhost:8080/images', this.photo)
       .subscribe(res => console.log(res), err => console.log());

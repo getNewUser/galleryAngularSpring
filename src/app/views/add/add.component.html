@@ -1,3 +1,4 @@
+<app-header></app-header>
 <section>
   <mat-card>
     <div class="container">
@@ -25,7 +26,15 @@
             {{category.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <input (change)="picked($event)" type="file" mat-flat-button color="primary">
+      <!-- <mat-form-field>
+        <input (change)="picked($event)" type="file" mat-flat-button color="primary">
+      </mat-form-field> -->
+
+      <mat-form-field>
+        <ngx-mat-file-input  (change)="picked($event)" formControlName="basicfile" placeholder="Image" ></ngx-mat-file-input>
+        <mat-icon matSuffix>folder</mat-icon>
+      </mat-form-field>
+
       <button mat-flat-button color="primary" class="submit-button">Submit</button>
     </form>
   </mat-card>

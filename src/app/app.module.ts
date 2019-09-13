@@ -1,3 +1,5 @@
+import { MatchValueDirective } from './directives/match-value.directive';
+import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
 import { FilterCategoriesService } from './services/filterTagsCategories.service';
 import { PhotodialogComponent } from './components/dialogs/photodialog/photodialog.component';
@@ -27,7 +29,14 @@ import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginComponent } from './components/login/login.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './components/header/header.component';
+import { StartsWithCapitalPipe } from './pipes/starts-with-capital.pipe';
+import { SignupComponent } from './views/signup/signup.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { JwtModule } from '@auth0/angular-jwt';
+
 
 
 
@@ -43,6 +52,10 @@ import { LoginComponent } from './components/login/login.component';
     AddComponent,
     UpdateComponent,
     LoginComponent,
+    HeaderComponent,
+    StartsWithCapitalPipe,
+    SignupComponent,
+    MatchValueDirective,
   ],
   imports: [
     BrowserModule,
@@ -58,11 +71,23 @@ import { LoginComponent } from './components/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatToolbarModule,
+    MatToolbarModule, 
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MaterialFileInputModule,
+    NgbModule,
+    MatCheckboxModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function  tokenGetter() {
+             return     localStorage.getItem('access_token');},
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['http://localhost:8080/api/auth/signup',
+                            'http://localhost:8080/api/auth/signin']
+      }
+    })
   ],
   providers: [GalleryService,
               FilterCategoriesService,

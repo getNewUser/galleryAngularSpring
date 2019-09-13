@@ -7,13 +7,6 @@
   position: relative;
   overflow: hidden;
 
-  // .image,
-  .overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-  }
-
   .overlay {
     height: 100%;
     width: 100%;
@@ -29,6 +22,7 @@
 .container:hover {
   .overlay {
     display: block;
+
     mat-icon p {
       margin-left: 55px;
       margin-top: 75px;
@@ -37,12 +31,6 @@
     }
   }
 }
-
-// ::ng-deep .mat-card {
-//   width: 50%;
-//   position: relative;
-//   margin: 0 auto;
-// }
 
 @keyframes moveUp {
   0% {

@@ -30,6 +30,9 @@ export class GalleryService {
     )
   }
 
+  addImage(image: IPhoto): Observable<IPhoto> {
+    return this.http.post<IPhoto>('http://localhost:8080/images', image);
+  }
   deleteImage(imageId: number): Observable<IPhoto>{
     console.log('http://localhost:8080/images/delete/' + imageId);
     return this.http.delete<IPhoto>('http://localhost:8080/images/delete/' + imageId);

@@ -21,6 +21,8 @@ export class UpdateComponent implements OnInit {
   categories: ICategory[] = [];
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
+  fullPhoto: string;
+  imgurl: string;
 
   constructor(private route: ActivatedRoute,
               private gallery: GalleryService,
@@ -47,6 +49,7 @@ export class UpdateComponent implements OnInit {
     this.loadPhoto(this.id);
     this.loadCategories();
     this.loadTags();
+    this.getFullPhoto(this.id);
     
   }
 
@@ -54,6 +57,13 @@ export class UpdateComponent implements OnInit {
 
 
 
+  private getFullPhoto(imageId: number): Subscription{
+    return this.gallery.getFullPhoto(imageId)
+    .subscribe( data => {
+      this.fullPhoto = data.picture;
+      this.imgurl = 'data:image/jpg;base64,' + this.fullPhoto;
+    })
+  }
 
   private filterTags(tag: number): void{
     this.filter.filter(tag, this.selectedTags);

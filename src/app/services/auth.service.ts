@@ -1,6 +1,9 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IUser } from '../models/user.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -13,25 +16,26 @@ export class AuthService {
         // penktas punktas
     }
 
-    login(): void {
-        this.http.post(this.basePath + '/api/auth' + '/signin', {
-            // body
-        }).toPromise()
-        .then(data => {
-            this.cookie.set('Cookie-name','data', new Date);
-        })
-        .catch(err => console.log(err));
-        // this.authState = true;
+    login(usernameOrPassword:string, password:string) {
+        return this.http.post<{access_token:  string}>('http://localhost:8080/api/auth/signin', {usernameOrPassword, password}).pipe(tap(res => {
+        localStorage.setItem('access_token', res.access_token);
+    })) 
     }
+    register(user: IUser) {
+        return this.http.post<{access_token: string}>('http://localhost:8080/api/auth/signup', {user}).pipe(tap(res => {
+        this.login(user.email, user.password)
+    }))
+    }
+
+    
 
     logout(): void {
-        // delete cookie
-        return this.cookie.delete('Cookie-name');
-    }
+        localStorage.removeItem('access_token');
+      }
 
-    isLoggedIn(): boolean {
-        return this.cookie.check('Cookie-name');
-    }
+      public get loggedIn(): boolean{
+        return localStorage.getItem('access_token') !==  null;
+      }
 
     isAdmin(){
         // paima cookie ir .atob(base64) tada sprendzia kokia role
