@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   onSubmit(f, message, action){
     let user: IUser = f.value;
     this.auth.login(user.username, user.password).then( () => {
-      this.router.navigate[''];
+      this.router.navigate(['home']);
       message = "You successfully logged in!"
       this.snackBar.open(message, action, { duration: 2000});
     }).catch(error => {
