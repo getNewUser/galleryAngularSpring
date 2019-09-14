@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <mat-card>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Hey', 'Dismiss')" novalidate>
       <mat-form-field>
         <input matInput type="text" name="username" ngModel #username="ngModel" placeholder="Username">
       </mat-form-field>

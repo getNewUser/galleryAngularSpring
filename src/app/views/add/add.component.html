@@ -6,7 +6,7 @@
     </div>
   </mat-card>
   <mat-card>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate class="selections">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Message', 'Dismiss')" novalidate class="selections">
       <label>
         <mat-form-field>
           <input matInput name="name" ngModel #first="ngModel" placeholder="Name: " required>

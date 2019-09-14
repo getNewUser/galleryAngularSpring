@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
+import { MatSnackBar } from '@angular/material';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-add',
@@ -31,7 +33,9 @@ export class AddComponent implements OnInit, OnDestroy {
     private gallery: GalleryService,
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private filter: FilterCategoriesService
+    private filter: FilterCategoriesService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -69,12 +73,17 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(f: NgForm): void {
+  onSubmit(f, message, action): void {
     this.photo = f.value;
     this.photo.thumbnail = this.fullPicture;
     this.httpClient
       .post<any>('http://localhost:8080/images', this.photo)
-      .subscribe(res => console.log(res), err => console.log());
+      .subscribe(() =>{
+          this.snackBar.open('Image added successfully', action, { duration: 2000});
+          this.router.navigate(['home']);
+      }, err => {
+        this.snackBar.open('Something went wrong..', action, { duration: 2000});
+      });
   }
 
   private filterTags(tag: number): void {

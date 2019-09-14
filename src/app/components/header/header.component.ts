@@ -1,4 +1,6 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +11,17 @@ export class HeaderComponent implements OnInit {
 
   public href: string = "";
 
-  constructor() {}
+  constructor(public auth: AuthService,
+              private snackBar: MatSnackBar,) {}
 
   ngOnInit() {
       this.getNameForHeader();
+      console.log(this.auth.loggedIn);
+  }
+
+  logout(message, action) {
+    this.snackBar.open(message, action, { duration: 2000});
+    this.auth.logout();
   }
 
   private getNameForHeader(): void {

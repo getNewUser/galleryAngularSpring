@@ -1,7 +1,30 @@
 <mat-toolbar>
   <span>{{href | startsWithCapital}}</span>
-  <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login</button>
-  <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up</button>
-  <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo</button>
-  <button mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below"  routerLink="/"><mat-icon>home</mat-icon></button>
-</mat-toolbar>
+
+  <ng-container *ngIf="auth.loggedIn === false" class="toolbar">
+      <div class="row">
+        <div class="col-m">
+            <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login</button>
+        </div>
+        <div class="col-m">
+            <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up</button>
+        </div>
+      </div>
+      <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">
+        <mat-icon>home</mat-icon>
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
+        <div class="row">
+          <div class="col-m">
+              <button mat-flat-button color="primary" class="toolbar-login-button" (click)="logout('You succesfully logged out', 'Dismiss')">Logout</button>
+          </div>
+          <div class="col-m">
+              <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo</button>
+          </div>
+        </div>
+        <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">
+          <mat-icon>home</mat-icon>
+        </button>
+      </ng-container>
