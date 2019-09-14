@@ -36,6 +36,7 @@ import { StartsWithCapitalPipe } from './pipes/starts-with-capital.pipe';
 import { SignupComponent } from './views/signup/signup.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -103,7 +104,8 @@ import { JwtModule } from '@auth0/angular-jwt';
         blacklistedRoutes: ['http://localhost:8080/api/auth/signup',
                             'http://localhost:8080/api/auth/signin']
       }
-    })
+    }),
+    MatSnackBarModule
   ],
   providers: [GalleryService,
               FilterCategoriesService,

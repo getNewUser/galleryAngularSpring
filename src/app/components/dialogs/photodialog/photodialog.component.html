@@ -2,21 +2,27 @@
   <mat-card-header>
     <mat-card-title>{{data.name}}</mat-card-title>
     <mat-card-subtitle>Photo Viewer</mat-card-subtitle>
-    <button class="close-button" (click)="close()" mat-icon-button
-    matTooltip="Exit" matTooltipPosition="above"><mat-icon>close</mat-icon></button>
-    
+    <button class="close-button" (click)="close()" mat-icon-button matTooltip="Exit" matTooltipPosition="above">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-card-header>
   <div mat-card-image class="main-image">
-      <img mat-card-image [src]="imgurl" alt="Photo"/>
+    <img mat-card-image [src]="imgurl" alt="Photo" />
   </div>
-  <button class="edit-button" routerLink="/update/{{fullPhoto?.id}}" (click)="close()"
-  mat-icon-button matTooltip="Edit" matTooltipPosition="above"><mat-icon>edit</mat-icon></button>
-  
+  <button class="edit-button" routerLink="/update/{{fullPhoto?.id}}" (click)="close()" mat-icon-button matTooltip="Edit"
+    matTooltipPosition="above">
+    <mat-icon>edit</mat-icon>
+  </button>
   <mat-card-content>
     <p>
       {{data.description}}
-    </p><button class="delete-button" (click)="deleteImage()" mat-icon-button
-    matTooltip="Delete" matTooltipPosition="above"><mat-icon>delete</mat-icon></button>
+    </p>
+
+    <button class="delete-button" (click)="deleteImage('', 'Dismiss')" mat-icon-button matTooltip="Delete"
+      matTooltipPosition="above">
+      <mat-icon>delete</mat-icon>
+    </button>
+
     <div class="res-container">{{data.width + "x" + data.height}}</div>
   </mat-card-content>
 </mat-card>

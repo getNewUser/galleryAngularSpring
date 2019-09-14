@@ -13,28 +13,26 @@ export class AuthService {
   private cookieValue: string;
 
   constructor(private http: HttpClient, private cookie: CookieService) {
-    // penktas punktas
   }
 
   login(usernameOrEmail: string, password: string) {
-    return this.http
+   return this.http
       .post<{ accessToken: string }>('http://localhost:8080/api/auth/signin', {
         usernameOrEmail,
         password
-      }).toPromise()
+      })
+      .toPromise()
       .then(res => {
-          console.log(res);
-        //   localStorage.setItem('access_token', res.accessToken);
         this.cookie.set('Cookie', res.accessToken);
-        this.cookieValue = this.cookie.get('Cookie'); 
-        });
+        this.cookieValue = this.cookie.get('Cookie');
+      });
   }
 
   async register(user: IUser) {
-      const email = user.email;
-      const username = user.username;
-      const name = user.name;
-      const password = user.password;
+    const email = user.email;
+    const username = user.username;
+    const name = user.name;
+    const password = user.password;
     return this.http
       .post<{ access_token: string }>('http://localhost:8080/api/auth/signup', {
         email,
@@ -47,14 +45,28 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
+    this.cookie.delete('Cookie');
   }
 
   public get loggedIn(): boolean {
-    return localStorage.getItem('access_token') !== null;
+    if(this.cookie.get('Cookie')){
+      return true;
+    }
+    return false;
   }
 
-  isAdmin() {
+  isAdmin(): boolean {
     // paima cookie ir .atob(base64) tada sprendzia kokia role
+    let token = this.cookie.get('Cookie');
+
+    let role = atob(token.split('.')[1]);
+    role = role.substring(35,45);
+
+    if(role === 'ROLE_ADMIN'){
+      return true;
+    }else {
+      return false;
+    }
+
   }
 }

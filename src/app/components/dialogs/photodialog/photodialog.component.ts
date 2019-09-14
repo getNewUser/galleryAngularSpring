@@ -1,8 +1,11 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, Output, Inject, EventEmitter } from '@angular/core';
 import { IFullPicture, IPhoto } from 'src/app/models';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { isObject } from 'util';
 
 @Component({
   selector: 'app-photodialog',
@@ -12,20 +15,29 @@ import { Subscription } from 'rxjs';
 export class PhotodialogComponent {
   fullPhoto: IFullPicture;
   imgurl: string ='';
+  snackbarText: string;
 
   @Output() submitClicked = new EventEmitter<any>();
 
   constructor(
     public dialogRef: MatDialogRef<PhotodialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IPhoto,
-    private gallery: GalleryService
+    private gallery: GalleryService,
+    private snackBar: MatSnackBar,
+    public auth: AuthService
   ) {
     this.getFullPicture(data.id);
   }
 
-  deleteImage(): Subscription {
+  deleteImage(message, action): Subscription {
+    if(this.auth.isAdmin()){
+      location.reload();
+      return;
+    }
     return this.gallery.deleteImage(this.data.id).subscribe(data => {
       console.log(data);
+    }, () => {
+      this.snackBar.open('Only admins can delete images', action, { duration: 2000});
     });
   }
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
@@ -19,26 +20,25 @@ export class GalleryComponent implements OnInit {
   tags: ITag[] = [];
   selectedTags: number[] = [];
 
+
   searchString = '';
 
-  count = 0;
   isLoaded = false;
 
   constructor(
     private gallery: GalleryService,
-    private filter: FilterCategoriesService
+    private filter: FilterCategoriesService,
+    private token: AuthService
   ) {
-    
-    console.log(localStorage.getItem('access_token') + ' token');
-    // console.log(ilocalStorage.getItem('access_token'));
-    
   }
+  
 
   ngOnInit() {
     this.loadPhotos();
     this.loadCategories();
     this.loadTags();
   }
+
 
   private filterTags(tag: number): void {
     this.filter.filter(tag, this.selectedTags);
