@@ -1,5 +1,5 @@
 export interface ITag {
-    id: number;
+    // id: number;
     name: string;
     createdDate: string;
 }

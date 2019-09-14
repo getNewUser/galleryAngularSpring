@@ -1,44 +1,46 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable, Subscription} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocomplete
+} from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { ITag } from 'src/app/models';
 import { GalleryService } from '../services/gallery.service';
-
-
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent  {
+export class AutocompleteComponent {
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<ITag[]>;
-  // tagsNames: ITag[] = [];
-  // fruits: string[] = ['Lemon'];
-  checkedTags: string[] = ['Joy'];
-  // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  tags: ITag[] = [];
-  selectedTags: number[] = [];
+  tags: string[] = ['Joy'];
+  filteredTags: Observable<string[]>;
+  allTags: string[] = [];
 
-  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  tagsToReturn: ITag[] = [];
+  tagsFromService: ITag[] = [];
 
-  constructor(
-    private gallery: GalleryService) {
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+
+  constructor(private gallery: GalleryService) {
     this.loadTags();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
-        startWith(null),
-        map((tag: ITag | null) => tag ? this._filter(tag) : this.tags.slice()));
+      startWith(null),
+      map((fruit: string | null) =>
+        fruit ? this._filter(fruit) : this.allTags.slice()
+      )
+    );
   }
 
   add(event: MatChipInputEvent): void {
@@ -50,8 +52,7 @@ export class AutocompleteComponent  {
 
       // Add our fruit
       if ((value || '').trim()) {
-        this.checkedTags.push(value.trim());
-        
+        this.tags.push(value.trim());
       }
 
       // Reset the input value
@@ -63,34 +64,45 @@ export class AutocompleteComponent  {
     }
   }
 
-  remove(tag: string): void {
-    const index = this.checkedTags.indexOf(tag);
+  remove(fruit: string): void {
+    const index = this.tags.indexOf(fruit);
 
     if (index >= 0) {
-      this.checkedTags.splice(index, 1);
+      this.tags.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.checkedTags.push(event.option.viewValue);
+    this.tags.push(event.option.viewValue);
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }
 
-  private _filter(value: ITag): ITag[] {
-    console.log(value);
-     const filterValue = value.name;
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-    return this.tags.filter(tag => tag.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.allTags.filter(
+      fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  public getTags(): ITag[] {
+    for (let i = 0; i < this.tags.length; i++) {
+      let tag: ITag = {
+        name: this.tags[i],
+        createdDate: ''
+      };
+      this.tagsToReturn.push(tag);
+    }
+    console.log(this.tagsToReturn);
+    return this.tagsToReturn;
+  }
 
   private loadTags(): Subscription {
     return this.gallery.getTags().subscribe(data => {
-      this.tags = data;
-      for(let i = 1; i < data.length; i++){
-        this.filteredTags[i] = data[i].name;
-        // this.tagsNames [i] = data[i];
+      this.tagsFromService = data;
+
+      for (let i = 0; i < data.length; i++) {
+        this.allTags[i] = data[i].name;
       }
     });
   }
