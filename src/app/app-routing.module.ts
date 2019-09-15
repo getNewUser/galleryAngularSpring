@@ -7,7 +7,7 @@ import { LoginComponent } from './views/login/login.component';
 import { SignupComponent } from './views/signup/signup.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: GalleryComponent, pathMatch: 'full' },
   { path: 'update/:id', component: UpdateComponent },
   { path: 'add', component: AddComponent },

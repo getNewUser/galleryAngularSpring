@@ -23,7 +23,7 @@ export class AutocompleteComponent {
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  tags: string[] = ['Joy'];
+  tags: string[] = [];
   filteredTags: Observable<string[]>;
   allTags: string[] = [];
 
