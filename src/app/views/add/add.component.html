@@ -9,27 +9,12 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Message', 'Dismiss')" novalidate class="selections">
       <label>
         <mat-form-field>
-          <input matInput name="name" ngModel #first="ngModel" placeholder="Name: " required>
+          <input matInput name="name" ngModel #first="ngModel" placeholder="Name: " required >
         </mat-form-field>
         <mat-form-field>
           <input matInput name="description" #description="ngModel" ngModel placeholder="Description: " required>
         </mat-form-field>
       </label>
-      <!-- <mat-form-field>
-        <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple req>
-          <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)"> {{tag.name}} </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-
-
-
-
-
-
-
-
-
-
       <mat-form-field class="example-chip-list">
         <mat-chip-list #tagList aria-label="Tags selection">
           <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
@@ -46,41 +31,18 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
-
-
-
-
-
-
-
-      
       <mat-form-field>
         <mat-select name="categories" ngModel #category="ngModel" placeholder="Categories" multiple>
           <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">
             {{category.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <mat-form-field>
-        <input (change)="picked($event)" type="file" mat-flat-button color="primary">
-      </mat-form-field> -->
-
       <mat-form-field>
-        <ngx-mat-file-input (change)="picked($event)" formControlName="basicfile" placeholder="Image">
+        <ngx-mat-file-input (change)="picked($event)"  placeholder="Image">
         </ngx-mat-file-input>
         <mat-icon matSuffix>folder</mat-icon>
       </mat-form-field>
-
       <button mat-flat-button color="primary" class="submit-button">Submit</button>
     </form>
   </mat-card>
 </section>
-
-
-
-<!-- 
-    <p>First name value: {{ first.value }}</p>
-        <p>Description value: {{ description.value }}</p>
-          <p>First name valid: {{ first.valid }}</p>
-          <p>Form value: {{ f.value | json}}</p>
-          <p>Form valid: {{ f.valid }}</p> -->

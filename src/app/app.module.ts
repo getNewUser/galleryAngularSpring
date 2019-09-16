@@ -37,7 +37,6 @@ import { SignupComponent } from './views/signup/signup.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { MatAutocompleteModule,MatAutocompleteSelectedEvent,MatAutocomplete } from '@angular/material/autocomplete';
 
 
@@ -58,8 +57,7 @@ import { MatAutocompleteModule,MatAutocompleteSelectedEvent,MatAutocomplete } fr
     HeaderComponent,
     StartsWithCapitalPipe,
     SignupComponent,
-    MatchValueDirective,
-    AutocompleteComponent
+    MatchValueDirective
   ],
   imports: [
     BrowserModule,

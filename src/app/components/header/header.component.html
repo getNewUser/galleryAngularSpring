@@ -4,10 +4,10 @@
   <ng-container *ngIf="auth.loggedIn === false" class="toolbar">
       <div class="row">
         <div class="col-m">
-            <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login</button>
+            <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>done</mat-icon></button>
         </div>
         <div class="col-m">
-            <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up</button>
+            <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>done_all</mat-icon></button>
         </div>
       </div>
       <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">

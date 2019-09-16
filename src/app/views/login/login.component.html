@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<img src="../../../assets/city-blurred-hd-1920x1080.jpg"/>
 <mat-card>
   <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Hey', 'Dismiss')" novalidate>
       <mat-form-field>
@@ -10,7 +10,7 @@
         placeholder="Description">
     </mat-form-field>
     <div class="col">
-      <button mat-flat-button color="primary" class="submit-button">Submit</button>
+      <button mat-flat-button color="primary" class="submit-button">Submit <mat-icon>done</mat-icon></button>
     </div>
   </form>
 </mat-card>

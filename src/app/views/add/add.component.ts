@@ -1,5 +1,4 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { AutocompleteComponent } from './../../autocomplete/autocomplete.component';
 import { FilterCategoriesService } from './../../services/filterTagsCategories.service';
 import { GalleryService } from './../../services/gallery.service';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
@@ -22,7 +21,6 @@ export class AddComponent implements OnInit, OnDestroy {
   id: number;
   photo: IPhoto;
   photoTemplate: IPhoto;
-  // tags: ITag[] = [];
   categories: ICategory[] = [];
   selectedCategories: number[] = [];
   selectedTags: number[] = [];
@@ -49,7 +47,6 @@ export class AddComponent implements OnInit, OnDestroy {
     );
   }
 
-  
 
   ngOnInit() {
     this.loadCategories();
@@ -101,19 +98,10 @@ export class AddComponent implements OnInit, OnDestroy {
       });
   }
 
-  // private filterTags(tag: number): void {
-  //   this.filter.filter(tag, this.selectedTags);
-  // }
 
   private filterCategories(category: number): void {
     this.filter.filter(category, this.selectedCategories);
   }
-
-  // private loadTags(): Subscription {
-  //   return this.gallery.getTags().subscribe(data => {
-  //     this.tags = data;
-  //   });
-  // }
 
   private loadCategories(): Subscription {
     return this.gallery.getCategories().subscribe(data => {
@@ -123,53 +111,10 @@ export class AddComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadCategories().unsubscribe();
-    // this.loadTags().unsubscribe();
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//  ============ Tags
 
 
   visible = true;
@@ -235,6 +180,7 @@ export class AddComponent implements OnInit, OnDestroy {
   public getTags(): ITag[] {
     for (let i = 0; i < this.tags.length; i++) {
       let tag: ITag = {
+        id: '',
         name: this.tags[i],
         createdDate: ''
       };

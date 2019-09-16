@@ -30,14 +30,12 @@ export class PhotodialogComponent {
   }
 
   deleteImage(message, action): Subscription {
-    if(this.auth.isAdmin()){
-      location.reload();
+    if(!this.auth.isAdmin()){
+      this.snackBar.open('Only admins can delete images', action, { duration: 2000});
       return;
     }
     return this.gallery.deleteImage(this.data.id).subscribe(data => {
       console.log(data);
-    }, () => {
-      this.snackBar.open('Only admins can delete images', action, { duration: 2000});
     });
   }
 

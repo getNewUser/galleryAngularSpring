@@ -57,7 +57,7 @@ export class GalleryComponent implements OnInit {
   }
 
   private initSearch(e: string): void {
-    if (e.length < 3) {
+    if (e.length < 3 && this.selectedTags.length < 1 && this.selectedCategories.length < 1) {
       this.photos = this.allPhotos;
       return;
     }
@@ -76,7 +76,7 @@ export class GalleryComponent implements OnInit {
   }
 
   private loadTags(): Subscription {
-    return this.gallery.getTags().subscribe(data => {
+    return this.gallery.getTagsWithParent().subscribe(data => {
       this.tags = data;
     });
   }

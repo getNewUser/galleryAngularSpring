@@ -1,23 +1,22 @@
 <app-header></app-header>
 <section>
-  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end" fxLayoutAlign.xs="space-around stretch"
-    class="sorting-container">
+  <mat-card class="sorting-container">
     <div class="heading-chip">
       <p>Filter</p>
     </div>
-    <mat-form-field fxFlex="30">
+    <mat-form-field >
       <mat-select placeholder="Categories" multiple>
         <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
           {{category.name}} </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.xs="100">
+    <mat-form-field >
       <mat-label>Sort by Tags</mat-label>
       <mat-select placeholder="Tags" multiple>
         <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <label fxFlex="40" fxFlex.xs="100" class="pure-material-textfield-outlined relative">
+    <label >
       <mat-form-field>
         <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
           class="input-padding">
@@ -26,7 +25,7 @@
   </mat-card>
   <mat-card>
       <div class="gallery-container">
-        <div class="res-count-container">Showing {{photos?.length | itemCount}}</div>
+        <div class="res-count-container">Showing {{photos?.length | itemCount}} photos</div>
         <ng-container *ngIf="isLoaded else loading">
           <div class="photo-container" *ngFor="let item of photos">
             <app-photo [photo]="item"></app-photo>

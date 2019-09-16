@@ -61,6 +61,7 @@ export class AuthService {
 
     let role = atob(token.split('.')[1]);
     role = role.substring(35,45);
+    console.log(role);
 
     if(role === 'ROLE_ADMIN'){
       return true;

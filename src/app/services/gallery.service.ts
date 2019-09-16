@@ -10,11 +10,6 @@ import { ITag, IFullPicture, ICategory } from '../models';
 
 export class GalleryService {
 
-  // const httpOptions = {
-  //   headers: HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // }
 
   constructor(private http: HttpClient) { }
 
@@ -59,9 +54,15 @@ export class GalleryService {
     return this.http.get<ICategory[]>('http://localhost:8080/categories');
   }
 
-  getTags(): Observable<ITag[]> {
+  getTagsWithParent(): Observable<ITag[]> {
     return this.http.get<ITag[]>('http://localhost:8080/tags');
   }
+
+  getTags(): Observable<ITag[]> {
+    return this.http.get<ITag[]>('http://localhost:8080/tags/allexisting');
+  }
+
+
 
 
 

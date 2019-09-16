@@ -9,9 +9,14 @@ mat-toolbar {
     right: 25px;
   }
 
+  mat-icon {
+    margin-left: 3px;
+  }
+
   .toolbar-signup-button {
     position: absolute;
-    right: 100px;
+    right: 125px;
+    // right: 150px;
   }
 
   .toolbar-addphoto-button {

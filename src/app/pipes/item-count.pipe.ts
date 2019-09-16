@@ -5,12 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ItemCountPipe implements PipeTransform {
 
-  // transform(value: any, ...args: any[]): any {
-  //   return null;
-  // }
 
   transform(imageCount: number): string {
-    if(imageCount > 100 && imageCount < 500){
+    if(imageCount < 10){
+      return imageCount + '';
+    }
+    else if(imageCount > 100 && imageCount < 500){
       return '100+';
     }else if(imageCount > 500 && imageCount < 1000){
       return '500+';
