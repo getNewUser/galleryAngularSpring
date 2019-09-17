@@ -4,10 +4,12 @@
   <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Hey', 'Dismiss')" novalidate>
       <mat-form-field>
         <input matInput type="text" name="username" ngModel #username="ngModel" placeholder="Username">
+        <mat-icon matSuffix>navigate_next</mat-icon>
       </mat-form-field>
     <mat-form-field>
       <input matInput type="password" name="password" #description="ngModel" ngModel
-        placeholder="Description">
+        placeholder="Password">
+        <mat-icon matSuffix>navigate_next</mat-icon>
     </mat-form-field>
     <div class="col">
       <button mat-flat-button color="primary" class="submit-button">Submit <mat-icon>done</mat-icon></button>

@@ -6,6 +6,8 @@ import { NgForm, FormControl } from '@angular/forms';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { MatSnackBar } from '@angular/material';
+import { Router } from "@angular/router";
 import {
   MatAutocomplete,
   MatChipInputEvent,
@@ -30,9 +32,12 @@ export class UpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private gallery: GalleryService,
-    private filter: FilterCategoriesService
+    private filter: FilterCategoriesService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.loadTags();
+    this.loadCategories();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) =>
@@ -41,7 +46,7 @@ export class UpdateComponent implements OnInit {
     );
   }
 
-  onSubmit(f: NgForm) {
+  onSubmit(f: NgForm, message,action) {
     if (f.valid === true) {
       this.photo = f.value;
       this.photo.id = this.photoTemplate.id;
@@ -49,7 +54,19 @@ export class UpdateComponent implements OnInit {
       this.photo.width = this.photoTemplate.width;
       this.photo.height = this.photoTemplate.height;
       this.photo.date = this.photoTemplate.date;
+      if(this.photo.name === ''){
+        this.photo.name = this.photoTemplate.name;
+      }
+      if(this.photo.description === ''){
+        this.photo.description = this.photoTemplate.description;
+      }
+      if(this.photo.categories.length < 1){
+        this.photo.categories = this.photoTemplate.categories;
+      }
+      this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
+      this.snackBar.open('Image updated', action, { duration: 2000});
+      this.router.navigate(['home']);
     }
   }
 
@@ -67,10 +84,6 @@ export class UpdateComponent implements OnInit {
     });
   }
 
-  // private filterTags(tag: number): void{
-  //   this.filter.filter(tag, this.selectedTags);
-  // }
-
   private filterCategory(category: number) {
     this.filter.filter(category, this.selectedCategories);
   }
@@ -81,18 +94,10 @@ export class UpdateComponent implements OnInit {
       this.photoTemplate = data;
 
       for (let tag of data.tags) {
-        console.log(tag.name);
         this.tags.push(tag.name);
       }
     });
   }
-
-  // private  loadTags(): Subscription{
-  //   return this.gallery.getTags()
-  //   .subscribe(data => {
-  //     this.tags = data;
-  //   })
-  // }
 
   private loadCategories(): Subscription {
     return this.gallery.getCategories().subscribe(data => {
@@ -126,18 +131,14 @@ export class UpdateComponent implements OnInit {
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
 
-      // Add our fruit
       if ((value || '').trim()) {
         this.tags.push(value.trim());
       }
 
-      // Reset the input value
       if (input) {
         input.value = '';
       }
@@ -177,7 +178,6 @@ export class UpdateComponent implements OnInit {
       };
       this.tagsToReturn.push(tag);
     }
-    console.log(this.tagsToReturn);
     return this.tagsToReturn;
   }
 

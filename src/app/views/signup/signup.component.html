@@ -5,22 +5,26 @@
     <mat-form-field class="form-group">
       <input matInput type="text" name="name" placeholder="Enter your name" class="form-control"
         [(ngModel)]="model.name" #name="ngModel" required>
+        <mat-icon matSuffix>navigate_next</mat-icon>
       <div class="invalid-feedback">Please fill out this field</div>
     </mat-form-field>
     <mat-form-field class="form-group">
       <input matInput type="text" name="username" placeholder="Enter your username" class="form-control"
         [(ngModel)]="model.username" #username="ngModel" [class.is-invalid]="f.submitted && username.invalid"
         [class.is-valid]="username.valid" required>
+        <mat-icon matSuffix>navigate_next</mat-icon>
       <div class="invalid-feedback">Please fill out this field</div>
       <div class="valid-feedback">Username is available</div>
     </mat-form-field>
     <mat-form-field class="form-group">
-      <input matInput type="email" name="email" ngModel email="true" placeholder="Enter your email">
+      <input matInput type="email" name="email" ngModel email="true" placeholder="Enter your email" required>
+      <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
     <mat-form-field class="form-group">
       <input matInput type="password" class="form-control" [(ngModel)]="model.password" #password="ngModel"
         name="password" placeholder="Enter your password" [class.is-invalid]="f.submitted && password.invalid" required
         minlength="6">
+        <mat-icon matSuffix>vpn_key</mat-icon>
       <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
         <div *ngIf="password?.errors.required">Password is required</div>
         <div *ngIf="password?.errors.minlength">Password must be at least 6 characters</div>
@@ -30,6 +34,7 @@
       <input matInput type="password" class="form-control" [(ngModel)]="model.confirmPassword"
         #confirmPassword="ngModel" name="confirmPassword" placeholder="Confirm password"
         [class.is-invalid]="f.submitted && confirmPassword.invalid" required>
+        <mat-icon matSuffix>vpn_key</mat-icon>
       <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
         <div *ngIf="confirmPassword?.errors.required">Confirm Password is required</div>
         <div *ngIf="confirmPassword?.errors.matchValueError">Passwords do not match.</div>

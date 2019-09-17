@@ -1,11 +1,8 @@
 <app-header></app-header>
-<!-- <mat-card class="picture-mat-card"> -->
 <img [src]="imgurl" alt="main" />
-<!-- </mat-card> -->
-
 <div class="div2">
   <mat-card>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f,'','Dismiss')" novalidate>
       <div class="container">
         <div class="row">
           <div class="col">
@@ -20,15 +17,6 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <!-- <mat-form-field>
-              <mat-select name="tags" ngModel #tag="ngModel" placeholder="Tags" multiple>
-                <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)"> {{tag.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> -->
-
-
-
             <mat-form-field class="example-chip-list">
               <mat-chip-list #tagList aria-label="Tags selection">
                 <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"

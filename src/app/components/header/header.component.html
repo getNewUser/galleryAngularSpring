@@ -18,10 +18,10 @@
     <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
         <div class="row">
           <div class="col-m">
-              <button mat-flat-button color="primary" class="toolbar-login-button" (click)="logout('You succesfully logged out', 'Dismiss')">Logout</button>
+              <button mat-flat-button color="primary" class="toolbar-login-button" (click)="logout('You succesfully logged out', 'Dismiss')">Logout <mat-icon>exit_to_app</mat-icon></button>
           </div>
           <div class="col-m">
-              <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo</button>
+              <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo <mat-icon>add_a_photo</mat-icon></button>
           </div>
         </div>
         <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">
