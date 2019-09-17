@@ -2,7 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FilterCategoriesService } from './../../services/filterTagsCategories.service';
 import { GalleryService } from './../../services/gallery.service';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
@@ -36,7 +36,8 @@ export class AddComponent implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
     this.loadTags();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -47,14 +48,32 @@ export class AddComponent implements OnInit, OnDestroy {
     );
   }
 
-
   ngOnInit() {
     this.loadCategories();
     this.loadTags();
-    this.uploadForm = this.formBuilder.group({
-      file: ['']
-    });
+    this.createForm();
   }
+
+  credentials: FormGroup =  new FormGroup({
+    name: new FormControl(),
+    description: new FormControl(),
+    categories: new FormControl(),
+    tags: new FormControl(),
+    file: new FormControl()
+  });
+
+  private createForm(): void {
+    this.credentials = this.fb.group({
+      name: ['',[Validators.required,  Validators.minLength(5), Validators.maxLength(12)]],
+      description: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      categories: ['',[Validators.required]],
+      tags: ['',[Validators.required]],
+      file: ['',[Validators.required]]
+    })
+  }
+
+
+  
 
   picked(event): void {
     let fileList: FileList = event.target.files;
@@ -83,8 +102,11 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(f, message, action): void {
-    this.photo = f.value;
+  onSubmit(message, action): void {
+    if(this.credentials.invalid){
+      return;
+    }
+    this.photo = this.credentials.value;
     this.photo.tags = this.getTags();
     this.photo.thumbnail = this.fullPicture;
     console.log(this.photo);
@@ -136,6 +158,7 @@ export class AddComponent implements OnInit, OnDestroy {
  
 
   add(event: MatChipInputEvent): void {
+    console.log(this.credentials.controls['tags']);
     // Add fruit only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {

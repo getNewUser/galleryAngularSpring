@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/user.model';
 import { IUserRegistration } from 'src/app/models/userregistration.model';
 import { MatSnackBar } from '@angular/material';
@@ -11,7 +11,14 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  credentials: FormGroup;
+  credentials: FormGroup =  new FormGroup({
+    name: new FormControl(),
+    username: new FormControl(),
+    email: new FormControl(),
+    password: new FormControl(),
+    confirmPassword: new FormControl(),
+    policy: new FormControl()
+  });
   user: IUser = {
     name: '',
     username: '',
@@ -21,15 +28,30 @@ export class SignupComponent implements OnInit {
   userRegistration: IUserRegistration;
 
   constructor(private auth: AuthService,
-              private snackBar: MatSnackBar) {}
+              private snackBar: MatSnackBar,
+              private fb: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createForm();
+  }
 
-  model: any = {};
-  onSubmit(userForm, message, action) {
-    if (userForm.form.valid) {
-      alert('Form submitted sucessfully');
-      this.userRegistration = userForm.value;
+  private createForm(): void {
+    this.credentials = this.fb.group({
+      name: ['',[Validators.required,  Validators.minLength(5), Validators.maxLength(12)]],
+      username: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
+      email: ['',[Validators.required, Validators.email]],
+      password: ['',[Validators.required, Validators.minLength(8),Validators.maxLength(25)]],
+      confirmPassword: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(25)]],
+      policy: [false, Validators.requiredTrue]
+      
+    })
+  }
+
+  onSubmit(message, action) {
+    if(this.credentials.invalid){
+      return;
+    }
+      this.userRegistration = this.credentials.value;
       this.user.email = this.userRegistration.email;
       this.user.name = this.userRegistration.name;
       this.user.username = this.userRegistration.username;
@@ -38,8 +60,8 @@ export class SignupComponent implements OnInit {
       this.auth.register(this.user).then(() => {
         this.snackBar.open('You successfully signed up!', action, { duration: 2000});
       }).catch(error => {
-        this.snackBar.open('Something went wrong!', action, { duration: 2000});
+        this.snackBar.open('Name or email is already taken!', action, { duration: 2000});
       });
     }
-  }
+  
 }

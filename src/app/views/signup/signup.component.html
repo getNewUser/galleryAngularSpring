@@ -1,53 +1,80 @@
 <app-header></app-header>
 <img src="../../../assets/night-lights-city-blurred-traffic-defocused-background-full-hd-1080p_bxixei80_thumbnail-full01.png"/>
 <mat-card>
-  <form #f="ngForm" [matchValue]="['password', 'confirmPassword']">
-    <mat-form-field class="form-group">
-      <input matInput type="text" name="name" placeholder="Enter your name" class="form-control"
-        [(ngModel)]="model.name" #name="ngModel" required>
+    <form [formGroup]="credentials">
+    <mat-form-field>
+      <input matInput
+       type="text"
+       name="name" 
+       placeholder="Enter your name" 
+       formControlName="name"
+       required>
         <mat-icon matSuffix>navigate_next</mat-icon>
-      <div class="invalid-feedback">Please fill out this field</div>
+        <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 5 characters</mat-error>
+        <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
     </mat-form-field>
-    <mat-form-field class="form-group">
-      <input matInput type="text" name="username" placeholder="Enter your username" class="form-control"
-        [(ngModel)]="model.username" #username="ngModel" [class.is-invalid]="f.submitted && username.invalid"
-        [class.is-valid]="username.valid" required>
+    <mat-form-field>
+      <input matInput 
+      type="text" 
+      name="username" 
+      placeholder="Enter your username" 
+      formControlName="username" 
+      required>
         <mat-icon matSuffix>navigate_next</mat-icon>
-      <div class="invalid-feedback">Please fill out this field</div>
-      <div class="valid-feedback">Username is available</div>
+        <mat-error *ngIf="credentials.controls['username'].hasError('required')">Username is required</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('minlength')">Username must be atleast 5 characters</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('maxlength')">Username max length is 12</mat-error>
     </mat-form-field>
-    <mat-form-field class="form-group">
-      <input matInput type="email" name="email" ngModel email="true" placeholder="Enter your email" required>
+    <mat-form-field>
+      <input matInput 
+      type="email" 
+      name="email" 
+      placeholder="Enter your email"
+      formControlName="email" 
+      required>
       <mat-icon matSuffix>email</mat-icon>
+      <mat-error *ngIf="credentials.controls['email'].hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="credentials.controls['email'].hasError('email')">Email is invalid</mat-error>
     </mat-form-field>
-    <mat-form-field class="form-group">
-      <input matInput type="password" class="form-control" [(ngModel)]="model.password" #password="ngModel"
-        name="password" placeholder="Enter your password" [class.is-invalid]="f.submitted && password.invalid" required
-        minlength="6">
+    <mat-form-field>
+      <input matInput 
+      type="password" 
+      name="password" 
+      placeholder="Enter your password"
+      formControlName="password"
+      required 
+      minlength="6">
         <mat-icon matSuffix>vpn_key</mat-icon>
-      <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
-        <div *ngIf="password?.errors.required">Password is required</div>
-        <div *ngIf="password?.errors.minlength">Password must be at least 6 characters</div>
-      </div>
+        <mat-error *ngIf="credentials.controls['password'].hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="credentials.controls['password'].hasError('password')">Password is invalid</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('minlength')">Password must be atleast 8 characters</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('maxlength')">Password max length is 25</mat-error>
     </mat-form-field>
-    <mat-form-field class="form-group">
-      <input matInput type="password" class="form-control" [(ngModel)]="model.confirmPassword"
-        #confirmPassword="ngModel" name="confirmPassword" placeholder="Confirm password"
-        [class.is-invalid]="f.submitted && confirmPassword.invalid" required>
+    <mat-form-field>
+      <input matInput 
+      type="password" 
+      name="confirmPassword" 
+      placeholder="Confirm password" 
+      formControlName="confirmPassword"
+      required>
         <mat-icon matSuffix>vpn_key</mat-icon>
-      <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
-        <div *ngIf="confirmPassword?.errors.required">Confirm Password is required</div>
-        <div *ngIf="confirmPassword?.errors.matchValueError">Passwords do not match.</div>
-      </div>
+        <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('confirmPassword')">Password is invalid</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('minlength')">Password must be atleast 8 characters</mat-error>
+        <mat-error *ngIf="credentials.controls['username'].hasError('maxlength')">Password max length is 25</mat-error>
     </mat-form-field>
     <div>&nbsp;</div>
     <div>
-      <mat-checkbox required class="form-group" name="policy">I agree with privacy policy</mat-checkbox>
+      <mat-checkbox required
+      formControlName="policy"
+      required
+      name="policy">I agree with privacy policy</mat-checkbox>
+      <mat-error *ngIf="credentials.controls['policy'].hasError('required')">You have to agree with our policy</mat-error>
     </div>
     <div>&nbsp;</div>
-    <button mat-flat-button color="primary" class="submit-button"
-      (click)="onSubmit(f, 'You successfully signed up', 'Dismiss')">Submit<mat-icon>done</mat-icon></button>
-  </form>
+    <button mat-flat-button color="primary" class="submit-button" type="submit"
+      (click)="onSubmit('You successfully signed up', 'Dismiss')">Submit<mat-icon>done</mat-icon></button>
   <div>
   </div>
+  </form>
 </mat-card>

@@ -1,18 +1,26 @@
 <app-header></app-header>
 <img src="../../../assets/city-blurred-hd-1920x1080.jpg"/>
 <mat-card>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f, 'Hey', 'Dismiss')" novalidate>
+  <form [formGroup]="credentials" novalidate>
       <mat-form-field>
-        <input matInput type="text" name="username" ngModel #username="ngModel" placeholder="Username">
+        <input matInput type="text" 
+        name="username"  
+        placeholder="Username"
+        formControlName="username">
         <mat-icon matSuffix>navigate_next</mat-icon>
+        <mat-error *ngIf="credentials.controls['username'].hasError('required')">Username is required</mat-error>
       </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" name="password" #description="ngModel" ngModel
-        placeholder="Password">
+      <input matInput type="password" 
+        name="password"
+        placeholder="Password"
+        formControlName="password">
         <mat-icon matSuffix>navigate_next</mat-icon>
+        <mat-error *ngIf="credentials.controls['password'].hasError('required')">Password is required</mat-error>
     </mat-form-field>
     <div class="col">
-      <button mat-flat-button color="primary" class="submit-button">Submit <mat-icon>done</mat-icon></button>
+      <button mat-flat-button color="primary" class="submit-button"
+      (click)="onSubmit('', 'Dismiss')">Submit <mat-icon>done</mat-icon></button>
     </div>
   </form>
 </mat-card>

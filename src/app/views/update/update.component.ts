@@ -2,7 +2,7 @@ import { Subscription, Observable } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
@@ -34,7 +34,8 @@ export class UpdateComponent implements OnInit {
     private gallery: GalleryService,
     private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
     this.loadTags();
     this.loadCategories();
@@ -46,27 +47,48 @@ export class UpdateComponent implements OnInit {
     );
   }
 
-  onSubmit(f: NgForm, message,action) {
-    if (f.valid === true) {
-      this.photo = f.value;
+  credentials: FormGroup =  new FormGroup({
+    name: new FormControl(),
+    description: new FormControl(),
+    categories: new FormControl(),
+    tags: new FormControl()
+  });
+
+  private createForm(data: IPhoto): void {
+    this.credentials = this.fb.group({
+      name: [data.name ,[Validators.required,  Validators.minLength(5), Validators.maxLength(12)]],
+      description: [data.description,[Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      categories: [data.categories,[Validators.required]],
+      tags: ['',[Validators.required]]
+    });
+    
+  }
+
+  onSubmit(message: string, action: string) {
+    if (this.credentials.valid === true) {
+      this.photo = this.credentials.value;
       this.photo.id = this.photoTemplate.id;
       this.photo.thumbnail = this.photoTemplate.thumbnail;
       this.photo.width = this.photoTemplate.width;
       this.photo.height = this.photoTemplate.height;
       this.photo.date = this.photoTemplate.date;
-      if(this.photo.name === ''){
+      if (this.photo.name === ''){
         this.photo.name = this.photoTemplate.name;
       }
-      if(this.photo.description === ''){
+      if (this.photo.description === ''){
         this.photo.description = this.photoTemplate.description;
       }
-      if(this.photo.categories.length < 1){
+      if (this.photo.categories.length < 1){
         this.photo.categories = this.photoTemplate.categories;
       }
+      console.log(this.photo);
       this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
       this.snackBar.open('Image updated', action, { duration: 2000});
       this.router.navigate(['home']);
+    } else {
+      this.snackBar.open('Something went wrong', action, { duration: 2000});
+      
     }
   }
 
@@ -96,6 +118,7 @@ export class UpdateComponent implements OnInit {
       for (let tag of data.tags) {
         this.tags.push(tag.name);
       }
+      this.createForm(data);
     });
   }
 
@@ -125,9 +148,7 @@ export class UpdateComponent implements OnInit {
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   add(event: MatChipInputEvent): void {
