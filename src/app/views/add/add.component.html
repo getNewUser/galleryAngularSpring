@@ -53,7 +53,7 @@
             {{tag}}
           </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="this.credentials.controls['tags'].length < 1">Atlest 1 tag is required</mat-error>
+        <mat-error *ngIf="noTags">Atlest 1 tag is required</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-select

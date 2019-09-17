@@ -29,6 +29,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   SERVER_URL = 'http://localhost:8080/images';
   uploadForm: FormGroup;
+  noTags: boolean = true;
 
   constructor(
     private gallery: GalleryService,
@@ -106,6 +107,7 @@ export class AddComponent implements OnInit, OnDestroy {
     if(this.credentials.invalid){
       return;
     }
+    this.noTags = false;
     this.photo = this.credentials.value;
     this.photo.tags = this.getTags();
     this.photo.thumbnail = this.fullPicture;
@@ -158,7 +160,6 @@ export class AddComponent implements OnInit, OnDestroy {
  
 
   add(event: MatChipInputEvent): void {
-    console.log(this.credentials.controls['tags']);
     // Add fruit only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {

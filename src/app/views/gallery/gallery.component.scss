@@ -12,10 +12,10 @@ section {
   display: inline-block;
 }
 
-.gallery-container {
-  margin: 30px auto;
-  max-width: 870px;
-}
+// .gallery-container {
+//   margin: 30px auto;
+//   max-width: 870px;
+// }
 
 mat-form-field {
   margin-right: 40px;
@@ -56,28 +56,4 @@ mat-spinner {
 
 .placeholder {
   color: grey;
-}
-
-@media only screen and (max-width: 1440px) and (min-width: 981px) {
-  .test {
-    color: blue;
-  }
-}
-
-@media only screen and (max-width: 980px) {
-  .test {
-    color: red;
-  }
-}
-
-@media only screen and (max-width: 560px) {
-  .test {
-    color: black;
-  }
-}
-
-@media only screen and (max-width: 430px) {
-  .test {
-    color: violet;
-  }
 }

@@ -47,6 +47,16 @@ export class UpdateComponent implements OnInit {
     );
   }
 
+  
+
+  ngOnInit() {
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.loadPhoto(this.id);
+    this.loadCategories();
+    this.getFullPhoto(this.id);
+
+  }
+
   credentials: FormGroup =  new FormGroup({
     name: new FormControl(),
     description: new FormControl(),
@@ -56,15 +66,18 @@ export class UpdateComponent implements OnInit {
 
   private createForm(data: IPhoto): void {
     this.credentials = this.fb.group({
-      name: [data.name ,[Validators.required,  Validators.minLength(5), Validators.maxLength(12)]],
-      description: [data.description,[Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      name: [data.name ,[Validators.required,  Validators.minLength(3), Validators.maxLength(12)]],
+      description: [data.description,[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       categories: [data.categories,[Validators.required]],
       tags: ['',[Validators.required]]
     });
+
+    this.credentials.controls['categories'].setValue(data.categories);
     
   }
 
   onSubmit(message: string, action: string) {
+    this.credentials.controls['tags'].setValue(this.getTags());
     if (this.credentials.valid === true) {
       this.photo = this.credentials.value;
       this.photo.id = this.photoTemplate.id;
@@ -81,6 +94,7 @@ export class UpdateComponent implements OnInit {
       if (this.photo.categories.length < 1){
         this.photo.categories = this.photoTemplate.categories;
       }
+      this.photo.tags = this.getTags();
       console.log(this.photo);
       this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
@@ -90,13 +104,6 @@ export class UpdateComponent implements OnInit {
       this.snackBar.open('Something went wrong', action, { duration: 2000});
       
     }
-  }
-
-  ngOnInit() {
-    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.loadPhoto(this.id);
-    this.loadCategories();
-    this.getFullPhoto(this.id);
   }
 
   private getFullPhoto(imageId: number): Subscription {

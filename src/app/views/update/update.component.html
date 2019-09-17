@@ -11,7 +11,7 @@
               name="name"
               formControlName="name">
               
-           <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 5 characters</mat-error>
+           <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 3 characters</mat-error>
            <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
            <mat-error *ngIf="credentials.controls['name'].hasError('required')">Name is required</mat-error>
             </mat-form-field>
@@ -21,7 +21,7 @@
               <input matInput 
               name="description"
               formControlName="description">
-              <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast 5 characters</mat-error>
+              <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast 3 characters</mat-error>
               <mat-error *ngIf="credentials.controls['description'].hasError('maxlength')">Description max length is 50</mat-error>
               <mat-error *ngIf="credentials.controls['description'].hasError('required')">Description is required</mat-error>    
             </mat-form-field>

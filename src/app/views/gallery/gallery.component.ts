@@ -19,6 +19,7 @@ export class GalleryComponent implements OnInit {
   selectedCategories: number[] = [];
   tags: ITag[] = [];
   selectedTags: number[] = [];
+  counter: number = 0;
 
 
   searchString = '';
