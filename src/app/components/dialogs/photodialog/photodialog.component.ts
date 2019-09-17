@@ -35,7 +35,7 @@ export class PhotodialogComponent {
       return;
     }
     return this.gallery.deleteImage(this.data.id).subscribe(data => {
-      console.log(data);
+      location.reload();
     });
   }
 
