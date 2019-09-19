@@ -1,4 +1,3 @@
-import { MatchValueDirective } from './directives/match-value.directive';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
 import { FilterCategoriesService } from './services/filterTagsCategories.service';
@@ -38,7 +37,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule,MatAutocompleteSelectedEvent,MatAutocomplete } from '@angular/material/autocomplete';
-import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -57,9 +55,7 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     HeaderComponent,
     StartsWithCapitalPipe,
-    SignupComponent,
-    MatchValueDirective,
-    FooterComponent
+    SignupComponent
   ],
   imports: [
     BrowserModule,

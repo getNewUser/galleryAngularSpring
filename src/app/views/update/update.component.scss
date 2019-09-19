@@ -1,7 +1,7 @@
 mat-card {
-  width: 500px;
+  max-width: 400px;
   z-index: 999;
-  // top: 273px;
+  top: 228px;
 }
 
 mat-form-field {
@@ -9,14 +9,7 @@ mat-form-field {
 }
 
 img {
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  
-    /* Full height */
-    height: 55%;    
-    position: absolute;
-    top: 24%;
-    left: 30%;
-  
+  max-width: 1000px;
+  max-height: 600px;
+  margin: 200px auto;
 }

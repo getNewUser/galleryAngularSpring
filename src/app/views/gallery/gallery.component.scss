@@ -12,6 +12,14 @@ section {
   display: inline-block;
 }
 
+img { 
+  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .sorting-container {
   margin-bottom: 12px;
   margin-top: 53px;
@@ -29,6 +37,8 @@ section {
 mat-card {
   width: calc(100% - 32px);
   position: relative;
+
+  background-color: #FAFAFA;
 }
 
 mat-card:not(.sorting-container) {
@@ -56,3 +66,5 @@ mat-spinner {
 .placeholder {
   color: grey;
 }
+
+

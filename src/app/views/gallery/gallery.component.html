@@ -34,6 +34,9 @@
     </label>
   </mat-card>
   <mat-card>
+    <ng-container *ngIf="photos.length < 1">
+      <img src="../../../assets/imageedit_2_5812423925-696x379.png"/>
+    </ng-container>
     <div *ngFor="let item of photos; let i = index">
       <div *ngIf="i % 3 == 0">
         <div class="row justify-content-center">

@@ -42,3 +42,18 @@ img {
   width: 1922px;
   position: absolute;
 }
+
+
+.hero{
+  // box-sizing: border-box;
+  background-image: url('../../../assets/city-blurred-hd-1920x1080.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
+  height: calc(100vh - 17px);
+
+  div{
+      height: 90%;
+  }
+}
