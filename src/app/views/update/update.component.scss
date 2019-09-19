@@ -1,8 +1,7 @@
-.div2 {
+mat-card {
   width: 500px;
-  position: absolute;
-  left: 1097px;
-  top: 300px;
+  z-index: 999;
+  // top: 273px;
 }
 
 mat-form-field {
@@ -10,18 +9,6 @@ mat-form-field {
 }
 
 img {
-  // height: 500px;
-  // position: absolute;
-  // top: 185px;
-  // right: 790px;
-  // border: 1px solid #ddd;
-  // border-radius: 4px;
-  // box-shadow: 2px 2px;
-
-
-    /* The image used */
-    // background-image: url("photographer.jpg");
-
     /* Add the blur effect */
     filter: blur(8px);
     -webkit-filter: blur(8px);
@@ -32,8 +19,4 @@ img {
     top: 24%;
     left: 30%;
   
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
