@@ -3,29 +3,63 @@ mat-toolbar {
   top: 0;
   width: 100%;
   z-index: 999;
+}
 
-  .toolbar-login-button {
-    position: absolute;
-    right: 25px;
-  }
 
-  mat-icon {
-    margin-left: 3px;
-  }
 
+@media (min-width: 1200px) {
   .toolbar-signup-button {
-    position: absolute;
-    right: 125px;
-    // right: 150px;
+    margin-left: 1515px;
   }
 
   .toolbar-addphoto-button {
-    position: absolute;
-    right: 140px;
+    margin-left: 1485px;
+  }
+}
+
+// @media (min-width: 992px) and (max-width: 1199.98px) {
+
+
+// }
+@media (min-width: 768px) and (max-width: 991.98px) {
+  mat-card {
+    background-color: red;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  mat-card {
+    background-color: blue;
+  }
+}
+
+@media (min-width: 420px) and (max-width: 575.98px) {
+  // .toolbar-login-button {
+  //   margin-left: -19px;
+  // }
+
+  mat-card {
+    background-color: red;
+  }
+}
+
+@media (min-width: 380px) and (max-width: 419.98px) {
+  // .toolbar-signup-button {
+  //   margin-left: 62px;
+  // }
+
+  mat-card {
+    background-color: green;
+  }
+}
+
+@media (min-width: 319px) and (max-width: 379.98) {
+  .toolbar-login-button {
+    margin-left: -18px;
   }
 
- 
-  .home-button {
-    left: 25px;
+  mat-card {
+    margin-left: 20px;
   }
+
 }

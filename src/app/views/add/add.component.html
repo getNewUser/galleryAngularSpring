@@ -1,84 +1,65 @@
 <app-header></app-header>
-<section>
-  <mat-card>
-    <div class="container">
-      <img class="center" src="{{shownPicture}}" />
-    </div>
-  </mat-card>
-  <mat-card>
-    <form [formGroup]="credentials" class="selections">
-      <label>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-3">
+    <mat-card>
+      <form [formGroup]="credentials" class="selections">
         <mat-form-field>
-          <input matInput
-           formControlName="name"
-           name="name"
-           placeholder="Name: " 
-           required>
-           <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 5 characters</mat-error>
-           <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
-           <mat-error *ngIf="credentials.controls['name'].hasError('required')">Name is required</mat-error>
+          <input matInput formControlName="name" name="name" placeholder="Name: " required>
+          <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 5 characters
+          </mat-error>
+          <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
+          <mat-error *ngIf="credentials.controls['name'].hasError('required')">Name is required</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput 
-          name="description" 
-          placeholder="Description: " 
-          required
-          formControlName="description">
-          <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast 5 characters</mat-error>
-          <mat-error *ngIf="credentials.controls['description'].hasError('maxlength')">Description max length is 50</mat-error>
-          <mat-error *ngIf="credentials.controls['description'].hasError('required')">Description is required</mat-error>
+          <input matInput name="description" placeholder="Description: " required formControlName="description">
+          <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast 5
+            characters</mat-error>
+          <mat-error *ngIf="credentials.controls['description'].hasError('maxlength')">Description max length is 50
+          </mat-error>
+          <mat-error *ngIf="credentials.controls['description'].hasError('required')">Description is required
+          </mat-error>
         </mat-form-field>
-      </label>
-      <mat-form-field class="example-chip-list">
-        <mat-chip-list #tagList 
-        aria-label="Tags selection" 
-        required>
-          <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-            {{tag}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input 
-          placeholder="New tag..." 
-          #tagInput 
-          [formControl]="tagCtrl" 
-          [matAutocomplete]="auto"
-          [matChipInputFor]="tagList" 
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur" 
-          (matChipInputTokenEnd)="add($event)"
-          formControlName="tags">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-            {{tag}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="noTags">Atlest 1 tag is required</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select
-        name="categories" 
-        placeholder="Categories" 
-        multiple 
-        required
-        formControlName="categories">
-          <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">
-            {{category.name}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required</mat-error>
-      </mat-form-field> 
-      <mat-form-field>
-        <ngx-mat-file-input 
-        (change)="picked($event)" 
-         placeholder="Image" 
-         required
-         name="file"
-         formControlName="file">
-        </ngx-mat-file-input>
-        <mat-icon matSuffix>folder</mat-icon>
-        <mat-error *ngIf="credentials.controls['file'].hasError('required')">Image upload is required</mat-error>
-      </mat-form-field>
-      <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit('message','Dismiss')">Submit</button>
-    </form>
-  </mat-card>
-</section>
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #tagList aria-label="Tags selection" required>
+            <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(tag)">
+              {{tag}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+              [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" formControlName="tags">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              {{tag}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="noTags">Atlest 1 tag is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select name="categories" placeholder="Categories" multiple required formControlName="categories">
+            <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategories(category.id)">
+              {{category.name}} </mat-option>
+          </mat-select>
+          <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <ngx-mat-file-input (change)="picked($event)" placeholder="Image" required name="file" formControlName="file">
+          </ngx-mat-file-input>
+          <mat-icon matSuffix>folder</mat-icon>
+          <mat-error *ngIf="credentials.controls['file'].hasError('required')">Image upload is required</mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="submit-button"
+          (click)="onSubmit('message','Dismiss')">Submit</button>
+      </form>
+    </mat-card>
+  </div>
+  <div class="col-sm-6">
+    <img src="{{shownPicture}}" />
+  </div>
+  <div class="col-sm-2"></div>
+</div>

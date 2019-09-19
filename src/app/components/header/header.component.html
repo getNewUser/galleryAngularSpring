@@ -1,30 +1,31 @@
 <mat-toolbar>
   <span>{{href | startsWithCapital}}</span>
-
+  <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below"
+    routerLink="/">
+    <mat-icon>home</mat-icon>
+  </button>
   <ng-container *ngIf="auth.loggedIn === false" class="toolbar">
-      <div class="row">
-        <div class="col-m">
-            <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>done</mat-icon></button>
-        </div>
-        <div class="col-m">
-            <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>done_all</mat-icon></button>
-        </div>
+    <div class="row">
+      <div class="col">
+        <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>
+            supervised_user_circle</mat-icon></button>
       </div>
-      <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">
-        <mat-icon>home</mat-icon>
-      </button>
-    </ng-container>
-
-    <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
-        <div class="row">
-          <div class="col-m">
-              <button mat-flat-button color="primary" class="toolbar-login-button" (click)="logout('You succesfully logged out', 'Dismiss')">Logout <mat-icon>exit_to_app</mat-icon></button>
-          </div>
-          <div class="col-m">
-              <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo <mat-icon>add_a_photo</mat-icon></button>
-          </div>
-        </div>
-        <button class="home-button" mat-icon-button mat-icon-button matTooltip="Home" matTooltipPosition="below" routerLink="/">
-          <mat-icon>home</mat-icon>
-        </button>
-      </ng-container>
+      <div class="col">
+        <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>
+            perm_identity</mat-icon></button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
+    <div class="row">
+      <div class="col">
+        <button mat-flat-button color="primary" class="toolbar-addphoto-button" routerLink="/add">Add photo <mat-icon>
+            add_a_photo</mat-icon></button>
+      </div>
+      <div class="col">
+        <button mat-flat-button color="primary" class="toolbar-login-button"
+          (click)="logout('You succesfully logged out', 'Dismiss')">Logout <mat-icon>exit_to_app</mat-icon></button>
+      </div>
+    </div>
+  </ng-container>
+</mat-toolbar>

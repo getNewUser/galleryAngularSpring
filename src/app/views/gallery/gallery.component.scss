@@ -12,19 +12,18 @@ section {
   display: inline-block;
 }
 
-// .gallery-container {
-//   margin: 30px auto;
-//   max-width: 870px;
-// }
-
-mat-form-field {
-  margin-right: 40px;
-  width: 354px;
-}
-
 .sorting-container {
   margin-bottom: 12px;
   margin-top: 53px;
+
+  mat-form-field {
+    padding: 0 30px;
+    width: 100%;
+  }
+
+  ::ng-deep .mat-form-field-outline {
+    max-height: 56px !important;
+  }
 }
 
 mat-card {

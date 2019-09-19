@@ -4,37 +4,47 @@
     <div class="heading-chip">
       <p>Filter</p>
     </div>
-    <mat-form-field>
-      <mat-select placeholder="Categories" multiple>
-        <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
-          {{category.name}} </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Sort by Tags</mat-label>
-      <mat-select placeholder="Tags" multiple>
-        <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-sm-5">
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
+            class="input-padding">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field>
+          <mat-select placeholder="Categories" multiple>
+            <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
+              {{category.name}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field>
+          <mat-label>Sort by Tags</mat-label>
+          <mat-select placeholder="Tags" multiple>
+            <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
     <label>
-      <mat-form-field>
-        <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
-          class="input-padding">
-      </mat-form-field>
+
     </label>
   </mat-card>
   <mat-card>
-      <div *ngFor="let item of photos; let i = index">
-          <div *ngIf="i % 3 == 0">
-            <div class="row justify-content-center">
-              <div *ngFor="let item of photos.slice(i, i + 3)">
-                <div class="photo-container">
-                  <app-photo [photo]="item"></app-photo>
-                </div>
-              </div>
+    <div *ngFor="let item of photos; let i = index">
+      <div *ngIf="i % 3 == 0">
+        <div class="row justify-content-center">
+          <div *ngFor="let item of photos.slice(i, i + 3)">
+            <div class="photo-container">
+              <app-photo [photo]="item"></app-photo>
             </div>
           </div>
         </div>
+      </div>
+    </div>
   </mat-card>
 </section>
 <ng-template #loading>

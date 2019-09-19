@@ -3,6 +3,7 @@ mat-card {
   max-width: 400px;
   padding-bottom: 30px;
   z-index: 2;
+  margin-left: 100px;
   h1 {
     text-transform: uppercase;
     text-align: center;
@@ -39,10 +40,6 @@ mat-card {
 .row {
   margin-top: calc(46vh - 100px);
 }
-// mat-form-field {
-//   width: 300px;
-//   // margin-left: 30px;
-// }
 
 img {
   top: 0;
@@ -51,3 +48,19 @@ img {
   width: 1922px;
   position: absolute;
 }
+
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) { 
+    mat-card{
+      margin: 0 auto;
+    }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (max-width: 768px) { }
+
+// Large devices (desktops, 992px and up)
+@media (max-width: 992px) {  }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (max-width: 1200px) {  }
