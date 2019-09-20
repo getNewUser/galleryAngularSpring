@@ -9,7 +9,6 @@ export class FilterCategoriesService {
       for (let i = 0; i < selectedTagsOrCategories.length; i++) {
         if (selectedTagsOrCategories[i] === tag) {
           selectedTagsOrCategories.splice(i, 1);
-          console.log(selectedTagsOrCategories);
           return selectedTagsOrCategories;
         }
       }

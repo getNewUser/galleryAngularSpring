@@ -1,73 +1,73 @@
 <app-header></app-header>
 <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-3">
-        <mat-card>
-            <form [formGroup]="credentials">
-              <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput name="name" formControlName="name">
-                      <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 3 characters
-                      </mat-error>
-                      <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
-                      <mat-error *ngIf="credentials.controls['name'].hasError('required')">Name is required</mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput name="description" formControlName="description">
-                      <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast
-                        3 characters</mat-error>
-                      <mat-error *ngIf="credentials.controls['description'].hasError('maxlength')">Description max length is
-                        50</mat-error>
-                      <mat-error *ngIf="credentials.controls['description'].hasError('required')">Description is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col">
-                    <mat-form-field class="example-chip-list">
-                      <mat-chip-list #tagList aria-label="Tags selection">
-                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                          (removed)="remove(tag)">
-                          {{tag}}
-                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                        </mat-chip>
-                        <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
-                          [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-                      </mat-chip-list>
-                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-                          {{tag}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  </div>
-                  <div class="col">
-                    <mat-form-field>
-                      <mat-select name="categories" placeholder="Categories" multiple formControlName="categories">
-                        <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
-                          {{ category.name }}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required
-                      </mat-error>
-                    </mat-form-field>
-                    <div class="col">
-                      <button mat-flat-button color="primary" class="submit-button"
-                        (click)="onSubmit('message','Dismiss')">Submit</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </mat-card>
-    </div>
-    <div class="col-sm-6">
+  <div class="col main">
+    <mat-card>
+      <div class="row">
         <img [src]="imgurl" alt="main" />
-    </div>
-    <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <form [formGroup]="credentials" class="selections">
+          <div class="row">
+            <mat-form-field>
+              <input matInput name="name" formControlName="name">
+              <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 3 characters
+              </mat-error>
+              <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
+              <mat-error *ngIf="credentials.controls['name'].hasError('required')">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <input matInput name="description" formControlName="description">
+              <mat-error *ngIf="credentials.controls['description'].hasError('minlength')">Description must be atleast
+                3 characters</mat-error>
+              <mat-error *ngIf="credentials.controls['description'].hasError('maxlength')">Description max length is
+                50</mat-error>
+              <mat-error *ngIf="credentials.controls['description'].hasError('required')">Description is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #tagList aria-label="Tags selection">
+                <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(tag)">
+                  {{tag}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+                  [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                  {{tag}}
+                </mat-option>
+              </mat-autocomplete>
+              <ng-container *ngIf="isTagsEmpty">
+                  <mat-error>Atleast one tag is required</mat-error>
+                </ng-container>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-select name="categories" placeholder="Categories" multiple required formControlName="categories">
+                <mat-option *ngFor="let category of categories" [value]="category"
+                  (click)="filterCategory(category.id)">
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+
+            <button mat-flat-button color="primary" class="submit-button"
+              (click)="onSubmit('Dismiss')">Submit</button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
   </div>
-  
+</div>

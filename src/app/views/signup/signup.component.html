@@ -45,6 +45,7 @@
                 </mat-error>
                 <mat-error *ngIf="credentials.controls['username'].hasError('maxlength')">Password max length is 25
                 </mat-error>
+                  <mat-error *ngIf="credentials.hasError('passwordsDoNotMatch')"> Passwords do not match</mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput type="password" name="confirmPassword" placeholder="Confirm password"
@@ -58,9 +59,6 @@
                   characters
                 </mat-error>
                 <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('maxlength')">Password max length is 25
-                </mat-error>
-                <mat-error *ngIf="credentials.controls['password'].value !== credentials.controls['confirmPassword'].value">
-                  Passwords does not match
                 </mat-error>
               </mat-form-field>
               <div>&nbsp;</div>

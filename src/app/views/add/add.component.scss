@@ -1,11 +1,12 @@
 mat-card {
-  top: 228px;
+  top: 123px;
   min-height: 300px;
-  max-width: 400px;
+  max-width: 2000px;
   z-index: 2;
 
   mat-form-field {
-    width: 100%;
+    width: 50%;
+    margin: 0 auto;
   }
 
   form {
@@ -14,8 +15,8 @@ mat-card {
   }
 
   button {
-    margin-top: 10px;
-    width: 100%;
+    margin: 0 auto;
+    width: 50%;
     text-transform: uppercase;
     height: 43px;
   }
@@ -23,134 +24,18 @@ mat-card {
 
 img {
   max-width: 100%;
-  max-height: 600px;
-  margin: 200px auto;
+  max-height: 400px;
+  margin: 5px auto;
 }
-
-
-@media only screen and (max-width: 1200px) {
-  .main {
-    width: 100%;
-    margin: 0 25px;
-  }
-
-  .picture {
-    max-width: 600px;
-  }
-  .side {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .main {
-    width: 100%;
-    margin-left: 50px;
-  }
-  .side {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .main {
-    width: 100%;
-    margin: 0 3px;
-  }
-  .side {
-    display: none;
-  }
-}
-
 @media only screen and (max-width: 576px) {
-  .main {
-    width: 100%;
-    margin: 0 90px;
-  }
-
-  .side {
-    display: none;
+  img {
+    width: 92%;
   }
 }
 
 @media only screen and (max-width: 420px) {
-  .main {
-    width: 100%;
-    margin: 0 68px;
-  }
-
-  .side {
-    display: none;
+  img {
+    margin: 0 auto;
+    width: 85%;
   }
 }
-
-@media only screen and (max-width: 330px) {
-  .main {
-    width: 100%;
-    margin: 0 5px;
-  }
-
-  .side {
-    display: none;
-  }
-}
-// @media only screen and (max-width: 1200px) {
-//   img {
-//     max-width: 700px;
-//     max-height: 400px;
-//   }
-// }
-
-
-// @media only screen and (max-width: 992px) {
-//   .main {
-//     width: 300px;
-//     margin: 0 50px;
-//   }
-//   .side {
-//     display: none;
-//   }
-// }
-
-// @media only screen and (max-width: 768px) {
-//   .main {
-//     width: 100%;
-//     margin: 0 50px;
-//   }
-//   .side {
-//     display: none;
-//   }
-// }
-
-// @media only screen and (max-width: 576px) {
-//   .main {
-//     width: 100%;
-//     margin: 0 90px;
-//   }
-
-//   .side {
-//     display: none;
-//   }
-// }
-
-// @media only screen and (max-width: 420px) {
-//   .main {
-//     width: 100%;
-//     margin: 0 68px;
-//   }
-
-//   .side {
-//     display: none;
-//   }
-// }
-
-// @media only screen and (max-width: 330px) {
-//   .main {
-//     width: 100%;
-//     margin: 0 5px;
-//   }
-
-//   .side {
-//     display: none;
-//   }
-// }

@@ -64,20 +64,27 @@ export class UpdateComponent implements OnInit {
     tags: new FormControl()
   });
 
+ 
   private createForm(data: IPhoto): void {
     this.credentials = this.fb.group({
       name: [data.name ,[Validators.required,  Validators.minLength(3), Validators.maxLength(12)]],
       description: [data.description,[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      categories: [data.categories,[Validators.required]],
+      categories: [[Validators.required]],
       tags: ['',[Validators.required]]
     });
 
-    this.credentials.controls['categories'].setValue(data.categories);
+    // this.credentials.controls['categories'].setValue(data.categories);
     
   }
 
-  onSubmit(message: string, action: string) {
-    this.credentials.controls['tags'].setValue(this.getTags());
+  onSubmit( action: string) {
+    console.log(this.credentials.errors);
+    console.log(this.selectedCategories);
+    console.log(this.categories);
+    if (this.tags.length < 1) {
+      this.isTagsEmpty = true;
+      return;
+    }
     if (this.credentials.valid === true) {
       this.photo = this.credentials.value;
       this.photo.id = this.photoTemplate.id;
@@ -95,7 +102,6 @@ export class UpdateComponent implements OnInit {
         this.photo.categories = this.photoTemplate.categories;
       }
       this.photo.tags = this.getTags();
-      console.log(this.photo);
       this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
       this.snackBar.open('Image updated', action, { duration: 2000});
@@ -151,6 +157,7 @@ export class UpdateComponent implements OnInit {
   tags: string[] = [];
   filteredTags: Observable<string[]>;
   allTags: string[] = [];
+  isTagsEmpty = false;
 
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
@@ -180,6 +187,9 @@ export class UpdateComponent implements OnInit {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+    }
+    if(this.tags.length < 1){
+      this.isTagsEmpty = true;
     }
   }
 

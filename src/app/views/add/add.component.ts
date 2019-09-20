@@ -37,7 +37,7 @@ export class AddComponent implements OnInit, OnDestroy {
   selectedTags: number[] = [];
   fullPicture: string;
   shownPicture: string = '../../../assets/noimage2.png';
-  isTagsEmpty = true;
+  isTagsEmpty = false;
 
   SERVER_URL = 'http://localhost:8080/images';
   uploadForm: FormGroup;
@@ -85,7 +85,7 @@ export class AddComponent implements OnInit, OnDestroy {
     });
   }
 
-  picked(event: any): void { //here
+  picked(event: any): void {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
@@ -112,15 +112,12 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(action): void {
-    if (this.getTags().length === 0) {
-      this.credentials.controls['tags'].setErrors({
-        required: true
-      });
-
+  onSubmit(action: string): void {
+    if (this.tags.length < 1) {
       this.isTagsEmpty = true;
+      return;
     }
-    if (this.credentials.invalid) {
+    if (this.credentials.errors !== null) {
       return;
     }
     this.isTagsEmpty = false;
@@ -145,7 +142,6 @@ export class AddComponent implements OnInit, OnDestroy {
         }
       );
   }
-
 
   public filterCategories(category: number): void {
     this.filter.filter(category, this.selectedCategories);
@@ -172,13 +168,12 @@ export class AddComponent implements OnInit, OnDestroy {
   tags: string[] = [];
   filteredTags: Observable<string[]>;
   allTags: string[] = [];
+  tagsIsEmpty = true;
 
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   add(event: MatChipInputEvent): void {
@@ -194,6 +189,7 @@ export class AddComponent implements OnInit, OnDestroy {
         input.value = '';
       }
 
+      this.isTagsEmpty = false;
       this.tagCtrl.setValue(null);
     }
   }
@@ -203,6 +199,10 @@ export class AddComponent implements OnInit, OnDestroy {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+    }
+
+    if (this.tags.length < 1) {
+      this.isTagsEmpty = true;
     }
   }
 
