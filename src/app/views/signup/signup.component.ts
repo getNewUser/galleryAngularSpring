@@ -9,6 +9,7 @@ import {
 import { IUser } from 'src/app/models/user.model';
 import { IUserRegistration } from 'src/app/models/userregistration.model';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -35,7 +36,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -73,11 +75,13 @@ export class SignupComponent implements OnInit {
     this.auth
       .register(this.user)
       .then(() => {
+        this.router.navigate(['home']);
         this.snackBar.open('You successfully signed up!', action, {
           duration: 2000
         });
       })
       .catch(error => {
+
         this.snackBar.open('Name or email is already taken!', action, {
           duration: 2000
         });
