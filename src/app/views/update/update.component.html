@@ -29,7 +29,7 @@
           </div>
           <div class="row">
             <mat-form-field class="example-chip-list">
-              <mat-chip-list #tagList aria-label="Tags selection">
+              <mat-chip-list #tagList aria-label="Tags selection" required>
                 <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
                   (removed)="remove(tag)">
                   {{tag}}
@@ -37,16 +37,16 @@
                 </mat-chip>
                 <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
                   [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" formControlName="tags">
               </mat-chip-list>
               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                 <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
                   {{tag}}
                 </mat-option>
               </mat-autocomplete>
-              <ng-container *ngIf="isTagsEmpty">
-                  <mat-error>Atleast one tag is required</mat-error>
-                </ng-container>
+              <!-- <ng-container *ngIf="isTagsEmpty">
+                    <mat-error>Atleast one tag is required</mat-error>
+                  </ng-container> -->
             </mat-form-field>
           </div>
           <div class="row">
@@ -58,13 +58,12 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required
-                </mat-error>
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="row">
 
-            <button mat-flat-button color="primary" class="submit-button"
-              (click)="onSubmit('Dismiss')">Submit</button>
+            <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit('Dismiss')">Submit</button>
           </div>
         </form>
       </div>

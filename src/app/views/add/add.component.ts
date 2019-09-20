@@ -113,6 +113,8 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(action: string): void {
+    console.log(this.credentials.valid);
+    console.log(this.credentials.value);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
       return;
@@ -194,8 +196,8 @@ export class AddComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.tags.indexOf(fruit);
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);

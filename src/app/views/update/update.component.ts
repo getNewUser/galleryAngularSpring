@@ -28,6 +28,7 @@ export class UpdateComponent implements OnInit {
   selectedCategories: number[] = [];
   fullPhoto: string;
   imgurl: string;
+  isTagsEmpty = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,11 +65,11 @@ export class UpdateComponent implements OnInit {
     tags: new FormControl()
   });
 
-  passwordValidator(form: FormGroup){
-    const condition = form.get('tags').value === null;
+  // passwordValidator(form: FormGroup){
+  //   const condition = form.get('tags').value === null;
 
-    return condition ? { tagsRequired: true} : null;
-  }
+  //   return condition ? { tagsRequired: true} : null;
+  // }
 
   private createForm(data: IPhoto): void {
     this.credentials = this.fb.group({
@@ -77,7 +78,7 @@ export class UpdateComponent implements OnInit {
       categories: ['', [Validators.required]],
       tags: ['',[Validators.required]]
     }, {
-      validator: this.passwordValidator
+      // validator: this.passwordValidator
     });
 
     // this.credentials.controls['categories'].setValue(data.categories);
@@ -85,14 +86,16 @@ export class UpdateComponent implements OnInit {
   }
 
   onSubmit( action: string) {
-    console.log(this.credentials.errors);
-    console.log(this.selectedCategories);
-    console.log(this.categories);
+    this.credentials.controls['tags'].setValue(this.tags);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
-      return;
+      // return;
     }
+    console.log(this.credentials.controls['tags'].value);
+    console.log(this.credentials.valid);
+    console.log(this.credentials.value);
     if (this.credentials.valid === true) {
+      console.log(this.photo);
       this.photo = this.credentials.value;
       this.photo.id = this.photoTemplate.id;
       this.photo.thumbnail = this.photoTemplate.thumbnail;
@@ -108,7 +111,6 @@ export class UpdateComponent implements OnInit {
       if (this.photo.categories.length < 1){
         this.photo.categories = this.photoTemplate.categories;
       }
-      this.photo.tags = this.getTags();
       this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
       this.snackBar.open('Image updated', action, { duration: 2000});
@@ -126,7 +128,7 @@ export class UpdateComponent implements OnInit {
     });
   }
 
-  private filterCategory(category: number) {
+  public filterCategory(category: number) {
     this.filter.filter(category, this.selectedCategories);
   }
 
@@ -164,7 +166,6 @@ export class UpdateComponent implements OnInit {
   tags: string[] = [];
   filteredTags: Observable<string[]>;
   allTags: string[] = [];
-  isTagsEmpty = false;
 
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
@@ -185,17 +186,19 @@ export class UpdateComponent implements OnInit {
         input.value = '';
       }
 
+      this.isTagsEmpty = false;
       this.tagCtrl.setValue(null);
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.tags.indexOf(fruit);
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
-    if(this.tags.length < 1){
+
+    if (this.tags.length < 1) {
       this.isTagsEmpty = true;
     }
   }
@@ -214,7 +217,7 @@ export class UpdateComponent implements OnInit {
     );
   }
 
-  public getTags(): ITag[] {
+  getTags(): ITag[] {
     for (let i = 0; i < this.tags.length; i++) {
       let tag: ITag = {
         id: '',
@@ -236,3 +239,4 @@ export class UpdateComponent implements OnInit {
     });
   }
 }
+

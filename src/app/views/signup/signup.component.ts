@@ -42,11 +42,6 @@ export class SignupComponent implements OnInit {
     this.createForm();
   }
 
-  passwordValidator(form: FormGroup){
-    const condition = form.get('password').value !== form.get('confirmPassword').value;
-
-    return condition ? { passwordsDoNotMatch: true} : null;
-  }
 
   private createForm(): void {
     this.credentials = this.fb.group({
@@ -56,22 +51,16 @@ export class SignupComponent implements OnInit {
       password: [ '', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       confirmPassword: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       policy: [false, Validators.requiredTrue]
-    }, {
-      validator: this.passwordValidator
-    });
+    },);
   }
 
-  onSubmit(message: string, action) { // here
-    if ( this.credentials.controls['password'].value === this.credentials.controls['confirmPassword'].value) {
-      console.log('match')
-     
-    }else {
+  onSubmit(message: string, action: string) { 
+    if ( this.credentials.controls['password'].value !== this.credentials.controls['confirmPassword'].value) {
       this.credentials.controls.password.setErrors({
         notMatched: true
       });
-      console.log(this.credentials.errors);
-      console.log('doesnt match');
     }
+    console.log( this.credentials.errors);
     if (this.credentials.invalid) {
       return;
     }

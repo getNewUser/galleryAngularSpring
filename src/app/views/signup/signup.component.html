@@ -45,15 +45,13 @@
                 </mat-error>
                 <mat-error *ngIf="credentials.controls['username'].hasError('maxlength')">Password max length is 25
                 </mat-error>
-                  <mat-error *ngIf="credentials.hasError('passwordsDoNotMatch')"> Passwords do not match</mat-error>
+                  <mat-error *ngIf="credentials.controls['password'].hasError('notMatched')"> Passwords do not match</mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput type="password" name="confirmPassword" placeholder="Confirm password"
                   formControlName="confirmPassword" required>
                 <mat-icon matPrefix>vpn_key</mat-icon>
                 <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('required')">Password is required
-                </mat-error>
-                <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('confirmPassword')">Password is invalid
                 </mat-error>
                 <mat-error *ngIf="credentials.controls['confirmPassword'].hasError('minlength')">Password must be atleast 8
                   characters
