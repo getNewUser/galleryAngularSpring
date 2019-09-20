@@ -21,7 +21,6 @@ export class GalleryComponent implements OnInit {
   selectedTags: number[] = [];
   counter: number = 0;
 
-
   searchString = '';
 
   isLoaded = false;
@@ -30,16 +29,13 @@ export class GalleryComponent implements OnInit {
     private gallery: GalleryService,
     private filter: FilterCategoriesService,
     private token: AuthService
-  ) {
-  }
-  
+  ) {}
 
   ngOnInit() {
     this.loadPhotos();
     this.loadCategories();
     this.loadTags();
   }
-
 
   private filterTags(tag: number): void {
     this.filter.filter(tag, this.selectedTags);
@@ -58,7 +54,11 @@ export class GalleryComponent implements OnInit {
   }
 
   private initSearch(e: string): void {
-    if (e.length < 3 && this.selectedTags.length < 1 && this.selectedCategories.length < 1) {
+    if (
+      e.length < 3 &&
+      this.selectedTags.length < 1 &&
+      this.selectedCategories.length < 1
+    ) {
       this.photos = this.allPhotos;
       return;
     }

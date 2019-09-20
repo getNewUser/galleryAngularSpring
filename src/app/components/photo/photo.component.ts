@@ -10,7 +10,6 @@ import { PhotodialogComponent } from '../dialogs/photodialog/photodialog.compone
   styleUrls: ['./photo.component.scss']
 })
 export class PhotoComponent implements OnInit {
-
   @Input() photo: IPhoto;
 
   constructor(private gallery: GalleryService, private dialog: MatDialog) {}
@@ -18,7 +17,6 @@ export class PhotoComponent implements OnInit {
   ngOnInit() {}
 
   openDialog() {
-    // const dialogConfig = new MatDialogConfig();
 
     this.dialog.open(PhotodialogComponent, {
       width: '500px',

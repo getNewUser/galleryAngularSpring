@@ -17,9 +17,6 @@ mat-toolbar {
   }
 }
 
-
-
-
 @media only screen and (max-width: 1200px) {
   .toolbar-signup-button {
     margin-left: 843px;
@@ -63,9 +60,8 @@ mat-toolbar {
   }
 
   .toolbar-addphoto-button {
-    margin-left: 139px  ;
+    margin-left: 139px;
     margin-right: 10px;
-    
   }
 }
 
@@ -77,7 +73,6 @@ mat-toolbar {
 
   .toolbar-addphoto-button {
     margin-left: 1px;
-
   }
 }
 
@@ -97,6 +92,5 @@ mat-toolbar {
 
   .toolbar-addphoto-button {
     margin-left: -14px;
-
   }
 }

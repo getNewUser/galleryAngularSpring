@@ -5,10 +5,10 @@
     <mat-icon>home</mat-icon>
   </button>
   <ng-container *ngIf="auth.loggedIn === false" class="toolbar">
-        <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>
-            supervised_user_circle</mat-icon></button>
-        <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>
-            perm_identity</mat-icon></button>
+    <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>
+        supervised_user_circle</mat-icon></button>
+    <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>
+        perm_identity</mat-icon></button>
   </ng-container>
   <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
     <div class="row">

@@ -10,11 +10,10 @@ export class AuthService {
   basePath: 'localhost:8080';
   private cookieValue: string;
 
-  constructor(private http: HttpClient, private cookie: CookieService) {
-  }
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   async login(usernameOrEmail: string, password: string) {
-   return this.http
+    return this.http
       .post<{ accessToken: string }>('http://localhost:8080/api/auth/signin', {
         usernameOrEmail,
         password
@@ -47,25 +46,23 @@ export class AuthService {
   }
 
   public get loggedIn(): boolean {
-    if(this.cookie.get('Cookie')){
+    if (this.cookie.get('Cookie')) {
       return true;
     }
     return false;
   }
 
   isAdmin(): boolean {
-    // paima cookie ir .atob(base64) tada sprendzia kokia role
     let token = this.cookie.get('Cookie');
 
     let role = atob(token.split('.')[1]);
-    role = role.substring(35,45);
+    role = role.substring(35, 45);
     console.log(role);
 
-    if(role === 'ROLE_ADMIN'){
+    if (role === 'ROLE_ADMIN') {
       return true;
-    }else {
+    } else {
       return false;
     }
-
   }
 }

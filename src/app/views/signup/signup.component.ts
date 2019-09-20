@@ -44,25 +44,26 @@ export class SignupComponent implements OnInit {
     this.createForm();
   }
 
-
   private createForm(): void {
     this.credentials = this.fb.group({
-      name: [ '', [Validators.required, Validators.minLength(5), Validators.maxLength(12)] ],
-      username: [ '', [Validators.required, Validators.minLength(5), Validators.maxLength(12)] ],
+      name: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
+      username: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
       email: ['', [Validators.required, Validators.email]],
-      password: [ '', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      password: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       confirmPassword: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       policy: [false, Validators.requiredTrue]
-    },);
+    });
   }
 
-  onSubmit(message: string, action: string) { 
-    if ( this.credentials.controls['password'].value !== this.credentials.controls['confirmPassword'].value) {
+  onSubmit(message: string, action: string) {
+    if (
+      this.credentials.controls['password'].value !== this.credentials.controls['confirmPassword'].value
+    ) {
       this.credentials.controls.password.setErrors({
         notMatched: true
       });
     }
-    console.log( this.credentials.errors);
+    console.log(this.credentials.errors);
     if (this.credentials.invalid) {
       return;
     }
@@ -81,7 +82,6 @@ export class SignupComponent implements OnInit {
         });
       })
       .catch(error => {
-
         this.snackBar.open('Name or email is already taken!', action, {
           duration: 2000
         });
