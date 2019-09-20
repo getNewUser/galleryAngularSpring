@@ -14,6 +14,7 @@ import {
   MatAutocompleteSelectedEvent
 } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-update',
@@ -36,7 +37,8 @@ export class UpdateComponent implements OnInit {
     private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public auth: AuthService
   ) {
     this.loadTags();
     this.loadCategories();
@@ -46,6 +48,13 @@ export class UpdateComponent implements OnInit {
         fruit ? this._filter(fruit) : this.allTags.slice()
       )
     );
+
+    if(!this.auth.loggedIn){
+      this.router.navigate(['login']);
+      this.snackBar.open('You need to be signed in!', 'Dismiss', {
+        duration: 2000
+      });
+    }
   }
 
   
