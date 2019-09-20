@@ -5,7 +5,7 @@ mat-card {
   z-index: 2;
 
   mat-form-field {
-    width: 325px;
+    width: 100%;
   }
 
   form {
@@ -22,7 +22,135 @@ mat-card {
 }
 
 img {
-  max-width: 1000px;
+  max-width: 100%;
   max-height: 600px;
   margin: 200px auto;
 }
+
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    width: 100%;
+    margin: 0 25px;
+  }
+
+  .picture {
+    max-width: 600px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .main {
+    width: 100%;
+    margin-left: 50px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    width: 100%;
+    margin: 0 3px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .main {
+    width: 100%;
+    margin: 0 90px;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .main {
+    width: 100%;
+    margin: 0 68px;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .main {
+    width: 100%;
+    margin: 0 5px;
+  }
+
+  .side {
+    display: none;
+  }
+}
+// @media only screen and (max-width: 1200px) {
+//   img {
+//     max-width: 700px;
+//     max-height: 400px;
+//   }
+// }
+
+
+// @media only screen and (max-width: 992px) {
+//   .main {
+//     width: 300px;
+//     margin: 0 50px;
+//   }
+//   .side {
+//     display: none;
+//   }
+// }
+
+// @media only screen and (max-width: 768px) {
+//   .main {
+//     width: 100%;
+//     margin: 0 50px;
+//   }
+//   .side {
+//     display: none;
+//   }
+// }
+
+// @media only screen and (max-width: 576px) {
+//   .main {
+//     width: 100%;
+//     margin: 0 90px;
+//   }
+
+//   .side {
+//     display: none;
+//   }
+// }
+
+// @media only screen and (max-width: 420px) {
+//   .main {
+//     width: 100%;
+//     margin: 0 68px;
+//   }
+
+//   .side {
+//     display: none;
+//   }
+// }
+
+// @media only screen and (max-width: 330px) {
+//   .main {
+//     width: 100%;
+//     margin: 0 5px;
+//   }
+
+//   .side {
+//     display: none;
+//   }
+// }

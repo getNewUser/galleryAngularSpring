@@ -1,8 +1,8 @@
 <app-header></app-header>
 
 <div class="row">
-  <div class="col-sm-1"></div>
-  <div class="col-sm-3">
+  <div class="col side"></div>
+  <div class="col main">
     <mat-card>
       <form [formGroup]="credentials" class="selections">
         <mat-form-field>
@@ -37,7 +37,8 @@
               {{tag}}
             </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="noTags">Atlest 1 tag is required</mat-error>
+          <mat-error *ngIf="credentials.controls['tags'].hasError('required')">Atleast one tag is required</mat-error>
+          <mat-error *ngIf="isTagsEmpty">Atleast one tag is required</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-select name="categories" placeholder="Categories" multiple required formControlName="categories">
@@ -54,12 +55,11 @@
           <mat-error *ngIf="credentials.controls['file'].hasError('required')">Image upload is required</mat-error>
         </mat-form-field>
         <button mat-flat-button color="primary" class="submit-button"
-          (click)="onSubmit('message','Dismiss')">Submit</button>
+          (click)="onSubmit('Dismiss')">Submit</button>
       </form>
     </mat-card>
   </div>
-  <div class="col-sm-6">
+  <div class="col picture">
     <img src="{{shownPicture}}" />
   </div>
-  <div class="col-sm-2"></div>
 </div>

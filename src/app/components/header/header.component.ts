@@ -1,7 +1,7 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-  public href: string = "";
+  public href: string = '';
 
   constructor(public auth: AuthService,
               private snackBar: MatSnackBar,
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logout(message, action) {
     this.snackBar.open(message, action, { duration: 2000});
-    this.router.navigate(['home']);
+    this.router.navigate(['login']);
     this.auth.logout();
   }
 
@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit {
     this.href = window.location.href
     this.href = this.href.substring(22);
   
-    if(this.href.indexOf("/") > 0){
-      this.href = this.href.substring(0, this.href.indexOf("/"));
+    if(this.href.indexOf('/') > 0){
+      this.href = this.href.substring(0, this.href.indexOf('/'));
     }
   }
 

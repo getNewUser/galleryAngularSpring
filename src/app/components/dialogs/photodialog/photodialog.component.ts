@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { isObject } from 'util';
+// import { isObject } from 'util';
 
 @Component({
   selector: 'app-photodialog',
@@ -14,7 +14,7 @@ import { isObject } from 'util';
 })
 export class PhotodialogComponent {
   fullPhoto: IFullPicture;
-  imgurl: string ='';
+  imgurl: string = '';
   snackbarText: string;
 
   @Output() submitClicked = new EventEmitter<any>();
@@ -29,14 +29,25 @@ export class PhotodialogComponent {
     this.getFullPicture(data.id);
   }
 
-  deleteImage(message, action): Subscription {
-    if(!this.auth.isAdmin()){
-      this.snackBar.open('Only admins can delete images', action, { duration: 2000});
+  deleteImage(action): Subscription {
+    if (!this.auth.loggedIn) {
+      this.snackBar.open('Only admins can delete images', action, {
+        duration: 2000
+      });
       return;
     }
-    return this.gallery.deleteImage(this.data.id).subscribe(data => {
-      location.reload();
-    });
+    if (!this.auth.isAdmin()) {
+      this.snackBar.open('Only admins can delete images', action, {
+        duration: 2000
+      });
+      return;
+    }
+
+    if (confirm('Are you sure you want to delete this image?')) {
+      return this.gallery.deleteImage(this.data.id).subscribe(data => {
+        location.reload();
+      });
+    }
   }
 
   private getFullPicture(imageId: number): Subscription {

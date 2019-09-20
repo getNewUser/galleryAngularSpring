@@ -5,16 +5,10 @@
     <mat-icon>home</mat-icon>
   </button>
   <ng-container *ngIf="auth.loggedIn === false" class="toolbar">
-    <div class="row">
-      <div class="col">
         <button mat-flat-button color="primary" class="toolbar-signup-button" routerLink="/signup">Sign up <mat-icon>
             supervised_user_circle</mat-icon></button>
-      </div>
-      <div class="col">
         <button mat-flat-button color="primary" class="toolbar-login-button" routerLink="/login">Login<mat-icon>
             perm_identity</mat-icon></button>
-      </div>
-    </div>
   </ng-container>
   <ng-container *ngIf="auth.loggedIn === true" class="toolbar">
     <div class="row">
@@ -23,7 +17,7 @@
             add_a_photo</mat-icon></button>
       </div>
       <div class="col">
-        <button mat-flat-button color="primary" class="toolbar-login-button"
+        <button mat-flat-button color="primary" class="toolbar-logout-button"
           (click)="logout('You succesfully logged out', 'Dismiss')">Logout <mat-icon>exit_to_app</mat-icon></button>
       </div>
     </div>

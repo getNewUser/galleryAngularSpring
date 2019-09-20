@@ -43,17 +43,82 @@ img {
   position: absolute;
 }
 
-
-.hero{
-  // box-sizing: border-box;
+.hero {
   background-image: url('../../../assets/city-blurred-hd-1920x1080.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  
-  height: calc(100vh - 17px);
 
-  div{
-      height: 90%;
+  height: 1080px;
+  width: 1980px;
+
+  max-width: 100%;
+  overflow-x: hidden;
+
+  div {
+    height: 90%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    width: 100%;
+    margin-left: 450px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .main {
+    width: 100%;
+    margin-left: 300px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    width: 100%;
+    margin-left: 200px;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .main {
+    width: 100%;
+    margin: 0 90px;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .main {
+    width: 100%;
+    margin: 0 68px;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .main {
+    width: 100%;
+    margin: 0 5px;
+  }
+
+  .side {
+    display: none;
   }
 }

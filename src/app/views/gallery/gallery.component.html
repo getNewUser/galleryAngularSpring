@@ -5,13 +5,13 @@
       <p>Filter</p>
     </div>
     <div class="row">
-      <div class="col-sm-5">
+      <div class="col-m-5 col-sm-4">
         <mat-form-field appearance="outline">
           <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
             class="input-padding">
         </mat-form-field>
       </div>
-      <div class="col-sm-3">
+      <div class="col-m-3 col-sm-4">
         <mat-form-field>
           <mat-select placeholder="Categories" multiple>
             <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
@@ -19,7 +19,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-sm-3">
+      <div class="col-m-3 col-sm-4">
         <mat-form-field>
           <mat-label>Sort by Tags</mat-label>
           <mat-select placeholder="Tags" multiple>

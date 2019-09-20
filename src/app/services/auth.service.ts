@@ -2,8 +2,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../models/user.model';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient, private cookie: CookieService) {
   }
 
-  login(usernameOrEmail: string, password: string) {
+  async login(usernameOrEmail: string, password: string) {
    return this.http
       .post<{ accessToken: string }>('http://localhost:8080/api/auth/signin', {
         usernameOrEmail,

@@ -47,3 +47,9 @@
     opacity: 0.5;
   }
 }
+
+@media only screen and (max-width: 330px) {
+  .container {
+    width: 80%;
+  }
+}

@@ -5,61 +5,98 @@ mat-toolbar {
   z-index: 999;
 }
 
-
-
-@media (min-width: 1200px) {
+@media (min-width: 1201px) {
   .toolbar-signup-button {
     margin-left: 1515px;
+    margin-right: 20px;
   }
 
   .toolbar-addphoto-button {
-    margin-left: 1485px;
+    margin-left: 1464px;
+    margin-right: 20px;
   }
 }
 
-// @media (min-width: 992px) and (max-width: 1199.98px) {
 
 
-// }
-@media (min-width: 768px) and (max-width: 991.98px) {
-  mat-card {
-    background-color: red;
+
+@media only screen and (max-width: 1200px) {
+  .toolbar-signup-button {
+    margin-left: 843px;
+    margin-right: 20px;
+  }
+
+  .toolbar-addphoto-button {
+    margin-left: 760px;
+    margin-right: 20px;
   }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
-  mat-card {
-    background-color: blue;
+@media only screen and (max-width: 992px) {
+  .toolbar-signup-button {
+    margin-left: 638px;
+    margin-right: 20px;
+  }
+
+  .toolbar-addphoto-button {
+    margin-left: 552px;
+    margin-right: 20px;
   }
 }
 
-@media (min-width: 420px) and (max-width: 575.98px) {
-  // .toolbar-login-button {
-  //   margin-left: -19px;
-  // }
+@media only screen and (max-width: 768px) {
+  .toolbar-signup-button {
+    margin-left: 424px;
+    margin-right: 20px;
+  }
 
-  mat-card {
-    background-color: red;
+  .toolbar-addphoto-button {
+    margin-left: 329px;
+    margin-right: 10px;
   }
 }
 
-@media (min-width: 380px) and (max-width: 419.98px) {
-  // .toolbar-signup-button {
-  //   margin-left: 62px;
-  // }
+@media only screen and (max-width: 576px) {
+  .toolbar-signup-button {
+    margin-left: 224px;
+    margin-right: 20px;
+  }
 
-  mat-card {
-    background-color: green;
+  .toolbar-addphoto-button {
+    margin-left: 139px  ;
+    margin-right: 10px;
+    
   }
 }
 
-@media (min-width: 319px) and (max-width: 379.98) {
-  .toolbar-login-button {
-    margin-left: -18px;
+@media only screen and (max-width: 420px) {
+  .toolbar-signup-button {
+    margin-left: 85px;
+    margin-right: 10px;
   }
 
-  mat-card {
-    margin-left: 20px;
+  .toolbar-addphoto-button {
+    margin-left: 1px;
+
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .toolbar-signup-button {
+    margin-left: 5px;
+    // margin-right: 10px;
   }
 
+  .toolbar-logout-button {
+    margin-left: -31px;
+  }
+
+  mat-icon {
+    display: none;
+  }
+
+  .toolbar-addphoto-button {
+    margin-left: -14px;
+
+  }
 }

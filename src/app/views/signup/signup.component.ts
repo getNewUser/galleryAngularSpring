@@ -1,7 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {
-  NgForm,
   FormGroup,
   FormControl,
   FormBuilder,
@@ -45,28 +44,16 @@ export class SignupComponent implements OnInit {
 
   private createForm(): void {
     this.credentials = this.fb.group({
-      name: [
-        '',
-        [Validators.required, Validators.minLength(5), Validators.maxLength(12)]
-      ],
-      username: [
-        '',
-        [Validators.required, Validators.minLength(5), Validators.maxLength(12)]
-      ],
+      name: [ '', [Validators.required, Validators.minLength(5), Validators.maxLength(12)] ],
+      username: [ '', [Validators.required, Validators.minLength(5), Validators.maxLength(12)] ],
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(25)]
-      ],
-      confirmPassword: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(25)]
-      ],
+      password: [ '', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      confirmPassword: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       policy: [false, Validators.requiredTrue]
     });
   }
 
-  onSubmit(message, action) {
+  onSubmit(message: string, action) { // here
     if (
       this.credentials.controls['password'].value ===
       this.credentials.controls['confirmPassword'].value

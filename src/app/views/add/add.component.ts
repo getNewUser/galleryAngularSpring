@@ -1,15 +1,26 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FilterCategoriesService } from './../../services/filterTagsCategories.service';
 import { GalleryService } from './../../services/gallery.service';
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { Subscription, Observable } from 'rxjs';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
-import { MatSnackBar, MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
-import { Router } from "@angular/router";
+import {
+  MatSnackBar,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+  MatAutocomplete
+} from '@angular/material';
+import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
@@ -26,6 +37,7 @@ export class AddComponent implements OnInit, OnDestroy {
   selectedTags: number[] = [];
   fullPicture: string;
   shownPicture: string = '../../../assets/noimage2.png';
+  isTagsEmpty = true;
 
   SERVER_URL = 'http://localhost:8080/images';
   uploadForm: FormGroup;
@@ -55,7 +67,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.createForm();
   }
 
-  credentials: FormGroup =  new FormGroup({
+  credentials: FormGroup = new FormGroup({
     name: new FormControl(),
     description: new FormControl(),
     categories: new FormControl(),
@@ -65,18 +77,15 @@ export class AddComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.credentials = this.fb.group({
-      name: ['',[Validators.required,  Validators.minLength(5), Validators.maxLength(12)]],
+      name: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
       description: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      categories: ['',[Validators.required]],
-      tags: ['',[Validators.required]],
-      file: ['',[Validators.required]]
-    })
+      categories: ['', [Validators.required]],
+      tags: ['', [Validators.required]],
+      file: ['', [Validators.required]]
+    });
   }
 
-
-  
-
-  picked(event): void {
+  picked(event: any): void { //here
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
@@ -103,10 +112,18 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(message, action): void {
-    if(this.credentials.invalid){
+  onSubmit(action): void {
+    if (this.getTags().length === 0) {
+      this.credentials.controls['tags'].setErrors({
+        required: true
+      });
+
+      this.isTagsEmpty = true;
+    }
+    if (this.credentials.invalid) {
       return;
     }
+    this.isTagsEmpty = false;
     this.noTags = false;
     this.photo = this.credentials.value;
     this.photo.tags = this.getTags();
@@ -114,16 +131,23 @@ export class AddComponent implements OnInit, OnDestroy {
     console.log(this.photo);
     this.httpClient
       .post<any>('http://localhost:8080/images', this.photo)
-      .subscribe(() =>{
-          this.snackBar.open('Image added successfully', action, { duration: 2000});
+      .subscribe(
+        () => {
+          this.snackBar.open('Image added successfully', action, {
+            duration: 2000
+          });
           this.router.navigate(['home']);
-      }, err => {
-        this.snackBar.open('Something went wrong..', action, { duration: 2000});
-      });
+        },
+        err => {
+          this.snackBar.open('Something went wrong..', action, {
+            duration: 2000
+          });
+        }
+      );
   }
 
 
-  private filterCategories(category: number): void {
+  public filterCategories(category: number): void {
     this.filter.filter(category, this.selectedCategories);
   }
 
@@ -137,9 +161,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.loadCategories().unsubscribe();
   }
 
-
-//  ============ Tags
-
+  //  ============ Tags
 
   visible = true;
   selectable = true;
@@ -154,24 +176,20 @@ export class AddComponent implements OnInit, OnDestroy {
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
+    HTMLInputElement
+  >;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
- 
-
   add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
 
-      // Add our fruit
       if ((value || '').trim()) {
         this.tags.push(value.trim());
       }
 
-      // Reset the input value
       if (input) {
         input.value = '';
       }
@@ -198,10 +216,11 @@ export class AddComponent implements OnInit, OnDestroy {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter(
-      fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+      fruit => fruit.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
-  public getTags(): ITag[] {
+  getTags(): ITag[] {
     for (let i = 0; i < this.tags.length; i++) {
       let tag: ITag = {
         id: '',
@@ -210,7 +229,6 @@ export class AddComponent implements OnInit, OnDestroy {
       };
       this.tagsToReturn.push(tag);
     }
-    console.log(this.tagsToReturn);
     return this.tagsToReturn;
   }
 
@@ -223,6 +241,4 @@ export class AddComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  
 }

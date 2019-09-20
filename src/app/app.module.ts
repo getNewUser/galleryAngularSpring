@@ -21,6 +21,7 @@ import { MatCardModule,
          MatTooltipModule,
          MatButtonModule,
          MatSelectModule,} from '@angular/material/';
+
 import { ItemCountPipe } from './pipes/item-count.pipe';
 import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
@@ -36,11 +37,7 @@ import { SignupComponent } from './views/signup/signup.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatAutocompleteModule,MatAutocompleteSelectedEvent,MatAutocomplete } from '@angular/material/autocomplete';
-
-
-
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({

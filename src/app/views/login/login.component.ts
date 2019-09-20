@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           message = 'You successfully logged in!';
           this.snackBar.open(message, action, { duration: 2000 });
         })
-        .catch(error => {
+        .catch(() => {
           message = 'Wrong credentials!';
           this.snackBar.open(message, action, { duration: 2000 });
         });

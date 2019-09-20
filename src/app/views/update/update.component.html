@@ -9,7 +9,6 @@
                   <div class="col">
                     <mat-form-field>
                       <input matInput name="name" formControlName="name">
-      
                       <mat-error *ngIf="credentials.controls['name'].hasError('minlength')">Name must be atleast 3 characters
                       </mat-error>
                       <mat-error *ngIf="credentials.controls['name'].hasError('maxlength')">Name max length is 12</mat-error>
@@ -49,9 +48,9 @@
                   <div class="col">
                     <mat-form-field>
                       <mat-select name="categories" placeholder="Categories" multiple formControlName="categories">
-                        <mat-option *ngFor="let category of categories" [value]="category"
-                          (click)="filterCategory(category.id)">
-                          {{category.name}} </mat-option>
+                        <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
+                          {{ category.name }}
+                        </mat-option>
                       </mat-select>
                       <mat-error *ngIf="credentials.controls['categories'].hasError('required')">Atlest 1 category is required
                       </mat-error>
