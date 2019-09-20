@@ -64,13 +64,20 @@ export class UpdateComponent implements OnInit {
     tags: new FormControl()
   });
 
- 
+  passwordValidator(form: FormGroup){
+    const condition = form.get('tags').value === null;
+
+    return condition ? { tagsRequired: true} : null;
+  }
+
   private createForm(data: IPhoto): void {
     this.credentials = this.fb.group({
       name: [data.name ,[Validators.required,  Validators.minLength(3), Validators.maxLength(12)]],
       description: [data.description,[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      categories: [[Validators.required]],
+      categories: ['', [Validators.required]],
       tags: ['',[Validators.required]]
+    }, {
+      validator: this.passwordValidator
     });
 
     // this.credentials.controls['categories'].setValue(data.categories);
