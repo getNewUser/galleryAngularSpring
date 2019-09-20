@@ -89,11 +89,7 @@ export class UpdateComponent implements OnInit {
     this.credentials.controls['tags'].setValue(this.tags);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
-      // return;
     }
-    console.log(this.credentials.controls['tags'].value);
-    console.log(this.credentials.valid);
-    console.log(this.credentials.value);
     if (this.credentials.valid === true) {
       console.log(this.photo);
       this.photo = this.credentials.value;

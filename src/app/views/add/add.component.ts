@@ -22,6 +22,7 @@ import {
 } from '@angular/material';
 import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add',
@@ -50,7 +51,8 @@ export class AddComponent implements OnInit, OnDestroy {
     private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public auth: AuthService
   ) {
     this.loadTags();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -65,6 +67,12 @@ export class AddComponent implements OnInit, OnDestroy {
     this.loadCategories();
     this.loadTags();
     this.createForm();
+    if(!this.auth.loggedIn){
+      this.router.navigate(['login']);
+      this.snackBar.open('You need to be signed in!', 'Dismiss', {
+        duration: 2000
+      });
+    }
   }
 
   credentials: FormGroup = new FormGroup({
