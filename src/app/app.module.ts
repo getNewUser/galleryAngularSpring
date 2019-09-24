@@ -38,6 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MustMatchDirective } from './directives/must-match.directive';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     LoginComponent,
     HeaderComponent,
     StartsWithCapitalPipe,
-    SignupComponent
+    SignupComponent,
+    MustMatchDirective
   ],
   imports: [
     BrowserModule,
