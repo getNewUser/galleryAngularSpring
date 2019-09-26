@@ -1,3 +1,4 @@
+import { GalleryComponent } from './views/gallery/gallery.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthService } from './services/auth.service';
 import { FilterCategoriesService } from './services/filterTagsCategories.service';
@@ -8,43 +9,31 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GalleryComponent } from './views/gallery/gallery.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule,
-         MatProgressSpinnerModule,
-         MatChipsModule,
-         MatDialogModule,
-         MatToolbarModule,
-         MatIconModule,
-         MatTooltipModule,
-         MatButtonModule,
-         MatSelectModule,} from '@angular/material/';
-
 import { ItemCountPipe } from './pipes/item-count.pipe';
 import { AddComponent } from './views/add/add.component';
 import { UpdateComponent } from './views/update/update.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { CookieService } from 'ngx-cookie-service';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { StartsWithCapitalPipe } from './pipes/starts-with-capital.pipe';
 import { SignupComponent } from './views/signup/signup.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { JwtModule } from '@auth0/angular-jwt';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MustMatchDirective } from './directives/must-match.directive';
+import { MaterialModule } from './material.module';
+import { NameInputComponent } from './components/inputs/name-input/name-input.component';
+import { EmailInputComponent } from './components/inputs/email-input/email-input.component';
+import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GalleryComponent,
     PhotoComponent,
     PhotodialogComponent,
     ItemCountPipe,
@@ -54,30 +43,21 @@ import { MustMatchDirective } from './directives/must-match.directive';
     HeaderComponent,
     StartsWithCapitalPipe,
     SignupComponent,
-    MustMatchDirective
+    MustMatchDirective,
+    GalleryComponent,
+    NameInputComponent,
+    EmailInputComponent,
+    PasswordInputComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatToolbarModule, 
-    MatIconModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatSelectModule,
-    MaterialFileInputModule,
     NgbModule,
-    MatCheckboxModule,
+    MaterialModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function  tokenGetter() {
@@ -102,9 +82,7 @@ import { MustMatchDirective } from './directives/must-match.directive';
         blacklistedRoutes: ['http://localhost:8080/api/auth/signup',
                             'http://localhost:8080/api/auth/signin']
       }
-    }),
-    MatSnackBarModule,
-    MatAutocompleteModule
+    })
   ],
   providers: [GalleryService,
               FilterCategoriesService,

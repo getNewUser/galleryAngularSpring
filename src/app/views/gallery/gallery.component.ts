@@ -1,6 +1,5 @@
 import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
-
 import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/models/category.model';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
