@@ -23,39 +23,25 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  username = 'Username..';
+  password = 'Password..';
+
   ngOnInit() {
-    this.createForm();
   }
 
-  credentials: FormGroup = new FormGroup({
-    username: new FormControl(),
-    password: new FormControl()
-  });
-
-  onSubmit(message: string, action: string) {
-      let user: IUser = this.credentials.value;
+  onSubmit(f, action: string) {
+      let user: IUser = f.value;
       this.auth
         .login(user.username, user.password)
         .then(() => {
           this.router.navigate(['home']);
-          message = 'You successfully logged in!';
-          this.snackBar.open(message, action, { duration: 2000 });
+          let message = 'You successfully logged in!';
+          this.snackBar.open(message, 'Dismiss', { duration: 2000 });
         })
         .catch(() => {
-          message = 'Wrong credentials!';
-          this.snackBar.open(message, action, { duration: 2000 });
+          let message = 'Wrong credentials!';
+          this.snackBar.open(message, 'Dismiss', { duration: 2000 });
         });
     
-  }
-
-  private createForm(): void {
-    this.credentials = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-  }
-
-  logout() {
-    this.auth.logout();
   }
 }

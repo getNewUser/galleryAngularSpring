@@ -7,16 +7,10 @@
     <div class="col main">
       <mat-card>
         <h1>Login</h1>
-        <form [formGroup]="credentials" novalidate>
-          <mat-form-field appearance="outline" class="search-input">
-            <input matInput type="text" name="username" placeholder="Username" formControlName="username">
-            <mat-error *ngIf="credentials.controls['username'].hasError('required')">Username is required</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput type="password" name="password" placeholder="Password" formControlName="password">
-            <mat-error *ngIf="credentials.controls['password'].hasError('required')">Password is required</mat-error>
-          </mat-form-field>
-          <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit('', 'Dismiss')">Login</button>
+        <form (ngSubmit)="onSubmit(f, 'Dismiss')" #f="ngForm"  novalidate>
+            <app-name-input class="app-name-input" [(ngModel)]="username" name="username" #nameVal="ngModel"></app-name-input>
+            <app-password-input [(ngModel)]="password" name="password" #passwordVal="ngModel"></app-password-input>
+            <button mat-flat-button color="primary" type="submit" (click)="onSubmit('You successfully logged in', 'Dismiss')">Login</button> 
         </form>
         <p>Don't have an account? <span routerLink="/signup">Sign Up</span></p>
       </mat-card>

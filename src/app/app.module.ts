@@ -23,10 +23,30 @@ import { StartsWithCapitalPipe } from './pipes/starts-with-capital.pipe';
 import { SignupComponent } from './views/signup/signup.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MustMatchDirective } from './directives/must-match.directive';
-import { MaterialModule } from './material.module';
 import { NameInputComponent } from './components/inputs/name-input/name-input.component';
 import { EmailInputComponent } from './components/inputs/email-input/email-input.component';
 import { PasswordInputComponent } from './components/inputs/password-input/password-input.component';
+import { DescriptionInputComponent } from './components/inputs/description-input/description-input.component';
+
+
+
+import {
+  MatDialogModule,
+  MatCardModule,
+  MatButtonModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatChipsModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatAutocompleteModule,
+  MatCheckboxModule,
+} from '@angular/material';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NameInputWiderComponent } from './components/inputs/name-input-wider/name-input-wider.component';
 
 
 
@@ -47,9 +67,27 @@ import { PasswordInputComponent } from './components/inputs/password-input/passw
     GalleryComponent,
     NameInputComponent,
     EmailInputComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    DescriptionInputComponent,
+    NameInputWiderComponent
   ],
   imports: [
+    MatAutocompleteModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatCardModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MaterialFileInputModule,
+
+
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -57,7 +95,6 @@ import { PasswordInputComponent } from './components/inputs/password-input/passw
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MaterialModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: function  tokenGetter() {

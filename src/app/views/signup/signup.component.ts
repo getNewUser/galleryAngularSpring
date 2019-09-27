@@ -11,7 +11,7 @@ import { IUser } from 'src/app/models/user.model';
 import { IUserRegistration } from 'src/app/models/userregistration.model';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -19,23 +19,26 @@ import {FormsModule} from "@angular/forms";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  credentials: FormGroup = new FormGroup({
-    name: new FormControl(),
-    username: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
-    confirmPassword: new FormControl(),
-    policy: new FormControl()
-  });
+  name = 'Name..';
+  username = 'Username..';
+  password = 'Password..';
+  confirmPassword = 'Confirm Password..';
+  email = '';
+
   user: IUser = {
     name: '',
     username: '',
     password: '',
     email: ''
   };
-   userRegistration: IUserRegistration;
+  userRegistration: IUserRegistration = {
+    email: '',
+    name: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+  };
 
-  @ViewChild('f', {static: false}) signupForm: NgForm;
 
   constructor(
     private auth: AuthService,
@@ -45,34 +48,24 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.createForm();
   }
 
-  private createForm(): void {    
-    this.credentials = this.fb.group({
-      name: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
-      username: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
-      confirmPassword: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
-      policy: [false, Validators.requiredTrue]
-    });
-  }
+  
 
-  onSubmit(form:NgForm, action: string) {
-    if (form.value.password !== form.value.confirmPassword) {
-      form.controls.password.setErrors({
-        notMatched: true
+  onSubmit(form: NgForm, action: string) {
+    if ((this.name === 'Name..') || (this.name === '') || (this.username === 'Username..') || (this.username === '')
+    || (this.password === 'Password..') || (this.password === '') || (this.confirmPassword === 'Confirm Password..') || (this.confirmPassword === '')
+    || (this.email === '')) {
+      this.snackBar.open('You have to fill up all fields', action, {
+        duration: 2000
       });
-    }
-    if (form.invalid) {
       return;
     }
     this.userRegistration = form.value;
-    this.user.email = form.value.email;
-    this.user.name = form.value.name;
-    this.user.username = form.value.username;
-    this.user.password = form.value.password;
+    this.user.email = this.userRegistration.email;
+    this.user.name = this.userRegistration.name;
+    this.user.username = this.userRegistration.username;
+    this.user.password = this.userRegistration.password;
     console.log(this.user);
     this.auth
       .register(this.user)
@@ -121,7 +114,4 @@ export class SignupComponent implements OnInit {
   //       });
   //     });
   // }
-
-
-
 }

@@ -1,0 +1,10 @@
+<mat-form-field>
+  <textarea  placeholder="{{placeholder}}" class="textarea1" matInput rows="2" cols="10" [(ngModel)]="value" minlength="10" maxlength="100" required ngModel #inputfield="ngModel" class="form-control">
+    </textarea>
+  <mat-error *ngIf="inputfield.control.hasError('minlength')">
+    Minimum length is 10 symbols
+  </mat-error>
+  <mat-error *ngIf="inputfield.control.hasError('required')">
+    Description is required
+  </mat-error>
+</mat-form-field>

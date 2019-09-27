@@ -1,0 +1,10 @@
+<mat-form-field>
+  <input placeholder="{{placeholder}}" matInput [(ngModel)]="value" minlength="3" maxlength="10" required
+    #inputfield="ngModel" ngModel class="form-control" />
+  <mat-error *ngIf="inputfield.control.hasError('minlength')">
+    Minimum length is 3 symbols
+  </mat-error>
+  <mat-error *ngIf="inputfield.control.hasError('required')">
+    Name is required
+  </mat-error>
+</mat-form-field>

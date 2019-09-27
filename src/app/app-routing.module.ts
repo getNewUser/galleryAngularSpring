@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   // { path: 'home',loadChildren: () => import('./views/gallery/gallery.module').then(mod => mod.GalleryModule) },
   { path: 'home', component: GalleryComponent },
-  { path: 'update/:id', component: UpdateComponent },
-  { path: 'add', component: AddComponent},
+  { path: 'update/:id', component: UpdateComponent, canActivate: [AuthGuard] },
+  { path: 'add', component: AddComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent }
   

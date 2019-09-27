@@ -2,12 +2,15 @@ import { Subscription, Observable } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormBuilder,
+} from '@angular/forms';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatSnackBar } from '@angular/material';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import {
   MatAutocomplete,
   MatChipInputEvent,
@@ -31,6 +34,9 @@ export class UpdateComponent implements OnInit {
   imgurl: string;
   isTagsEmpty = false;
 
+  name = '';
+  description = '';
+
   constructor(
     private route: ActivatedRoute,
     private gallery: GalleryService,
@@ -49,7 +55,7 @@ export class UpdateComponent implements OnInit {
       )
     );
 
-    if(!this.auth.loggedIn){
+    if (!this.auth.loggedIn) {
       this.router.navigate(['login']);
       this.snackBar.open('You need to be signed in!', 'Dismiss', {
         duration: 2000
@@ -57,63 +63,39 @@ export class UpdateComponent implements OnInit {
     }
   }
 
-  
-
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.loadPhoto(this.id);
     this.loadCategories();
     this.getFullPhoto(this.id);
-
   }
 
-  credentials: FormGroup =  new FormGroup({
-    name: new FormControl(),
-    description: new FormControl(),
-    categories: new FormControl(),
-    tags: new FormControl()
-  });
-
-  private createForm(data: IPhoto): void {
-    this.credentials = this.fb.group({
-      name: [data.name ,[Validators.required,  Validators.minLength(3), Validators.maxLength(12)]],
-      description: [data.description,[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      categories: ['', [Validators.required]],
-      tags: ['',[Validators.required]]
-    }, {
-    });
-    
-  }
-
-  onSubmit( action: string) {
-    this.credentials.controls['tags'].setValue(this.tags);
+  onSubmit(f, action: string) {
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
     }
-    if (this.credentials.valid === true) {
-      console.log(this.photo);
-      this.photo = this.credentials.value;
+    if (f.valid === true && this.name !== '' && this.description !== '') {
+      this.photo = f.value;
       this.photo.id = this.photoTemplate.id;
       this.photo.thumbnail = this.photoTemplate.thumbnail;
       this.photo.width = this.photoTemplate.width;
       this.photo.height = this.photoTemplate.height;
       this.photo.date = this.photoTemplate.date;
-      if (this.photo.name === ''){
+      if (this.photo.name === '') {
         this.photo.name = this.photoTemplate.name;
       }
-      if (this.photo.description === ''){
+      if (this.photo.description === '') {
         this.photo.description = this.photoTemplate.description;
       }
-      if (this.photo.categories.length < 1){
+      if (this.photo.categories.length < 1) {
         this.photo.categories = this.photoTemplate.categories;
       }
       this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
-      this.snackBar.open('Image updated', action, { duration: 2000});
+      this.snackBar.open('Image updated', action, { duration: 2000 });
       this.router.navigate(['home']);
     } else {
-      this.snackBar.open('Something went wrong', action, { duration: 2000});
-      
+      this.snackBar.open('Something went wrong', action, { duration: 2000 });
     }
   }
 
@@ -136,7 +118,8 @@ export class UpdateComponent implements OnInit {
       for (let tag of data.tags) {
         this.tags.push(tag.name);
       }
-      this.createForm(data);
+      this.name = data.name;
+      this.description = data.description;
     });
   }
 
@@ -166,7 +149,9 @@ export class UpdateComponent implements OnInit {
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
+    HTMLInputElement
+  >;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   add(event: MatChipInputEvent): void {
@@ -235,4 +220,3 @@ export class UpdateComponent implements OnInit {
     });
   }
 }
-

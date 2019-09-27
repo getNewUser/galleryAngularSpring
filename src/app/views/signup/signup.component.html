@@ -10,51 +10,20 @@
       <mat-card>
         <h1>Signup</h1>
         <form (ngSubmit)="onSubmit(f, 'Dismiss')" #f="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
-          <mat-form-field>
-            <mat-icon matPrefix>perm_identity</mat-icon>
-            <input matInput type="text" id="name" name="name" placeholder="Enter your name" class="form-control" ngModel
-              required #name="ngModel" minlength="4" maxlength="10"> 
-
-            <mat-error *ngIf="name.control.hasError('required')">Name must be </mat-error>
-            <mat-error *ngIf="name.control.hasError('minlength')">Name must be longer </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-icon matPrefix>perm_identity</mat-icon>
-            <input matInput type="text" id="username" name="username" placeholder="Enter your username"
-              class="form-control" ngModel #username="ngModel" required minlength="4" maxlength="10">
-            <mat-error *ngIf="username.control.hasError('required')">Username must be </mat-error>
-            <mat-error *ngIf="username.control.hasError('minlength')">Username must be longer </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="email" id="email" name="email" placeholder="Enter your email" class="form-control"
-              #email="ngModel" ngModel required>
-            <mat-icon matPrefix>email</mat-icon>
-            <mat-error *ngIf="email.control.hasError('required')">Email must be </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-icon class="signupPrefix" matPrefix>vpn_key</mat-icon>
-            <input matInput type="password" id="password" name="password" placeholder="Enter your password"
-              class="form-control" #password="ngModel" ngModel required minlength="6">
-            <mat-error *ngIf="password.control.hasError('required')">Password must be </mat-error>
-            <mat-error *ngIf="password.control.hasError('minlength')">Password must be longer </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password"
-              class="form-control" #confirmPassword="ngModel" ngModel required>
-            <mat-icon matPrefix>vpn_key</mat-icon>
-            <mat-error *ngIf="confirmPassword.control.hasError('required')">Confirm password must be </mat-error>
-            <mat-error *ngIf="confirmPassword.control.hasError('mustMatch')">Passwords must match</mat-error>
-          </mat-form-field>
-          <div>&nbsp;</div>
-          <div>
+          <app-name-input [(ngModel)]="name" name="name" #nameVal="ngModel"></app-name-input>
+          <app-name-input [(ngModel)]="username" name="username" #usernameVal="ngModel"></app-name-input>
+          <app-email-input [(ngModel)]="email" name="email" #emailVal="ngModel"></app-email-input>
+          <app-password-input [(ngModel)]="password" name="password" #passwordVal="ngModel"></app-password-input>
+          <app-password-input [(ngModel)]="confirmPassword" name="confirmPassword" #confirmPasswordVal="ngModel"></app-password-input>
+          <mat-error *ngIf="confirmPasswordVal.control.hasError('mustMatch') && (confirmPasswordVal.dirty || confirmPasswordVal.touched)">Passwords must match</mat-error>
+          <div class="matcheckbox">
             <mat-checkbox required required name="policy" id="policy" ngModel #policy="ngModel">
               I agree with privacy policy
             </mat-checkbox>
-            <mat-error *ngIf="policy.control.hasError('required') && (policy.dirty || policy.touched)">You must agree with privacy policy</mat-error>  
+            <mat-error *ngIf="policy.control.hasError('required') && (policy.dirty || policy.touched)">
+              You must agree with privacy policy</mat-error>
           </div>
-          <div>&nbsp;</div>
-          <button mat-flat-button color="primary" type="submit"
-            (click)="onSubmit('You successfully signed up', 'Dismiss')">
+          <button mat-flat-button color="primary" type="submit" (click)="onSubmit('You successfully signed up', 'Dismiss')">
             Signup
           </button>
           <div>

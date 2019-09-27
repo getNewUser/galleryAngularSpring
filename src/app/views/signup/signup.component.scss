@@ -4,6 +4,10 @@ mat-card {
   max-width: 400px;
   z-index: 2;
 
+    .matcheckbox {
+      margin: 13px 0;
+    }
+
   h1 {
     text-transform: uppercase;
     text-align: center;
@@ -15,10 +19,6 @@ mat-card {
   form {
     width: 100%;
     padding: 0 20px;
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 7px;
-    }
     ::ng-deep .mat-form-field-infix {
       margin: 0 13px;
     }

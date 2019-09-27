@@ -44,6 +44,10 @@ export class AddComponent implements OnInit, OnDestroy {
   uploadForm: FormGroup;
   noTags: boolean = true;
 
+
+  name = 'Name..';
+  description = 'Description..';
+
   constructor(
     private gallery: GalleryService,
     private formBuilder: FormBuilder,
@@ -66,7 +70,6 @@ export class AddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadCategories();
     this.loadTags();
-    this.createForm();
     if(!this.auth.loggedIn){
       this.router.navigate(['login']);
       this.snackBar.open('You need to be signed in!', 'Dismiss', {
@@ -74,25 +77,6 @@ export class AddComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-  credentials: FormGroup = new FormGroup({
-    name: new FormControl(),
-    description: new FormControl(),
-    categories: new FormControl(),
-    tags: new FormControl(),
-    file: new FormControl()
-  });
-
-  private createForm(): void {
-    this.credentials = this.fb.group({
-      name: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(12)]],
-      description: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      categories: ['', [Validators.required]],
-      tags: ['', [Validators.required]],
-      file: ['', [Validators.required]]
-    });
-  }
-
   picked(event: any): void {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
@@ -120,19 +104,15 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(action: string): void {
-    console.log(this.credentials.valid);
-    console.log(this.credentials.value);
+  onSubmit(f,action: string): void {
+    console.log(f.value);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
       return;
     }
-    if (this.credentials.errors !== null) {
-      return;
-    }
     this.isTagsEmpty = false;
     this.noTags = false;
-    this.photo = this.credentials.value;
+    this.photo = f.value;
     this.photo.tags = this.getTags();
     this.photo.thumbnail = this.fullPicture;
     console.log(this.photo);

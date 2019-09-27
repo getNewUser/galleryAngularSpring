@@ -5,6 +5,7 @@ import { ICategory } from 'src/app/models/category.model';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag } from 'src/app/models';
 import { GalleryService } from 'src/app/services/gallery.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-gallery',
@@ -23,6 +24,23 @@ export class GalleryComponent implements OnInit {
   searchString = '';
 
   isLoaded = false;
+
+  tagsToReturn: ITag[] = [];
+  tags1: string[] = [];
+
+  onSubmit(f) {
+    console.log(f.value);
+
+    // for (let i = 0; i < this.tags.length; i++) {
+    //   let tag: ITag = {
+    //     id: '',
+    //     name: f.value[i],
+    //     createdDate: ''
+    //   };
+    //   this.tagsToReturn.push(tag);
+    // }
+    // console.log(this.tagsToReturn);
+  }
 
   constructor(
     private gallery: GalleryService,

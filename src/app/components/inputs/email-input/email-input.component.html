@@ -1,0 +1,6 @@
+<mat-form-field>
+  <input matInput type="email" [(ngModel)]="value" maxlength="30" required #inputfield="ngModel"  ngModel class="form-control"  placeholder="Email.."/><mat-icon matPrefix>email</mat-icon>
+  <mat-error *ngIf="inputfield.control.hasError('required')">
+    Email is required
+  </mat-error>
+</mat-form-field>
