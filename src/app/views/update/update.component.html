@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="row">
   <div class="col main">
     <mat-card>
@@ -16,38 +15,11 @@
               #descripionVal="ngModel"></app-description-input>
           </div>
           <div class="row">
-            <mat-form-field class="example-chip-list">
-              <mat-chip-list #tagList aria-label="Tags selection" required>
-                <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                  (removed)="remove(tag)">
-                  {{tag}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
-                  [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-              </mat-chip-list>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-                  {{tag}}
-                </mat-option>
-              </mat-autocomplete>
-              <ng-container *ngIf="isTagsEmpty">
-                <mat-error>Atleast one tag is required</mat-error>
-              </ng-container>
-            </mat-form-field>
+            <app-tags-input [(ngModel)]="tags" name="tags" [allTags]="allTags"></app-tags-input>
           </div>
           <div class="row">
-            <mat-form-field>
-              <mat-select name="categories" placeholder="Categories" #categoriesField="ngModel" ngModel multiple
-                required>
-                <mat-option *ngFor="let category of categories" [value]="category"
-                  (click)="filterCategory(category.id)">
-                  {{category.name}} </mat-option>
-              </mat-select>
-              <mat-error *ngIf="categoriesField.hasError('required')">Atlest 1 category is required
-              </mat-error>
-            </mat-form-field>
+            <app-categories-input [(ngModel)]="preselectedCategories" name="categories" [categoriesList]="categories">
+            </app-categories-input>
           </div>
           <div class="row">
             <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit('Dismiss')">Submit</button>

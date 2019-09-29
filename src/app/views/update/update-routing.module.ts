@@ -1,4 +1,4 @@
-import { GalleryComponent } from './gallery.component';
+import { UpdateComponent } from './update.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
@@ -6,7 +6,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 
 export const routes:Routes= [
-    { path:'', component:GalleryComponent}
+    { path:'', component: UpdateComponent}
 ];
 
 
@@ -15,4 +15,4 @@ export const routes:Routes= [
     exports:[RouterModule]
 })
 
-export class GalleryRoutingModule{}
+export class UpdateRoutingModule{}

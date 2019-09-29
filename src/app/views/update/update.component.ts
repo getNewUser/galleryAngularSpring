@@ -30,9 +30,15 @@ export class UpdateComponent implements OnInit {
   photoTemplate: IPhoto;
   categories: ICategory[] = [];
   selectedCategories: number[] = [];
+  preselectedCategories: ICategory[] = [];
   fullPhoto: string;
   imgurl: string;
   isTagsEmpty = false;
+  allTags: string[] = [];
+  tags: string[] = [];
+  // tagsToReturn: ITag[] = [];
+  // tagsFromService: ITag[] = [];
+
 
   name = '';
   description = '';
@@ -46,14 +52,14 @@ export class UpdateComponent implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService
   ) {
-    this.loadTags();
+    // this.loadTags();
     this.loadCategories();
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allTags.slice()
-      )
-    );
+    // this.filteredTags = this.tagCtrl.valueChanges.pipe(
+    //   startWith(null),
+    //   map((fruit: string | null) =>
+    //     fruit ? this._filter(fruit) : this.allTags.slice()
+    //   )
+    // );
 
     if (!this.auth.loggedIn) {
       this.router.navigate(['login']);
@@ -90,10 +96,10 @@ export class UpdateComponent implements OnInit {
       if (this.photo.categories.length < 1) {
         this.photo.categories = this.photoTemplate.categories;
       }
-      this.photo.tags = this.getTags();
+      // this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
       this.snackBar.open('Image updated', action, { duration: 2000 });
-      this.router.navigate(['home']);
+      this.router.navigate(['']);
     } else {
       this.snackBar.open('Something went wrong', action, { duration: 2000 });
     }
@@ -118,6 +124,10 @@ export class UpdateComponent implements OnInit {
       for (let tag of data.tags) {
         this.tags.push(tag.name);
       }
+
+      for ( let category of data.categories){
+        this.preselectedCategories.push(category);
+      }
       this.name = data.name;
       this.description = data.description;
     });
@@ -131,90 +141,84 @@ export class UpdateComponent implements OnInit {
 
   ngOnDestroy() {
     this.loadCategories().unsubscribe();
-    this.loadTags().unsubscribe();
+    // this.loadTags().unsubscribe();
   }
 
   //  ============ Tags
 
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagCtrl = new FormControl();
-  tags: string[] = [];
-  filteredTags: Observable<string[]>;
-  allTags: string[] = [];
+  // visible = true;
+  // selectable = true;
+  // removable = true;
+  // addOnBlur = true;
+  // separatorKeysCodes: number[] = [ENTER, COMMA];
+  // tagCtrl = new FormControl();
+  // filteredTags: Observable<string[]>;
 
-  tagsToReturn: ITag[] = [];
-  tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
-    HTMLInputElement
-  >;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+  // @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
+  //   HTMLInputElement
+  // >;
+  // @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
-  add(event: MatChipInputEvent): void {
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
+  // add(event: MatChipInputEvent): void {
+  //   if (!this.matAutocomplete.isOpen) {
+  //     const input = event.input;
+  //     const value = event.value;
 
-      if ((value || '').trim()) {
-        this.tags.push(value.trim());
-      }
+  //     if ((value || '').trim()) {
+  //       this.tags.push(value.trim());
+  //     }
 
-      if (input) {
-        input.value = '';
-      }
+  //     if (input) {
+  //       input.value = '';
+  //     }
 
-      this.isTagsEmpty = false;
-      this.tagCtrl.setValue(null);
-    }
-  }
+  //     this.isTagsEmpty = false;
+  //     this.tagCtrl.setValue(null);
+  //   }
+  // }
 
-  remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
+  // remove(tag: string): void {
+  //   const index = this.tags.indexOf(tag);
 
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
+  //   if (index >= 0) {
+  //     this.tags.splice(index, 1);
+  //   }
 
-    if (this.tags.length < 1) {
-      this.isTagsEmpty = true;
-    }
-  }
+  //   if (this.tags.length < 1) {
+  //     this.isTagsEmpty = true;
+  //   }
+  // }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
-  }
+  // selected(event: MatAutocompleteSelectedEvent): void {
+  //   this.tags.push(event.option.viewValue);
+  //   this.tagInput.nativeElement.value = '';
+  //   this.tagCtrl.setValue(null);
+  // }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
 
-    return this.allTags.filter(
-      fruit => fruit.toLowerCase().indexOf(filterValue) === 0
-    );
-  }
+  //   return this.allTags.filter(
+  //     fruit => fruit.toLowerCase().indexOf(filterValue) === 0
+  //   );
+  // }
 
-  getTags(): ITag[] {
-    for (let i = 0; i < this.tags.length; i++) {
-      let tag: ITag = {
-        id: '',
-        name: this.tags[i],
-        createdDate: ''
-      };
-      this.tagsToReturn.push(tag);
-    }
-    return this.tagsToReturn;
-  }
+  // getTags(): ITag[] {
+  //   for (let i = 0; i < this.tags.length; i++) {
+  //     let tag: ITag = {
+  //       id: '',
+  //       name: this.tags[i],
+  //       createdDate: ''
+  //     };
+  //     this.tagsToReturn.push(tag);
+  //   }
+  //   return this.tagsToReturn;
+  // }
 
   private loadTags(): Subscription {
     return this.gallery.getTags().subscribe(data => {
-      this.tagsFromService = data;
-
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {        
         this.allTags[i] = data[i].name;
       }
     });

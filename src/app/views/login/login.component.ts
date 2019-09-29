@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.auth
         .login(user.username, user.password)
         .then(() => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
           let message = 'You successfully logged in!';
           this.snackBar.open(message, 'Dismiss', { duration: 2000 });
         })

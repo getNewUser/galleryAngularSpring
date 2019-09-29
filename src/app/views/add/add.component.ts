@@ -8,8 +8,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { Subscription, Observable } from 'rxjs';
@@ -41,21 +40,17 @@ export class AddComponent implements OnInit, OnDestroy {
   isTagsEmpty = false;
 
   SERVER_URL = 'http://localhost:8080/images';
-  uploadForm: FormGroup;
   noTags: boolean = true;
-
 
   name = 'Name..';
   description = 'Description..';
 
   constructor(
     private gallery: GalleryService,
-    private formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder,
     public auth: AuthService
   ) {
     this.loadTags();
@@ -70,12 +65,6 @@ export class AddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadCategories();
     this.loadTags();
-    if(!this.auth.loggedIn){
-      this.router.navigate(['login']);
-      this.snackBar.open('You need to be signed in!', 'Dismiss', {
-        duration: 2000
-      });
-    }
   }
   picked(event: any): void {
     let fileList: FileList = event.target.files;
@@ -104,7 +93,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.fullPicture = base64result;
   }
 
-  onSubmit(f,action: string): void {
+  onSubmit(f, action: string): void {
     console.log(f.value);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
@@ -123,7 +112,7 @@ export class AddComponent implements OnInit, OnDestroy {
           this.snackBar.open('Image added successfully', action, {
             duration: 2000
           });
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
         err => {
           this.snackBar.open('Something went wrong..', action, {
@@ -163,7 +152,9 @@ export class AddComponent implements OnInit, OnDestroy {
   tagsToReturn: ITag[] = [];
   tagsFromService: ITag[] = [];
 
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
+    HTMLInputElement
+  >;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   add(event: MatChipInputEvent): void {

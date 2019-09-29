@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../../components/header/header.component';
 import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -5,7 +6,9 @@ import { ICategory } from 'src/app/models/category.model';
 import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag } from 'src/app/models';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { MatCardModule } from '@angular/material/card';
+
+
+// import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-gallery',
