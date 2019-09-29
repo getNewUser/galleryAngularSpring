@@ -1,6 +1,5 @@
 import { DirectivesModule } from './../../directives/directives.module';
 import { SignupRoutingModule } from './signup-routing.module';
-import { MustMatchDirective } from './../../directives/must-match.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../../material.module';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [SignupComponent, MustMatchDirective],
+  declarations: [SignupComponent],
   imports: [
     CommonModule,
     ControlAccessorsModule,
