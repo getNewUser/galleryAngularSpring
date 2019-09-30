@@ -1,7 +1,7 @@
 <mat-form-field>
-    <mat-select multiple [(ngModel)]="value" placeholder="Tags.."  (selectionChange)="selectionChanged($event)" >
-        <mat-option *ngFor="let tag of tags" [value]="tag">
-            {{tag.name}}
-        </mat-option>
-    </mat-select>
+  <mat-select multiple [(ngModel)]="value" placeholder="Tags.." (selectionChange)="selectionChanged($event)">
+    <mat-option *ngFor="let tag of tags" [value]="tag">
+      {{tag.name}}
+    </mat-option>
+  </mat-select>
 </mat-form-field>

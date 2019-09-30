@@ -43,7 +43,6 @@ export class AuthService {
   }
 
   logout(): void {
-    console.log('hey');
     this.cookie.delete('Cookie');
   }
 

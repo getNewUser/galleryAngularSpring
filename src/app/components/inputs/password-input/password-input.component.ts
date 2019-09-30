@@ -25,8 +25,8 @@ export class PasswordInputComponent implements ControlValueAccessor {
     // this value is updated by programmatic changes if( val !== undefined && this.val !== val){
     this.val = val;
     this.val = val;
-    if(this.isChanged < 2){
-     this.placeholder = this.val;
+    if (this.isChanged < 2) {
+      this.placeholder = this.val;
     }
     this.onChange(val);
     this.onTouch(val);

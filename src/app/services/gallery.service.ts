@@ -63,7 +63,11 @@ export class GalleryService {
     return this.http.get<ITag[]>('http://localhost:8080/tags/allexisting');
   }
 
-  search(categories: number[],tags: number[],search: string): Observable<IPhoto[]> {
+  search(
+    categories: number[],
+    tags: number[],
+    search: string
+  ): Observable<IPhoto[]> {
     let query = 'http://localhost:8080/images/search?categories=';
     for (let string of categories) {
       query = query + string + ',';
