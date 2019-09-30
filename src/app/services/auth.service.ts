@@ -1,7 +1,8 @@
 import { CookieService } from 'ngx-cookie-service';
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../models/user.model';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,7 @@ export class AuthService {
   }
 
   logout(): void {
+    console.log('hey');
     this.cookie.delete('Cookie');
   }
 
@@ -57,7 +59,6 @@ export class AuthService {
 
     let role = atob(token.split('.')[1]);
     role = role.substring(35, 45);
-    console.log(role);
 
     if (role === 'ROLE_ADMIN') {
       return true;
