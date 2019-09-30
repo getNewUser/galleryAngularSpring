@@ -1,22 +1,10 @@
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FormControl,
-  FormBuilder,
-} from '@angular/forms';
-import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
-import { IPhoto, ITag, ICategory } from 'src/app/models';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { IPhoto, ICategory } from 'src/app/models';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import {
-  MatAutocomplete,
-  MatChipInputEvent,
-  MatAutocompleteSelectedEvent
-} from '@angular/material';
-import { startWith, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -36,9 +24,6 @@ export class UpdateComponent implements OnInit {
   isTagsEmpty = false;
   allTags: string[] = [];
   tags: string[] = [];
-  // tagsToReturn: ITag[] = [];
-  // tagsFromService: ITag[] = [];
-
 
   name = '';
   description = '';
@@ -46,28 +31,10 @@ export class UpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private gallery: GalleryService,
-    private filter: FilterCategoriesService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder,
     public auth: AuthService
-  ) {
-    // this.loadTags();
-    this.loadCategories();
-    // this.filteredTags = this.tagCtrl.valueChanges.pipe(
-    //   startWith(null),
-    //   map((fruit: string | null) =>
-    //     fruit ? this._filter(fruit) : this.allTags.slice()
-    //   )
-    // );
-
-    if (!this.auth.loggedIn) {
-      this.router.navigate(['login']);
-      this.snackBar.open('You need to be signed in!', 'Dismiss', {
-        duration: 2000
-      });
-    }
-  }
+  ) {}
 
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -96,7 +63,6 @@ export class UpdateComponent implements OnInit {
       if (this.photo.categories.length < 1) {
         this.photo.categories = this.photoTemplate.categories;
       }
-      // this.photo.tags = this.getTags();
       this.gallery.updateImage(this.photo);
       this.snackBar.open('Image updated', action, { duration: 2000 });
       this.router.navigate(['']);
@@ -112,10 +78,6 @@ export class UpdateComponent implements OnInit {
     });
   }
 
-  public filterCategory(category: number) {
-    this.filter.filter(category, this.selectedCategories);
-  }
-
   private loadPhoto(imageId: number): Subscription {
     return this.gallery.getPhoto(imageId).subscribe(data => {
       this.photo = data;
@@ -125,7 +87,7 @@ export class UpdateComponent implements OnInit {
         this.tags.push(tag.name);
       }
 
-      for ( let category of data.categories){
+      for (let category of data.categories) {
         this.preselectedCategories.push(category);
       }
       this.name = data.name;
@@ -141,86 +103,5 @@ export class UpdateComponent implements OnInit {
 
   ngOnDestroy() {
     this.loadCategories().unsubscribe();
-    // this.loadTags().unsubscribe();
-  }
-
-  //  ============ Tags
-
-  // visible = true;
-  // selectable = true;
-  // removable = true;
-  // addOnBlur = true;
-  // separatorKeysCodes: number[] = [ENTER, COMMA];
-  // tagCtrl = new FormControl();
-  // filteredTags: Observable<string[]>;
-
-
-  // @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
-  //   HTMLInputElement
-  // >;
-  // @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-
-  // add(event: MatChipInputEvent): void {
-  //   if (!this.matAutocomplete.isOpen) {
-  //     const input = event.input;
-  //     const value = event.value;
-
-  //     if ((value || '').trim()) {
-  //       this.tags.push(value.trim());
-  //     }
-
-  //     if (input) {
-  //       input.value = '';
-  //     }
-
-  //     this.isTagsEmpty = false;
-  //     this.tagCtrl.setValue(null);
-  //   }
-  // }
-
-  // remove(tag: string): void {
-  //   const index = this.tags.indexOf(tag);
-
-  //   if (index >= 0) {
-  //     this.tags.splice(index, 1);
-  //   }
-
-  //   if (this.tags.length < 1) {
-  //     this.isTagsEmpty = true;
-  //   }
-  // }
-
-  // selected(event: MatAutocompleteSelectedEvent): void {
-  //   this.tags.push(event.option.viewValue);
-  //   this.tagInput.nativeElement.value = '';
-  //   this.tagCtrl.setValue(null);
-  // }
-
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   return this.allTags.filter(
-  //     fruit => fruit.toLowerCase().indexOf(filterValue) === 0
-  //   );
-  // }
-
-  // getTags(): ITag[] {
-  //   for (let i = 0; i < this.tags.length; i++) {
-  //     let tag: ITag = {
-  //       id: '',
-  //       name: this.tags[i],
-  //       createdDate: ''
-  //     };
-  //     this.tagsToReturn.push(tag);
-  //   }
-  //   return this.tagsToReturn;
-  // }
-
-  private loadTags(): Subscription {
-    return this.gallery.getTags().subscribe(data => {
-      for (let i = 0; i < data.length; i++) {        
-        this.allTags[i] = data[i].name;
-      }
-    });
   }
 }

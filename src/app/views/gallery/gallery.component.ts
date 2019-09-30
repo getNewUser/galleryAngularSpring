@@ -26,24 +26,9 @@ export class GalleryComponent implements OnInit {
 
   searchString = '';
 
-  isLoaded = false;
 
   tagsToReturn: ITag[] = [];
-  tags1: string[] = [];
 
-  onSubmit(f) {
-    console.log(f.value);
-
-    // for (let i = 0; i < this.tags.length; i++) {
-    //   let tag: ITag = {
-    //     id: '',
-    //     name: f.value[i],
-    //     createdDate: ''
-    //   };
-    //   this.tagsToReturn.push(tag);
-    // }
-    // console.log(this.tagsToReturn);
-  }
 
   constructor(
     private gallery: GalleryService,
@@ -106,7 +91,6 @@ export class GalleryComponent implements OnInit {
     return this.gallery.getThumbnails().subscribe(data => {
       this.photos = data;
       this.allPhotos = data;
-      this.isLoaded = true;
     });
   }
 

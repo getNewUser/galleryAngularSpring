@@ -1,26 +1,12 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FilterCategoriesService } from './../../services/filterTagsCategories.service';
 import { GalleryService } from './../../services/gallery.service';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IPhoto, ITag, ICategory } from 'src/app/models';
-import {
-  MatSnackBar,
-  MatAutocompleteSelectedEvent,
-  MatChipInputEvent,
-  MatAutocomplete
-} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { startWith, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -38,6 +24,10 @@ export class AddComponent implements OnInit, OnDestroy {
   fullPicture: string;
   shownPicture: string = '../../../assets/noimage2.png';
   isTagsEmpty = false;
+  allTags: string[] = [];
+  tags: string[] = [];
+  tagsToReturn: ITag[] = [];
+  tagsFromService: ITag[] = [];
 
   SERVER_URL = 'http://localhost:8080/images';
   noTags: boolean = true;
@@ -52,19 +42,10 @@ export class AddComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private router: Router,
     public auth: AuthService
-  ) {
-    this.loadTags();
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allTags.slice()
-      )
-    );
-  }
+  ) {}
 
   ngOnInit() {
     this.loadCategories();
-    this.loadTags();
   }
   picked(event: any): void {
     let fileList: FileList = event.target.files;
@@ -94,7 +75,6 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(f, action: string): void {
-    console.log(f.value);
     if (this.tags.length < 1) {
       this.isTagsEmpty = true;
       return;
@@ -102,9 +82,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.isTagsEmpty = false;
     this.noTags = false;
     this.photo = f.value;
-    this.photo.tags = this.getTags();
     this.photo.thumbnail = this.fullPicture;
-    console.log(this.photo);
     this.httpClient
       .post<any>('http://localhost:8080/images', this.photo)
       .subscribe(
@@ -134,92 +112,5 @@ export class AddComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadCategories().unsubscribe();
-  }
-
-  //  ============ Tags
-
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagCtrl = new FormControl();
-  tags: string[] = [];
-  filteredTags: Observable<string[]>;
-  allTags: string[] = [];
-  tagsIsEmpty = true;
-
-  tagsToReturn: ITag[] = [];
-  tagsFromService: ITag[] = [];
-
-  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<
-    HTMLInputElement
-  >;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-
-  add(event: MatChipInputEvent): void {
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
-
-      if ((value || '').trim()) {
-        this.tags.push(value.trim());
-      }
-
-      if (input) {
-        input.value = '';
-      }
-
-      this.isTagsEmpty = false;
-      this.tagCtrl.setValue(null);
-    }
-  }
-
-  remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
-
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
-
-    if (this.tags.length < 1) {
-      this.isTagsEmpty = true;
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allTags.filter(
-      fruit => fruit.toLowerCase().indexOf(filterValue) === 0
-    );
-  }
-
-  getTags(): ITag[] {
-    for (let i = 0; i < this.tags.length; i++) {
-      let tag: ITag = {
-        id: '',
-        name: this.tags[i],
-        createdDate: ''
-      };
-      this.tagsToReturn.push(tag);
-    }
-    return this.tagsToReturn;
-  }
-
-  private loadTags(): Subscription {
-    return this.gallery.getTags().subscribe(data => {
-      this.tagsFromService = data;
-
-      for (let i = 0; i < data.length; i++) {
-        this.allTags[i] = data[i].name;
-      }
-    });
   }
 }
