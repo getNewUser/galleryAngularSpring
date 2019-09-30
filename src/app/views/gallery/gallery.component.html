@@ -5,26 +5,20 @@
     </div>
     <div class="row">
       <div class="col-m-5 col-sm-4">
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline">
           <input matInput placeholder="Search image" [(ngModel)]="searchString" (ngModelChange)="initSearch($event)"
             class="input-padding">
-        </mat-form-field>
+        </mat-form-field> -->
+        <app-search-box-input [(ngModel)]="searchString" (ngModelChange)="initSearch($event)" ></app-search-box-input>
       </div>
       <div class="col-m-3 col-sm-4">
-        <mat-form-field>
-          <mat-select placeholder="Categories" multiple>
-            <mat-option *ngFor="let category of categories" [value]="category" (click)="filterCategory(category.id)">
-              {{category.name}} </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-categories-input (selectionChange)="selectionChangedCategories($event)" name="categories"
+          [categoriesList]="categories">
+        </app-categories-input>
       </div>
       <div class="col-m-3 col-sm-4">
-        <mat-form-field>
-          <mat-label>Sort by Tags</mat-label>
-          <mat-select placeholder="Tags" multiple>
-            <mat-option *ngFor="let tag of tags" [value]="tag" (click)="filterTags(tag.id)">{{ tag.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-tags-checkbox-input (selectionChange)="selectionChangedTags($event)" name="tags" [tags]="tags">
+        </app-tags-checkbox-input>
       </div>
     </div>
     <label>

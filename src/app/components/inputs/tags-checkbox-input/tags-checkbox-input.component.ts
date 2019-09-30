@@ -1,20 +1,20 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Component, forwardRef, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { MatSelectChange, MatSelect } from '@angular/material';
+import { Component, OnInit, forwardRef, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { MatSelect, MatSelectChange } from '@angular/material';
 
 @Component({
-  selector: 'app-categories-input',
-  templateUrl: './categories-input.component.html',
-  styleUrls: ['./categories-input.component.scss'],
+  selector: 'app-tags-checkbox-input',
+  templateUrl: './tags-checkbox-input.component.html',
+  styleUrls: ['./tags-checkbox-input.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CategoriesInputComponent),
+      useExisting: forwardRef(() => TagsCheckboxInputComponent),
       multi: true
     }
   ]
 })
-export class CategoriesInputComponent implements ControlValueAccessor {
+export class TagsCheckboxInputComponent implements ControlValueAccessor {
 
   constructor() {}
   onChange: any = () => {};
@@ -27,7 +27,7 @@ export class CategoriesInputComponent implements ControlValueAccessor {
   val; // this is the updated value that the class accesses
 
   @Input()
-  categoriesList: any;
+  tags: any;
 
   set value(val) {
     // this value is updated by programmatic changes if( val !== undefined && this.val !== val){

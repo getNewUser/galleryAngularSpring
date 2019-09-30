@@ -1,12 +1,8 @@
-import { HeaderComponent } from './../../components/header/header.component';
-import { AuthService } from './../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/models/category.model';
-import { FilterCategoriesService } from 'src/app/services/filterTagsCategories.service';
 import { IPhoto, ITag } from 'src/app/models';
 import { GalleryService } from 'src/app/services/gallery.service';
-
 
 // import { MatCardModule } from '@angular/material/card';
 
@@ -26,15 +22,9 @@ export class GalleryComponent implements OnInit {
 
   searchString = '';
 
-
   tagsToReturn: ITag[] = [];
 
-
-  constructor(
-    private gallery: GalleryService,
-    private filter: FilterCategoriesService,
-    private token: AuthService
-  ) {}
+  constructor(private gallery: GalleryService) {}
 
   ngOnInit() {
     this.loadPhotos();
@@ -42,20 +32,20 @@ export class GalleryComponent implements OnInit {
     this.loadTags();
   }
 
-  private filterTags(tag: number): void {
-    this.filter.filter(tag, this.selectedTags);
-    this.search(this.selectedCategories, this.selectedTags, this.searchString);
-  }
-
-  private filterCategory(category: number) {
-    this.filter.filter(category, this.selectedCategories);
-    this.search(this.selectedCategories, this.selectedTags, this.searchString);
-  }
-
   private search(categories: number[], tags: number[], search: string) {
     this.gallery.search(categories, tags, search).subscribe(data => {
       this.photos = data;
     });
+  }
+
+  selectionChangedTags(event) {
+    this.selectedTags = this.getIds(event.value);
+    this.search(this.selectedCategories, this.selectedTags, this.searchString);
+  }
+
+  selectionChangedCategories(event) {
+    this.selectedCategories = this.getIds(event.value);
+    this.search(this.selectedCategories, this.selectedTags, this.searchString);
   }
 
   private initSearch(e: string): void {
@@ -100,9 +90,9 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-  private getCategoriesIds(): number[] {
+  private getIds(array: ICategory[]): number[] {
     let numbers = [];
-    for (let number of this.categories) {
+    for (let number of array) {
       numbers.push(number.id);
     }
 

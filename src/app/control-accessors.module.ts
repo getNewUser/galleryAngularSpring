@@ -8,6 +8,8 @@ import { NameInputWiderComponent } from './components/inputs/name-input-wider/na
 import { NameInputComponent } from './components/inputs/name-input/name-input.component';
 import { DescriptionInputComponent } from './components/inputs/description-input/description-input.component';
 import { NgModule } from '@angular/core';
+import { TagsCheckboxInputComponent } from './components/inputs/tags-checkbox-input/tags-checkbox-input.component';
+import { SearchBoxInputComponent } from './components/inputs/search-box-input/search-box-input.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { NgModule } from '@angular/core';
     NameInputComponent,
     DescriptionInputComponent,
     CategoriesInputComponent,
-    TagsInputComponent
+    TagsInputComponent,
+    TagsCheckboxInputComponent,
+    SearchBoxInputComponent
   ],
   imports: [FormsModule, ReactiveFormsModule, MaterialModule],
   exports: [
@@ -27,7 +31,9 @@ import { NgModule } from '@angular/core';
     NameInputComponent,
     DescriptionInputComponent,
     CategoriesInputComponent,
-    TagsInputComponent
+    TagsInputComponent,
+    TagsCheckboxInputComponent,
+    SearchBoxInputComponent
   ]
 })
 export class ControlAccessorsModule {}
